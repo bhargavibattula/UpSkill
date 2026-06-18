@@ -11,6 +11,7 @@ import "@/models/Participant";
 import "@/models/Photo";
 import "@/models/Program";
 import "@/models/Tag";
+import "@/models/TargetAttendance";
 import "@/models/User";
 import "@/models/Venue";
 import "@/models/Video";

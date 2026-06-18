@@ -45,14 +45,14 @@ export async function middleware(req: NextRequest) {
 
   const roleRoutes: Record<string, string[]> = {
     SUPER_ADMIN: ["/super-admin", "/state-admin", "/district-admin", "/mandal-admin"],
-    STATE_ADMIN: ["/state-admin"],
-    DISTRICT_ADMIN: ["/district-admin"],
-    MANDAL_ADMIN: ["/mandal-admin"],
-    VENUE_ADMIN: ["/mandal-admin"],
-    TEACHER: ["/teacher"],
-    TRAINER: ["/trainer"],
-    STAFF: ["/teacher"],
-    STUDENT: ["/student"],
+    STATE_ADMIN: ["/state-admin", "/super-admin/custom-fields"],
+    DISTRICT_ADMIN: ["/district-admin", "/super-admin/custom-fields"],
+    MANDAL_ADMIN: ["/mandal-admin", "/super-admin/custom-fields"],
+    VENUE_ADMIN: ["/mandal-admin", "/super-admin/custom-fields"],
+    TEACHER: ["/teacher", "/super-admin/custom-fields"],
+    TRAINER: ["/trainer", "/super-admin/custom-fields"],
+    STAFF: ["/teacher", "/super-admin/custom-fields"],
+    STUDENT: ["/student", "/super-admin/custom-fields"],
   };
 
   const allowedPaths = roleRoutes[role] || [];
