@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard, Building2, MapPin, Users, ClipboardList,
   UtensilsCrossed, Image, Video, BarChart3, Settings, LogOut,
-  GraduationCap, FileText, Tag, Layers, ChevronDown, Shield, Bell
+  GraduationCap, FileText, Tag, Layers, ChevronDown, Shield, Bell, Target
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -27,7 +27,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Analytics", icon: BarChart3, href: "/super-admin/analytics" },
     { label: "Reports", icon: FileText, href: "/super-admin/reports" },
     { label: "Users", icon: Shield, href: "/super-admin/users" },
-    { label: "Custom Fields", icon: Layers, href: "/super-admin/custom-fields" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
     { label: "Audit Logs", icon: ClipboardList, href: "/super-admin/audit" },
   ],
   STATE_ADMIN: [
