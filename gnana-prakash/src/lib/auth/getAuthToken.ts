@@ -20,24 +20,38 @@ export async function getAuthToken(req: NextRequest): Promise<JWT | null> {
   // On localhost (HTTP), cookie name is next-auth.session-token
   const secureCookie = req.cookies.get("__Secure-next-auth.session-token");
   const normalCookie = req.cookies.get("next-auth.session-token");
-  const tokenCookie = secureCookie || normalCookie;
+  let token: JWT | null = null;
 
-  if (!tokenCookie?.value) {
-    return null;
-  }
-
-  try {
-    const token = await decode({
-      token: tokenCookie.value,
-      secret,
-      salt: tokenCookie.name,
-    });
-    if (token && token.sub) {
-      token.id = token.sub;
+  if (secureCookie?.value) {
+    try {
+      token = await decode({
+        token: secureCookie.value,
+        secret,
+        salt: secureCookie.name,
+      });
+    } catch {
+      // ignore
     }
-    return token;
-  } catch (err: any) {
-    console.error("DEBUG [getAuthToken] decode error:", err, "cookie:", tokenCookie);
+  }
+
+  if (!token && normalCookie?.value) {
+    try {
+      token = await decode({
+        token: normalCookie.value,
+        secret,
+        salt: normalCookie.name,
+      });
+    } catch {
+      // ignore
+    }
+  }
+
+  if (!token) {
     return null;
   }
+
+  if (token && token.sub) {
+    token.id = token.sub;
+  }
+  return token;
 }

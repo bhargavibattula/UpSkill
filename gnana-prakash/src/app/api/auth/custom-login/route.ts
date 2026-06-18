@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { encode } from "next-auth/jwt";
 import connectDB from "@/lib/db/mongoose";
 import User from "@/models/User";
+import { RegistrationRequest } from "@/models/RegistrationRequest";
 import { AuditLogger } from "@/lib/audit/AuditLogger";
 
 /**
@@ -31,6 +32,24 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findOne({ email, isActive: true }).select("+password");
     if (!user) {
+      // User not found in active users, check RegistrationRequest
+      const pendingRequest = await RegistrationRequest.findOne({ email: email.toLowerCase() }).sort({ submittedAt: -1 });
+      
+      if (pendingRequest) {
+        if (pendingRequest.status === "PENDING") {
+          return NextResponse.json(
+            { error: "Your registration request is still pending approval." },
+            { status: 401 }
+          );
+        }
+        if (pendingRequest.status === "REJECTED") {
+          return NextResponse.json(
+            { error: "Your registration request has been rejected. Contact Super Admin." },
+            { status: 401 }
+          );
+        }
+      }
+
       await AuditLogger.log({
         userId: "UNKNOWN",
         userName: email,

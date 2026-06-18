@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/lib/hooks/use-toast";
 
 async function fetchDistricts(params: Record<string, string>) {
   const qs = new URLSearchParams(params).toString();
@@ -36,7 +37,8 @@ export default function DistrictsClient() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteDistrict,
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["districts"] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["districts"] }); toast({ title: "District Deleted", variant: "success" }); },
+    onError: (err: any) => { toast({ title: "Delete Failed", description: err.message || "Could not delete.", variant: "destructive" }); },
   });
 
   const filteredData = data?.filter((d: any) => d.name.toLowerCase().includes(search.toLowerCase()) || d.code.toLowerCase().includes(search.toLowerCase())) || [];
@@ -139,9 +141,10 @@ function DistrictForm({ defaultValues, onSuccess }: { defaultValues?: any, onSuc
       const url = defaultValues?._id ? `/api/districts/${defaultValues._id}` : "/api/districts";
       const method = defaultValues?._id ? "PUT" : "POST";
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      if (!res.ok) { const err = await res.json(); setError(err.error || "Failed"); return; }
+      if (!res.ok) { const err = await res.json(); const errMsg = err.error || "Failed"; setError(errMsg); toast({ title: "Save Failed", description: errMsg, variant: "destructive" }); return; }
+      toast({ title: defaultValues?._id ? "District Updated" : "District Created", variant: "success" });
       onSuccess();
-    } catch { setError("Network error"); } finally { setLoading(false); }
+    } catch { setError("Network error"); toast({ title: "Network Error", variant: "destructive" }); } finally { setLoading(false); }
   };
 
   return (

@@ -382,7 +382,7 @@ export default function PhotosClient() {
           <ImageIcon className="w-4 h-4" /> Approved Gallery
         </button>
 
-        {isAllowedToUpload && !isSuperAdmin && (
+        {isAllowedToUpload && (
           <button
             onClick={() => setActiveTab("upload")}
             className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${
@@ -391,7 +391,7 @@ export default function PhotosClient() {
                 : "text-slate-500 hover:text-slate-800"
             }`}
           >
-            <Upload className="w-4 h-4" /> Request Upload
+            <Upload className="w-4 h-4" /> Upload
           </button>
         )}
 
@@ -406,7 +406,7 @@ export default function PhotosClient() {
           >
             <SlidersHorizontal className="w-4 h-4" /> Super Admin Approvals
             {pendingPhotos?.total > 0 && (
-              <span className="absolute -top-1 -right-1 bg-rose-500 text-white w-4.5 h-4.5 rounded-full text-[9px] flex items-center justify-center font-bold">
+              <span className="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1.5 bg-gradient-to-br from-rose-500 to-red-600 text-white rounded-full text-[11px] flex items-center justify-center font-extrabold shadow-lg shadow-rose-500/40 ring-2 ring-white animate-pulse">
                 {pendingPhotos.total}
               </span>
             )}
@@ -509,7 +509,7 @@ export default function PhotosClient() {
       )}
 
       {/* UPLOAD REQUEST FORM TAB */}
-      {activeTab === "upload" && isAllowedToUpload && !isSuperAdmin && (
+      {activeTab === "upload" && isAllowedToUpload && (
         <Card className="border-slate-100 shadow-sm max-w-2xl mx-auto">
           <CardHeader>
             <CardTitle className="text-base font-bold text-slate-900">
@@ -762,20 +762,22 @@ export default function PhotosClient() {
                         </div>
                       </div>
 
-                      <div className="flex gap-2 pt-2 border-t border-slate-100">
+                      <div className="flex gap-3 pt-3 border-t border-slate-100">
                         <Button
                           size="sm"
+                          disabled={actionMutation.isPending}
                           onClick={() => actionMutation.mutate({ 
                             id: photo._id, 
                             action: "approve",
                             remarks: approvalRemarks[photo._id]
                           })}
-                          className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-8.5 text-xs gap-1"
+                          className="flex-1 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold h-10 text-sm rounded-xl shadow-md shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-200 gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          <Check className="w-3.5 h-3.5" /> Approve
+                          {actionMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />} Approve
                         </Button>
                         <Button
                           size="sm"
+                          disabled={actionMutation.isPending}
                           onClick={() => {
                             if (!approvalRemarks[photo._id]?.trim()) {
                               showToast("Remarks Required", "error", "Please enter a rejection reason in the remarks field before rejecting.");
@@ -787,9 +789,9 @@ export default function PhotosClient() {
                               remarks: approvalRemarks[photo._id]
                             });
                           }}
-                          className="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-bold h-8.5 text-xs gap-1"
+                          className="flex-1 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-bold h-10 text-sm rounded-xl shadow-md shadow-rose-500/20 hover:shadow-lg hover:shadow-rose-500/30 transition-all duration-200 gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          <X className="w-3.5 h-3.5" /> Reject
+                          {actionMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <X className="w-4 h-4" />} Reject
                         </Button>
                       </div>
                     </CardContent>
@@ -1082,6 +1084,42 @@ export default function PhotosClient() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Toast Notifications */}
+      <div className="fixed top-4 right-4 z-[9999] flex flex-col gap-2.5 pointer-events-none" style={{ maxWidth: '380px' }}>
+        {toasts.map((toast) => {
+          const isError = toast.type === "error";
+          const accentColor = isError ? "#ef4444" : "#22c55e";
+
+          return (
+            <div
+              key={toast.id}
+              className="pointer-events-auto relative bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-[slideDown_0.3s_ease-out]"
+            >
+              <div className="flex items-center gap-3 px-4 py-3">
+                {isError ? (
+                  <AlertTriangle className="w-6 h-6 flex-shrink-0" fill="#ef4444" stroke="white" />
+                ) : (
+                  <CheckCircle className="w-6 h-6 flex-shrink-0" fill="#22c55e" stroke="white" />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-slate-800 leading-snug">{toast.title}</p>
+                  {toast.description && (
+                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{toast.description}</p>
+                  )}
+                </div>
+                <button
+                  onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
+                  className="flex-shrink-0 text-slate-400 hover:text-slate-600 p-0.5 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="h-[3px] w-full" style={{ backgroundColor: accentColor }} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

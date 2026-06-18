@@ -5,13 +5,14 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard, Building2, MapPin, Users, ClipboardList,
   UtensilsCrossed, Image, Video, BarChart3, Settings, LogOut,
-  GraduationCap, FileText, Tag, Layers, ChevronDown, Shield, Bell, Target
+  GraduationCap, FileText, Tag, Layers, ChevronDown, Shield, Bell, Target, Megaphone
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { UserRole } from "@/types";
 import { getRoleColor } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { toast } from "@/lib/hooks/use-toast";
 
 const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href: string; badge?: string }[]> = {
   SUPER_ADMIN: [
@@ -24,9 +25,11 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Attendance", icon: ClipboardList, href: "/super-admin/attendance" },
     { label: "Food Records", icon: UtensilsCrossed, href: "/super-admin/food" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
+    { label: "Official Circulars", icon: Megaphone, href: "/super-admin/circulars", badge: "New" },
     { label: "Analytics", icon: BarChart3, href: "/super-admin/analytics" },
     { label: "Reports", icon: FileText, href: "/super-admin/reports" },
     { label: "Users", icon: Shield, href: "/super-admin/users" },
+    { label: "Registration Requests", icon: Users, href: "/super-admin/registration-requests" },
     { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
     { label: "Audit Logs", icon: ClipboardList, href: "/super-admin/audit" },
   ],
@@ -132,10 +135,11 @@ export default function Sidebar() {
   const handleLogout = async () => {
     try {
       await fetch("/api/auth/custom-logout", { method: "POST" });
+      toast({ title: "Logged Out", description: "You have been signed out successfully.", variant: "success" });
       router.push("/login");
       router.refresh();
     } catch {
-      // Even if the request fails, try to redirect
+      toast({ title: "Logout Failed", description: "Could not sign out. Redirecting...", variant: "destructive" });
       router.push("/login");
     }
   };

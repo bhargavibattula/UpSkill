@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { toast } from "@/lib/hooks/use-toast";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -114,12 +115,16 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       if (!res.ok) {
         const err = await res.json();
-        setError(err.error || "Failed to save program");
+        const errMsg = err.error || "Failed to save program";
+        setError(errMsg);
+        toast({ title: "Save Failed", description: errMsg, variant: "destructive" });
         return;
       }
+      toast({ title: defaultValues?._id ? "Program Updated" : "Program Created", description: `The program has been ${defaultValues?._id ? "updated" : "created"} successfully.`, variant: "success" });
       onSuccess?.();
     } catch {
       setError("Network error. Please try again.");
+      toast({ title: "Network Error", description: "Could not connect to the server.", variant: "destructive" });
     } finally {
       setLoading(false);
     }

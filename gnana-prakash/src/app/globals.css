@@ -108,3 +108,15 @@
   .badge-status-rejected { @apply bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950 dark:text-rose-400; }
   .badge-status-completed { @apply bg-brand-50 text-brand-700 border-brand-200 dark:bg-brand-950 dark:text-brand-400; }
 }
+
+/* Toast notification animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

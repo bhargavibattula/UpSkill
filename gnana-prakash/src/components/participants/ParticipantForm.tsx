@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { PARTICIPANT_CATEGORIES } from "@/lib/utils";
+import { toast } from "@/lib/hooks/use-toast";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -61,9 +62,10 @@ export default function ParticipantForm({ defaultValues, onSuccess }: Props) {
       const url = defaultValues?._id ? `/api/participants/${defaultValues._id}` : "/api/participants";
       const method = defaultValues?._id ? "PUT" : "POST";
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      if (!res.ok) { setError("Failed to save"); return; }
+      if (!res.ok) { setError("Failed to save"); toast({ title: "Save Failed", variant: "destructive" }); return; }
+      toast({ title: defaultValues?._id ? "Participant Updated" : "Participant Added", variant: "success" });
       onSuccess?.();
-    } catch { setError("Network error"); } finally { setLoading(false); }
+    } catch { setError("Network error"); toast({ title: "Network Error", variant: "destructive" }); } finally { setLoading(false); }
   };
 
   const groupedCategories: Record<string, typeof PARTICIPANT_CATEGORIES> = {};

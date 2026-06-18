@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import VenueForm from "./VenueForm";
+import { toast } from "@/lib/hooks/use-toast";
 
 async function fetchVenues(params: Record<string, string>) {
   const qs = new URLSearchParams(params).toString();
@@ -37,7 +38,8 @@ export default function VenuesClient() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteVenue,
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["venues"] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["venues"] }); toast({ title: "Venue Deleted", variant: "success" }); },
+    onError: (err: any) => { toast({ title: "Delete Failed", description: err.message, variant: "destructive" }); },
   });
 
   return (

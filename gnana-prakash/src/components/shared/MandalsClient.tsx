@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/lib/hooks/use-toast";
 
 async function fetchMandals(params: Record<string, string>) {
   const qs = new URLSearchParams(params).toString();
@@ -42,7 +43,8 @@ export default function MandalsClient() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteMandal,
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["mandals"] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["mandals"] }); toast({ title: "Mandal Deleted", variant: "success" }); },
+    onError: (err: any) => { toast({ title: "Delete Failed", description: err.message, variant: "destructive" }); },
   });
 
   const filteredData = data?.filter((m: any) => m.name.toLowerCase().includes(search.toLowerCase()) || m.code.toLowerCase().includes(search.toLowerCase())) || [];
@@ -148,9 +150,10 @@ function MandalForm({ defaultValues, onSuccess }: { defaultValues?: any, onSucce
       const url = defaultValues?._id ? `/api/mandals/${defaultValues._id}` : "/api/mandals";
       const method = defaultValues?._id ? "PUT" : "POST";
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      if (!res.ok) { const err = await res.json(); setError(err.error || "Failed"); return; }
+      if (!res.ok) { const err = await res.json(); const errMsg = err.error || "Failed"; setError(errMsg); toast({ title: "Save Failed", description: errMsg, variant: "destructive" }); return; }
+      toast({ title: defaultValues?._id ? "Mandal Updated" : "Mandal Created", variant: "success" });
       onSuccess();
-    } catch(err: any) { setError(err.message || "Network error"); } finally { setLoading(false); }
+    } catch(err: any) { setError(err.message || "Network error"); toast({ title: "Error", description: err.message, variant: "destructive" }); } finally { setLoading(false); }
   };
 
   return (

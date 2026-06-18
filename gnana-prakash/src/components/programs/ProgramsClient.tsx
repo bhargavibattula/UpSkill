@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "@/lib/hooks/use-toast";
 import { Plus, Search, Filter, MoreHorizontal, Eye, Pencil, Trash2, GraduationCap, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,7 +41,8 @@ export default function ProgramsClient() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteProgram,
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["programs"] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["programs"] }); toast({ title: "Program Deleted", description: "The program has been removed successfully.", variant: "success" }); },
+    onError: (err: any) => { toast({ title: "Delete Failed", description: err.message || "Could not delete the program.", variant: "destructive" }); },
   });
 
   const STATUS_COLORS: Record<string, string> = {
