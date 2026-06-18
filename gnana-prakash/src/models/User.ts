@@ -16,6 +16,8 @@ export interface IUserDoc extends Document {
   isActive: boolean;
   avatar?: string;
   lastLogin?: Date;
+  resetPasswordOTP?: string;
+  resetPasswordOTPExpires?: Date;
   comparePassword(password: string): Promise<boolean>;
 }
 
@@ -34,6 +36,8 @@ const UserSchema = new Schema<IUserDoc>({
   isActive: { type: Boolean, default: true },
   avatar: { type: String },
   lastLogin: { type: Date },
+  resetPasswordOTP: { type: String },
+  resetPasswordOTPExpires: { type: Date },
 }, { timestamps: true });
 
 UserSchema.pre("save", async function (next) {
@@ -48,4 +52,7 @@ UserSchema.methods.comparePassword = async function (password: string): Promise<
 
 UserSchema.index({ role: 1, isActive: 1 });
 
+if (mongoose.models.User) {
+  delete (mongoose.models as any).User;
+}
 export default mongoose.models.User || mongoose.model<IUserDoc>("User", UserSchema);
