@@ -14,20 +14,35 @@ export async function getCustomSession() {
   const cookieStore = await cookies();
   const secureCookie = cookieStore.get("__Secure-next-auth.session-token");
   const normalCookie = cookieStore.get("next-auth.session-token");
-  const tokenCookie = secureCookie || normalCookie;
+  let token = null;
 
-  if (!tokenCookie?.value) {
-    return null;
+  if (secureCookie?.value) {
+    try {
+      token = await decode({
+        token: secureCookie.value,
+        secret: process.env.NEXTAUTH_SECRET!,
+        salt: secureCookie.name,
+      });
+    } catch {
+      // ignore
+    }
   }
 
-  try {
-    const token = await decode({
-      token: tokenCookie.value,
-      secret: process.env.NEXTAUTH_SECRET!,
-      salt: tokenCookie.name,
-    });
+  if (!token && normalCookie?.value) {
+    try {
+      token = await decode({
+        token: normalCookie.value,
+        secret: process.env.NEXTAUTH_SECRET!,
+        salt: normalCookie.name,
+      });
+    } catch {
+      // ignore
+    }
+  }
 
-    if (!token) return null;
+  if (!token) return null;
+
+  try {
 
     return {
       user: {
