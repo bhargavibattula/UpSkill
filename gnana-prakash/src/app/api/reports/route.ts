@@ -74,7 +74,7 @@ export async function GET(req: NextRequest) {
       }
       if (programId || from || to) {
         const programs = await Program.find(programQuery).select("venue").lean();
-        const venueIds = programs.map(p => p.venue).filter(Boolean);
+        const venueIds = programs.flatMap(p => Array.isArray(p.venue) ? p.venue : [p.venue]).filter(Boolean);
         query._id = { $in: venueIds };
       }
       reportData = await Venue.find(query).populate("district mandal").lean() as unknown as Record<string, unknown>[];

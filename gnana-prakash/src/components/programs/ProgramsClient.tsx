@@ -108,8 +108,16 @@ export default function ProgramsClient() {
                       </div>
                     </TableCell>
                     <TableCell className="text-sm">{p.trainingYear}</TableCell>
-                    <TableCell className="text-sm">{p.district?.name || "—"}</TableCell>
-                    <TableCell className="text-sm">{p.venue?.name || "—"}</TableCell>
+                    <TableCell className="text-sm">
+                      {Array.isArray(p.district)
+                        ? p.district.map((d: any) => typeof d === "object" ? d?.name : d).filter(Boolean).join(", ") || "—"
+                        : (p.district?.name || p.district || "—")}
+                    </TableCell>
+                    <TableCell className="text-sm">
+                      {Array.isArray(p.venue)
+                        ? p.venue.map((v: any) => typeof v === "object" ? v?.name : v).filter(Boolean).join(", ") || "—"
+                        : (p.venue?.name || p.venue || "—")}
+                    </TableCell>
                     <TableCell className="text-xs text-muted-foreground">
                       {formatDate(p.startDate)} – {formatDate(p.endDate)}
                     </TableCell>

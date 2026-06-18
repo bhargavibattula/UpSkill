@@ -14,7 +14,13 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const district = searchParams.get("district");
     const query: Record<string, unknown> = { isActive: true };
-    if (district) query.district = district;
+    if (district) {
+      if (district.includes(",")) {
+        query.district = { $in: district.split(",") };
+      } else {
+        query.district = district;
+      }
+    }
     const data = await Mandal.find(query).populate("district", "name").sort({ name: 1 }).lean();
     return NextResponse.json(data);
   } catch { return NextResponse.json({ error: "Server error" }, { status: 500 }); }

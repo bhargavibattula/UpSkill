@@ -118,6 +118,7 @@ export async function GET(req: NextRequest) {
 
     if (type === "venue-utilization") {
       const data = await Program.aggregate([
+        { $unwind: { path: "$venue", preserveNullAndEmptyArrays: true } },
         { $group: { _id: "$venue", programsCount: { $sum: 1 } } },
         {
           $lookup: {

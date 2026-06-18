@@ -21,8 +21,14 @@ export async function GET(req: NextRequest) {
     const search = searchParams.get("search");
 
     const query: Record<string, unknown> = { isActive: true };
-    if (district) query.district = district;
-    if (mandal) query.mandal = mandal;
+    if (district) {
+      if (district.includes(",")) query.district = { $in: district.split(",") };
+      else query.district = district;
+    }
+    if (mandal) {
+      if (mandal.includes(",")) query.mandal = { $in: mandal.split(",") };
+      else query.mandal = mandal;
+    }
     if (search) query.name = { $regex: search, $options: "i" };
 
     const skip = (page - 1) * limit;

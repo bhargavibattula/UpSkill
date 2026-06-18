@@ -156,8 +156,12 @@ export default function AttendanceClient() {
         category: newParticipant.category,
         designation: newParticipant.category === "SGT" ? "SGT Teacher" : newParticipant.category,
         program: programId,
-        district: selectedProgram?.district?._id || selectedProgram?.district,
-        mandal: selectedProgram?.mandal?._id || selectedProgram?.mandal,
+        district: Array.isArray(selectedProgram?.district)
+          ? (typeof selectedProgram.district[0] === "object" ? selectedProgram.district[0]?._id : selectedProgram.district[0])
+          : (selectedProgram?.district?._id || selectedProgram?.district),
+        mandal: Array.isArray(selectedProgram?.mandal)
+          ? (typeof selectedProgram.mandal[0] === "object" ? selectedProgram.mandal[0]?._id : selectedProgram.mandal[0])
+          : (selectedProgram?.mandal?._id || selectedProgram?.mandal),
         schoolName: "Training Venue School",
         isResidential: false
       };
@@ -613,7 +617,13 @@ export default function AttendanceClient() {
             <div className="border-b-2 border-black grid grid-cols-1 divide-y-2 divide-black">
               <div className="py-2.5 px-4 text-xs sm:text-sm font-semibold flex">
                 <span className="w-64">Name of the Venue with Complete Address:</span>
-                <span className="font-bold flex-1">{selectedProgram?.venue?.name || "Official Venue"}, {selectedProgram?.venue?.address || "AP"}</span>
+                <span className="font-bold flex-1">
+                  {Array.isArray(selectedProgram?.venue)
+                    ? selectedProgram.venue.map((v: any) => typeof v === "object" ? `${v?.name || "Official Venue"} (${v?.address || "AP"})` : v).filter(Boolean).join(", ")
+                    : selectedProgram?.venue
+                      ? `${selectedProgram?.venue?.name || "Official Venue"} (${selectedProgram?.venue?.address || "AP"})`
+                      : "Official Venue"}
+                </span>
               </div>
               <div className="py-2.5 px-4 text-xs sm:text-sm font-semibold flex">
                 <span className="w-64">Name of the Service Provider:</span>

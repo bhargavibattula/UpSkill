@@ -23,20 +23,62 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
 
   const cleanDefaultValues = defaultValues ? {
     ...defaultValues,
-    district: typeof defaultValues.district === "object" ? (defaultValues.district as any)?._id : defaultValues.district,
-    mandal: typeof defaultValues.mandal === "object" ? (defaultValues.mandal as any)?._id : defaultValues.mandal,
-    venue: typeof defaultValues.venue === "object" ? (defaultValues.venue as any)?._id : defaultValues.venue,
+    district: Array.isArray(defaultValues.district)
+      ? defaultValues.district.map((d: any) => typeof d === "object" ? d?._id : d)
+      : defaultValues.district
+        ? [typeof defaultValues.district === "object" ? (defaultValues.district as any)?._id : defaultValues.district]
+        : [],
+    mandal: Array.isArray(defaultValues.mandal)
+      ? defaultValues.mandal.map((m: any) => typeof m === "object" ? m?._id : m)
+      : defaultValues.mandal
+        ? [typeof defaultValues.mandal === "object" ? (defaultValues.mandal as any)?._id : defaultValues.mandal]
+        : [],
+    venue: Array.isArray(defaultValues.venue)
+      ? defaultValues.venue.map((v: any) => typeof v === "object" ? v?._id : v)
+      : defaultValues.venue
+        ? [typeof defaultValues.venue === "object" ? (defaultValues.venue as any)?._id : defaultValues.venue]
+        : [],
+    projectCoordinator: defaultValues.projectCoordinator || "",
+    venueIncharge: defaultValues.venueIncharge || "",
     startDate: defaultValues.startDate ? new Date(defaultValues.startDate as string).toISOString().split('T')[0] : "",
     endDate: defaultValues.endDate ? new Date(defaultValues.endDate as string).toISOString().split('T')[0] : "",
   } : undefined;
 
-  const [selectedDistrict, setSelectedDistrict] = useState<string>(cleanDefaultValues?.district || "");
-  const [selectedMandal, setSelectedMandal] = useState<string>(cleanDefaultValues?.mandal || "");
-
-  const { register, handleSubmit, formState: { errors } } = useForm<ProgramInput>({
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<ProgramInput>({
     resolver: zodResolver(programSchema),
-    defaultValues: cleanDefaultValues as ProgramInput,
+    defaultValues: (cleanDefaultValues || { district: [], mandal: [], venue: [], projectCoordinator: "", venueIncharge: "" }) as ProgramInput,
   });
+
+  const selectedDistricts = watch("district") || [];
+  const selectedMandals = watch("mandal") || [];
+  const selectedVenues = watch("venue") || [];
+
+  const handleDistrictChange = (districtId: string) => {
+    const current = Array.isArray(selectedDistricts) ? selectedDistricts : [selectedDistricts].filter(Boolean);
+    const updated = current.includes(districtId)
+      ? current.filter((id: string) => id !== districtId)
+      : [...current, districtId];
+    setValue("district", updated, { shouldValidate: true, shouldDirty: true });
+    setValue("mandal", [], { shouldValidate: true });
+    setValue("venue", [], { shouldValidate: true });
+  };
+
+  const handleMandalChange = (mandalId: string) => {
+    const current = Array.isArray(selectedMandals) ? selectedMandals : [selectedMandals].filter(Boolean);
+    const updated = current.includes(mandalId)
+      ? current.filter((id: string) => id !== mandalId)
+      : [...current, mandalId];
+    setValue("mandal", updated, { shouldValidate: true, shouldDirty: true });
+    setValue("venue", [], { shouldValidate: true });
+  };
+
+  const handleVenueChange = (venueId: string) => {
+    const current = Array.isArray(selectedVenues) ? selectedVenues : [selectedVenues].filter(Boolean);
+    const updated = current.includes(venueId)
+      ? current.filter((id: string) => id !== venueId)
+      : [...current, venueId];
+    setValue("venue", updated, { shouldValidate: true, shouldDirty: true });
+  };
 
   const { data: districts } = useQuery({
     queryKey: ["districts"],
@@ -44,23 +86,23 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
   });
 
   const { data: mandals, isLoading: isLoadingMandals } = useQuery({
-    queryKey: ["mandals", selectedDistrict],
+    queryKey: ["mandals", selectedDistricts],
     queryFn: async () => { 
-      if (!selectedDistrict) return [];
-      const res = await fetch(`/api/mandals?district=${selectedDistrict}`); 
+      if (selectedDistricts.length === 0) return [];
+      const res = await fetch(`/api/mandals?district=${selectedDistricts.join(",")}`); 
       return res.json(); 
     },
-    enabled: !!selectedDistrict
+    enabled: selectedDistricts.length > 0
   });
 
   const { data: venues, isLoading: isLoadingVenues } = useQuery({
-    queryKey: ["venues", selectedMandal],
+    queryKey: ["venues", selectedMandals],
     queryFn: async () => { 
-      if (!selectedMandal) return { data: [] };
-      const res = await fetch(`/api/venues?mandal=${selectedMandal}&limit=100`); 
+      if (selectedMandals.length === 0) return { data: [] };
+      const res = await fetch(`/api/venues?mandal=${selectedMandals.join(",")}&limit=100`); 
       return res.json(); 
     },
-    enabled: !!selectedMandal
+    enabled: selectedMandals.length > 0
   });
 
   const onSubmit = async (data: ProgramInput) => {
@@ -106,34 +148,108 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
           </select>
           {errors.department && <p className="text-destructive text-xs">{errors.department.message}</p>}
         </div>
-        <div className="space-y-1.5">
-          <Label>District *</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("district")} onChange={(e) => { register("district").onChange(e); setSelectedDistrict(e.target.value); setSelectedMandal(""); }}>
-            <option value="">Select District</option>
-            {districts?.map((d: any) => <option key={d._id} value={d._id}>{d.name}</option>)}
-          </select>
+        <div className="col-span-2 space-y-1.5">
+          <Label>Districts * (Select one or more)</Label>
+          {districts && districts.length > 0 ? (
+            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
+              {districts.map((d: any) => {
+                const isChecked = selectedDistricts.includes(d._id);
+                return (
+                  <label key={d._id} className="flex items-center gap-2 text-sm cursor-pointer p-1.5 hover:bg-accent rounded-md transition-colors">
+                    <input
+                      type="checkbox"
+                      value={d._id}
+                      checked={isChecked}
+                      onChange={() => handleDistrictChange(d._id)}
+                      className="rounded border-input text-primary focus:ring-ring"
+                    />
+                    <span className="truncate font-medium" title={d.name}>{d.name}</span>
+                  </label>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-muted-foreground text-sm py-2">Loading districts...</div>
+          )}
           {errors.district && <p className="text-destructive text-xs">{errors.district.message}</p>}
         </div>
-        <div className="space-y-1.5">
-          <Label>Mandal *</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("mandal")} disabled={!selectedDistrict || isLoadingMandals} onChange={(e) => { register("mandal").onChange(e); setSelectedMandal(e.target.value); }}>
-            <option value="">Select Mandal</option>
-            {mandals?.map((m: any) => <option key={m._id} value={m._id}>{m.name}</option>)}
-          </select>
+
+        <div className="col-span-2 space-y-1.5">
+          <Label>Mandals * (Select one or more)</Label>
+          {isLoadingMandals ? (
+            <div className="text-muted-foreground text-sm flex items-center gap-2 py-2">
+              <Loader2 className="w-4 h-4 animate-spin" /> Loading mandals...
+            </div>
+          ) : selectedDistricts.length === 0 ? (
+            <div className="text-muted-foreground text-sm py-2">Please select at least one District first</div>
+          ) : !mandals || mandals.length === 0 ? (
+            <div className="text-muted-foreground text-sm py-2">No mandals found for selected districts</div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
+              {mandals.map((m: any) => {
+                const isChecked = selectedMandals.includes(m._id);
+                return (
+                  <label key={m._id} className="flex items-center gap-2 text-sm cursor-pointer p-1.5 hover:bg-accent rounded-md transition-colors">
+                    <input
+                      type="checkbox"
+                      value={m._id}
+                      checked={isChecked}
+                      onChange={() => handleMandalChange(m._id)}
+                      className="rounded border-input text-primary focus:ring-ring"
+                    />
+                    <span className="truncate font-medium" title={m.name}>{m.name}</span>
+                  </label>
+                );
+              })}
+            </div>
+          )}
           {errors.mandal && <p className="text-destructive text-xs">{errors.mandal.message}</p>}
         </div>
-        <div className="space-y-1.5">
-          <Label>Venue *</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("venue")} disabled={!selectedMandal || isLoadingVenues}>
-            <option value="">Select Venue</option>
-            {venues?.data?.map((v: any) => <option key={v._id} value={v._id}>{v.name}</option>)}
-            {venues?.data?.length === 0 && <option value="" disabled>No venues found for this mandal</option>}
-          </select>
+
+        <div className="col-span-2 space-y-1.5">
+          <Label>Venues * (Select one or more)</Label>
+          {isLoadingVenues ? (
+            <div className="text-muted-foreground text-sm flex items-center gap-2 py-2">
+              <Loader2 className="w-4 h-4 animate-spin" /> Loading venues...
+            </div>
+          ) : selectedMandals.length === 0 ? (
+            <div className="text-muted-foreground text-sm py-2">Please select at least one Mandal first</div>
+          ) : !venues?.data || venues.data.length === 0 ? (
+            <div className="text-muted-foreground text-sm py-2">No venues found for selected mandals</div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
+              {venues.data.map((v: any) => {
+                const isChecked = selectedVenues.includes(v._id);
+                return (
+                  <label key={v._id} className="flex items-center gap-2 text-sm cursor-pointer p-1.5 hover:bg-accent rounded-md transition-colors">
+                    <input
+                      type="checkbox"
+                      value={v._id}
+                      checked={isChecked}
+                      onChange={() => handleVenueChange(v._id)}
+                      className="rounded border-input text-primary focus:ring-ring"
+                    />
+                    <span className="truncate font-medium" title={v.name}>{v.name}</span>
+                  </label>
+                );
+              })}
+            </div>
+          )}
           {errors.venue && <p className="text-destructive text-xs">{errors.venue.message}</p>}
         </div>
         <div className="space-y-1.5">
           <Label>Service Provider</Label>
           <Input placeholder="Organization name" {...register("serviceProvider")} />
+        </div>
+        <div className="space-y-1.5">
+          <Label>Project Coordinator *</Label>
+          <Input placeholder="Project Coordinator Name" {...register("projectCoordinator")} />
+          {errors.projectCoordinator && <p className="text-destructive text-xs">{errors.projectCoordinator.message}</p>}
+        </div>
+        <div className="space-y-1.5">
+          <Label>Venue Incharge Person *</Label>
+          <Input placeholder="Venue Incharge Name" {...register("venueIncharge")} />
+          {errors.venueIncharge && <p className="text-destructive text-xs">{errors.venueIncharge.message}</p>}
         </div>
         <div className="space-y-1.5">
           <Label>Start Date *</Label>

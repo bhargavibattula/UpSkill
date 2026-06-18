@@ -36,8 +36,8 @@ export async function getAuthToken(req: NextRequest): Promise<JWT | null> {
       token.id = token.sub;
     }
     return token;
-  } catch {
-    // Silently ignore decode errors (likely an old or invalid token)
+  } catch (err: any) {
+    console.error("DEBUG [getAuthToken] decode error:", err, "cookie:", tokenCookie);
     return null;
   }
 }
