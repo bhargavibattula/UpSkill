@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginInput } from "@/lib/validations";
-import { Eye, EyeOff, GraduationCap, Loader2 } from "lucide-react";
+import { Eye, EyeOff, GraduationCap, Loader2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -112,6 +112,18 @@ export default function LoginForm() {
     }
     if (newPassword.length < 8) {
       setError("New password must be at least 8 characters long.");
+      return;
+    }
+    if (!/[A-Z]/.test(newPassword)) {
+      setError("New password must contain at least one uppercase letter.");
+      return;
+    }
+    if (!/[a-z]/.test(newPassword)) {
+      setError("New password must contain at least one lowercase letter.");
+      return;
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
+      setError("New password must contain at least one special character.");
       return;
     }
     if (newPassword !== confirmPassword) {
@@ -275,6 +287,24 @@ export default function LoginForm() {
               <Input id="new-password" type="password" placeholder="Min. 8 characters" required
                 className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 transition-all duration-200"
                 value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+              <div className="mt-2 space-y-1">
+                <div className={`flex items-center text-[11px] ${newPassword.length >= 8 ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+                  {newPassword.length >= 8 ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+                  At least 8 characters long
+                </div>
+                <div className={`flex items-center text-[11px] ${/[A-Z]/.test(newPassword) ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+                  {/[A-Z]/.test(newPassword) ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+                  One uppercase letter
+                </div>
+                <div className={`flex items-center text-[11px] ${/[a-z]/.test(newPassword) ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+                  {/[a-z]/.test(newPassword) ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+                  One lowercase letter
+                </div>
+                <div className={`flex items-center text-[11px] ${/[!@#$%^&*(),.?":{}|<>]/.test(newPassword) ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+                  {/[!@#$%^&*(),.?":{}|<>]/.test(newPassword) ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+                  One special character
+                </div>
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirm-password" className="text-slate-700 text-sm font-semibold">Confirm New Password</Label>
