@@ -141,12 +141,12 @@ export default function VideosClient() {
                 </div>
                 <p className="text-xs text-muted-foreground">{formatDate(video.uploadDate)}</p>
                 {role && ["SUPER_ADMIN","DISTRICT_ADMIN"].includes(role) && video.status === "PENDING" && (
-                  <div className="flex gap-2 pt-1">
-                    <Button size="sm" variant="success" className="flex-1 gap-1 h-7 text-xs" onClick={() => approve(video._id, "approve")}>
-                      <Check className="w-3 h-3" /> Approve
+                  <div className="flex gap-2.5 pt-2">
+                    <Button size="sm" className="flex-1 gap-1.5 h-9 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-md shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-200" onClick={() => approve(video._id, "approve")}>
+                      <Check className="w-3.5 h-3.5" /> Approve
                     </Button>
-                    <Button size="sm" variant="destructive" className="flex-1 gap-1 h-7 text-xs" onClick={() => approve(video._id, "reject")}>
-                      <X className="w-3 h-3" /> Reject
+                    <Button size="sm" className="flex-1 gap-1.5 h-9 text-xs font-bold rounded-xl bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white shadow-md shadow-rose-500/20 hover:shadow-lg hover:shadow-rose-500/30 transition-all duration-200" onClick={() => approve(video._id, "reject")}>
+                      <X className="w-3.5 h-3.5" /> Reject
                     </Button>
                   </div>
                 )}

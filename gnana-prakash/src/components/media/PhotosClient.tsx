@@ -406,7 +406,7 @@ export default function PhotosClient() {
           >
             <SlidersHorizontal className="w-4 h-4" /> Super Admin Approvals
             {pendingPhotos?.total > 0 && (
-              <span className="absolute -top-1 -right-1 bg-rose-500 text-white w-4.5 h-4.5 rounded-full text-[9px] flex items-center justify-center font-bold">
+              <span className="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1.5 bg-gradient-to-br from-rose-500 to-red-600 text-white rounded-full text-[11px] flex items-center justify-center font-extrabold shadow-lg shadow-rose-500/40 ring-2 ring-white animate-pulse">
                 {pendingPhotos.total}
               </span>
             )}
@@ -762,20 +762,22 @@ export default function PhotosClient() {
                         </div>
                       </div>
 
-                      <div className="flex gap-2 pt-2 border-t border-slate-100">
+                      <div className="flex gap-3 pt-3 border-t border-slate-100">
                         <Button
                           size="sm"
+                          disabled={actionMutation.isPending}
                           onClick={() => actionMutation.mutate({ 
                             id: photo._id, 
                             action: "approve",
                             remarks: approvalRemarks[photo._id]
                           })}
-                          className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-8.5 text-xs gap-1"
+                          className="flex-1 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold h-10 text-sm rounded-xl shadow-md shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-200 gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          <Check className="w-3.5 h-3.5" /> Approve
+                          {actionMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />} Approve
                         </Button>
                         <Button
                           size="sm"
+                          disabled={actionMutation.isPending}
                           onClick={() => {
                             if (!approvalRemarks[photo._id]?.trim()) {
                               showToast("Remarks Required", "error", "Please enter a rejection reason in the remarks field before rejecting.");
@@ -787,9 +789,9 @@ export default function PhotosClient() {
                               remarks: approvalRemarks[photo._id]
                             });
                           }}
-                          className="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-bold h-8.5 text-xs gap-1"
+                          className="flex-1 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-bold h-10 text-sm rounded-xl shadow-md shadow-rose-500/20 hover:shadow-lg hover:shadow-rose-500/30 transition-all duration-200 gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          <X className="w-3.5 h-3.5" /> Reject
+                          {actionMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <X className="w-4 h-4" />} Reject
                         </Button>
                       </div>
                     </CardContent>
@@ -1082,6 +1084,56 @@ export default function PhotosClient() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Toast Notifications */}
+      <div className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none" style={{ maxWidth: '420px' }}>
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`pointer-events-auto flex items-start gap-3 px-5 py-4 rounded-2xl shadow-2xl border backdrop-blur-sm animate-[slideInRight_0.35s_ease-out] transition-all duration-300 ${
+              toast.type === "success"
+                ? "bg-emerald-50/95 border-emerald-200 text-emerald-900"
+                : toast.type === "error"
+                ? "bg-rose-50/95 border-rose-200 text-rose-900"
+                : "bg-blue-50/95 border-blue-200 text-blue-900"
+            }`}
+          >
+            <div className={`mt-0.5 flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+              toast.type === "success"
+                ? "bg-emerald-500"
+                : toast.type === "error"
+                ? "bg-rose-500"
+                : "bg-blue-500"
+            }`}>
+              {toast.type === "success" ? (
+                <Check className="w-4 h-4 text-white" />
+              ) : toast.type === "error" ? (
+                <X className="w-4 h-4 text-white" />
+              ) : (
+                <Info className="w-4 h-4 text-white" />
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold leading-tight">{toast.title}</p>
+              {toast.description && (
+                <p className="text-xs mt-1 opacity-80 leading-relaxed">{toast.description}</p>
+              )}
+            </div>
+            <button
+              onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
+              className={`flex-shrink-0 mt-0.5 p-1 rounded-lg transition-colors ${
+                toast.type === "success"
+                  ? "hover:bg-emerald-200/60"
+                  : toast.type === "error"
+                  ? "hover:bg-rose-200/60"
+                  : "hover:bg-blue-200/60"
+              }`}
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
