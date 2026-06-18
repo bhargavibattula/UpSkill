@@ -9,24 +9,40 @@ import Sidebar from "@/components/shared/Sidebar";
  */
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
-  const tokenCookie =
-    cookieStore.get("__Secure-next-auth.session-token") ||
-    cookieStore.get("next-auth.session-token");
+  const secureCookie = cookieStore.get("__Secure-next-auth.session-token");
+  const normalCookie = cookieStore.get("next-auth.session-token");
 
-  if (!tokenCookie?.value) {
+  if (!secureCookie?.value && !normalCookie?.value) {
     redirect("/login");
   }
 
-  try {
-    const token = await decode({
-      token: tokenCookie.value,
-      secret: process.env.NEXTAUTH_SECRET!,
-      salt: tokenCookie.name,
-    });
-    if (!token) redirect("/login");
-  } catch {
-    redirect("/login");
+  let token = null;
+
+  if (secureCookie?.value) {
+    try {
+      token = await decode({
+        token: secureCookie.value,
+        secret: process.env.NEXTAUTH_SECRET!,
+        salt: secureCookie.name,
+      });
+    } catch {
+      // ignore
+    }
   }
+
+  if (!token && normalCookie?.value) {
+    try {
+      token = await decode({
+        token: normalCookie.value,
+        secret: process.env.NEXTAUTH_SECRET!,
+        salt: normalCookie.name,
+      });
+    } catch {
+      // ignore
+    }
+  }
+
+  if (!token) redirect("/login");
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
