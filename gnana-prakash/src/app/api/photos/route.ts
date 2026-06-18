@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     const token = await getAuthToken(req);
     const session = token ? { user: token } : null;
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    
+
     await connectDB();
     const { searchParams } = new URL(req.url);
     const programId = searchParams.get("program");
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
 
     const userRole = (session.user as any).role || "TEACHER";
     const isSuperAdmin = userRole === "SUPER_ADMIN";
-    
+
     // Strict Visibility Rules:
     // 1. Before approval: Nobody can see the image except the Super Admin.
     // Therefore, if the user is NOT a Super Admin, force the status search to "Approved".
@@ -45,16 +45,16 @@ export async function GET(req: NextRequest) {
     if (!isAdmin) {
       const email = session.user.email || "";
       const employeeId = (session.user as any).employeeId || "";
-      
+
       const registrations = await Participant.find({
         $or: [
           { email: email.toLowerCase() },
           { employeeId: employeeId }
         ]
       }).select("program").lean();
-      
+
       const userProgramIds = registrations.map(r => r.program).filter(Boolean);
-      
+
       if (programId) {
         if (userProgramIds.some(id => String(id) === String(programId))) {
           query.program = programId;
@@ -106,12 +106,12 @@ export async function GET(req: NextRequest) {
       Photo.countDocuments(query),
     ]);
 
-    return NextResponse.json({ 
-      data, 
-      total, 
-      page, 
-      limit, 
-      totalPages: Math.ceil(total / limit) 
+    return NextResponse.json({
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit)
     });
   } catch (err: any) {
     console.error("GET photos error:", err);
@@ -215,13 +215,13 @@ export async function POST(req: NextRequest) {
     });
 
     const userMessage = isSuperAdmin 
-      ? "Image request approved successfully." 
+      ? "Photo uploaded successfully." 
       : "Your image upload request has been submitted successfully and is awaiting Super Admin approval.";
 
-    return NextResponse.json({ 
-      success: true, 
-      message: userMessage, 
-      data: photo 
+    return NextResponse.json({
+      success: true,
+      message: userMessage,
+      data: photo
     }, { status: 201 });
   } catch (error: any) {
     console.error("POST photo error:", error);

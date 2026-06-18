@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { 
-  Upload, Image as ImageIcon, Check, X, Loader2, Filter, 
-  Search, SlidersHorizontal, Calendar, User, Building, Trash2, 
+import {
+  Upload, Image as ImageIcon, Check, X, Loader2, Filter,
+  Search, SlidersHorizontal, Calendar, User, Building, Trash2,
   CheckCircle, AlertTriangle, Edit3, ArrowUpDown, Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,7 +44,7 @@ export default function PhotosClient() {
     type: "success" | "error" | "info";
   }
   const [toasts, setToasts] = useState<ToastItem[]>([]);
-  
+
   const showToast = (title: string, type: "success" | "error" | "info" = "info", description?: string) => {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts(prev => [...prev, { id, title, description, type }]);
@@ -88,20 +88,20 @@ export default function PhotosClient() {
   useEffect(() => {
     fetch("/api/auth/custom-session")
       .then(r => r.json())
-      .then(d => { 
+      .then(d => {
         if (d.user) {
-          setUser(d.user); 
+          setUser(d.user);
           qc.invalidateQueries({ queryKey: ["programs_list_media"] });
-        } 
+        }
       })
       .catch(console.error);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const userRole = user?.role || "STUDENT";
   const userEmail = user?.email || "";
   const isSuperAdmin = userRole === "SUPER_ADMIN";
-  
+
   // Admins & Teachers can submit upload requests, Super Admin uploads directly.
   const isAllowedToUpload = ["SUPER_ADMIN", "STATE_ADMIN", "DISTRICT_ADMIN", "MANDAL_ADMIN", "VENUE_ADMIN", "TEACHER"].includes(userRole);
 
@@ -142,7 +142,7 @@ export default function PhotosClient() {
       if (categoryFilter && categoryFilter !== "ALL") params.set("category", categoryFilter);
       if (platformFilter && platformFilter !== "ALL") params.set("platform", platformFilter);
       if (programFilter && programFilter !== "ALL") params.set("program", programFilter);
-      
+
       const res = await fetch(`/api/photos?${params.toString()}`);
       if (!res.ok) {
         const errJson = await res.json().catch(() => ({}));
@@ -201,7 +201,7 @@ export default function PhotosClient() {
       }
       setSelectedFile(file);
       setUploadError("");
-      
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setFilePreview(reader.result as string);
@@ -253,8 +253,14 @@ export default function PhotosClient() {
 
       const resData = await res.json();
       setUploadSuccessMessage(resData.message || "Upload submitted successfully.");
-      showToast("Upload Successful", "success", "Your image upload request has been submitted for approval.");
-      
+      showToast(
+        "Upload Successful",
+        "success",
+        isSuperAdmin
+          ? "Photo uploaded successfully."
+          : "Your image upload request has been submitted for approval."
+      );
+
       // Clear inputs
       setUploadTitle("");
       setUploadDescription("");
@@ -263,7 +269,7 @@ export default function PhotosClient() {
       setSelectedFile(null);
       setFilePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
-      
+
       qc.invalidateQueries({ queryKey: ["photos_approved"] });
       if (isSuperAdmin) qc.invalidateQueries({ queryKey: ["photos_pending"] });
     } catch (err: any) {
@@ -373,11 +379,10 @@ export default function PhotosClient() {
       <div className="flex border-b border-slate-200 gap-1 bg-slate-50/50 p-1 rounded-xl">
         <button
           onClick={() => setActiveTab("gallery")}
-          className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${
-            activeTab === "gallery"
+          className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${activeTab === "gallery"
               ? "bg-white shadow-sm border border-slate-100 text-brand-600"
               : "text-slate-500 hover:text-slate-800"
-          }`}
+            }`}
         >
           <ImageIcon className="w-4 h-4" /> Approved Gallery
         </button>
@@ -385,11 +390,10 @@ export default function PhotosClient() {
         {isAllowedToUpload && (
           <button
             onClick={() => setActiveTab("upload")}
-            className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${
-              activeTab === "upload"
+            className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${activeTab === "upload"
                 ? "bg-white shadow-sm border border-slate-100 text-brand-600"
                 : "text-slate-500 hover:text-slate-800"
-            }`}
+              }`}
           >
             <Upload className="w-4 h-4" /> Upload
           </button>
@@ -398,11 +402,10 @@ export default function PhotosClient() {
         {isSuperAdmin && (
           <button
             onClick={() => setActiveTab("approvals")}
-            className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all relative ${
-              activeTab === "approvals"
+            className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all relative ${activeTab === "approvals"
                 ? "bg-white shadow-sm border border-slate-100 text-brand-600"
                 : "text-slate-500 hover:text-slate-800"
-            }`}
+              }`}
           >
             <SlidersHorizontal className="w-4 h-4" /> Super Admin Approvals
             {pendingPhotos?.total > 0 && (
@@ -490,8 +493,8 @@ export default function PhotosClient() {
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {approvedPhotos.data.map((photo: any) => (
-                <div 
-                  key={photo._id} 
+                <div
+                  key={photo._id}
                   onClick={() => { setSelectedPhoto(photo); setIsEditing(false); }}
                   className="group relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 aspect-square shadow-sm hover:shadow-md cursor-pointer transition-all hover:-translate-y-0.5"
                 >
@@ -516,7 +519,7 @@ export default function PhotosClient() {
               {isSuperAdmin ? "Direct Gallery Upload" : "Request Image Upload"}
             </CardTitle>
             <CardDescription>
-              {isSuperAdmin 
+              {isSuperAdmin
                 ? "As Super Admin, your uploads are saved directly and published to the gallery feed immediately."
                 : "Submit images for the gallery. Images will remain in Pending state and NOT show to users until approved by Super Admin."
               }
@@ -539,14 +542,14 @@ export default function PhotosClient() {
               )}
 
               {/* File Dropzone */}
-              <div 
+              <div
                 onClick={() => fileInputRef.current?.click()}
                 className="border-2 border-dashed border-slate-200 hover:border-brand-500 rounded-2xl p-6 text-center cursor-pointer transition-colors hover:bg-slate-50/50 flex flex-col items-center justify-center gap-2"
               >
-                <input 
-                  type="file" 
+                <input
+                  type="file"
                   ref={fileInputRef}
-                  className="hidden" 
+                  className="hidden"
                   accept="image/*"
                   onChange={handleFileChange}
                 />
@@ -569,9 +572,9 @@ export default function PhotosClient() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <Label className="text-xs font-bold text-slate-700">Image Title *</Label>
-                  <Input 
-                    placeholder="Enter short title for image" 
-                    className="h-9 text-xs" 
+                  <Input
+                    placeholder="Enter short title for image"
+                    className="h-9 text-xs"
                     value={uploadTitle}
                     onChange={(e) => setUploadTitle(e.target.value)}
                   />
@@ -579,7 +582,7 @@ export default function PhotosClient() {
 
                 <div className="space-y-1">
                   <Label className="text-xs font-bold text-slate-700">Category *</Label>
-                  <select 
+                  <select
                     className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
                     value={uploadCategory}
                     onChange={(e) => setUploadCategory(e.target.value)}
@@ -603,7 +606,7 @@ export default function PhotosClient() {
                     No training programs available. Please create a program first.
                   </div>
                 ) : (
-                  <select 
+                  <select
                     className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
                     value={uploadProgramId}
                     onChange={(e) => setUploadProgramId(e.target.value)}
@@ -619,9 +622,9 @@ export default function PhotosClient() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1">
                   <Label className="text-xs font-bold text-slate-700">Platform</Label>
-                  <Input 
-                    placeholder="e.g. Gnana Prakash" 
-                    className="h-9 text-xs" 
+                  <Input
+                    placeholder="e.g. Gnana Prakash"
+                    className="h-9 text-xs"
                     value={uploadPlatform}
                     onChange={(e) => setUploadPlatform(e.target.value)}
                   />
@@ -629,9 +632,9 @@ export default function PhotosClient() {
 
                 <div className="space-y-1 md:col-span-2">
                   <Label className="text-xs font-bold text-slate-700">Event Date</Label>
-                  <Input 
+                  <Input
                     type="date"
-                    className="h-9 text-xs" 
+                    className="h-9 text-xs"
                     value={uploadEventDate}
                     onChange={(e) => setUploadEventDate(e.target.value)}
                   />
@@ -640,8 +643,8 @@ export default function PhotosClient() {
 
               <div className="space-y-1">
                 <Label className="text-xs font-bold text-slate-700">Program Description</Label>
-                <Textarea 
-                  placeholder="Enter context, workshop topic, or description..." 
+                <Textarea
+                  placeholder="Enter context, workshop topic, or description..."
                   className="text-xs min-h-[70px]"
                   value={uploadDescription}
                   onChange={(e) => setUploadDescription(e.target.value)}
@@ -650,8 +653,8 @@ export default function PhotosClient() {
 
               <div className="space-y-1">
                 <Label className="text-xs font-bold text-slate-700">Additional Notes</Label>
-                <Textarea 
-                  placeholder="Any extra feedback, trainer notes, or remarks..." 
+                <Textarea
+                  placeholder="Any extra feedback, trainer notes, or remarks..."
                   className="text-xs min-h-[60px]"
                   value={uploadAdditionalNotes}
                   onChange={(e) => setUploadAdditionalNotes(e.target.value)}
@@ -659,9 +662,9 @@ export default function PhotosClient() {
               </div>
 
               <div className="flex justify-end pt-3">
-                <Button 
-                  type="submit" 
-                  disabled={isUploading} 
+                <Button
+                  type="submit"
+                  disabled={isUploading}
                   className="bg-brand-600 hover:bg-brand-700 text-white font-bold h-10 px-8"
                 >
                   {isUploading ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : null}
@@ -750,7 +753,7 @@ export default function PhotosClient() {
 
                         <div className="space-y-1 pt-1">
                           <Label className="text-[9px] font-bold text-slate-500 uppercase">Rejection Remarks (Required if Rejecting)</Label>
-                          <Input 
+                          <Input
                             placeholder="e.g. Image quality is insufficient."
                             className="h-8 text-xs"
                             value={approvalRemarks[photo._id] || ""}
@@ -766,8 +769,8 @@ export default function PhotosClient() {
                         <Button
                           size="sm"
                           disabled={actionMutation.isPending}
-                          onClick={() => actionMutation.mutate({ 
-                            id: photo._id, 
+                          onClick={() => actionMutation.mutate({
+                            id: photo._id,
                             action: "approve",
                             remarks: approvalRemarks[photo._id]
                           })}
@@ -783,8 +786,8 @@ export default function PhotosClient() {
                               showToast("Remarks Required", "error", "Please enter a rejection reason in the remarks field before rejecting.");
                               return;
                             }
-                            actionMutation.mutate({ 
-                              id: photo._id, 
+                            actionMutation.mutate({
+                              id: photo._id,
                               action: "reject",
                               remarks: approvalRemarks[photo._id]
                             });
@@ -814,8 +817,8 @@ export default function PhotosClient() {
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
                 {rejectedPhotos.data.map((photo: any) => (
-                  <div 
-                    key={photo._id} 
+                  <div
+                    key={photo._id}
                     onClick={() => { setSelectedPhoto(photo); setIsEditing(false); }}
                     className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-50 aspect-square cursor-pointer hover:shadow"
                   >
@@ -839,9 +842,9 @@ export default function PhotosClient() {
             <div className="flex flex-col md:flex-row h-full">
               {/* Image box */}
               <div className="md:w-[55%] bg-slate-900 flex items-center justify-center min-h-[300px] md:max-h-[500px]">
-                <img 
-                  src={selectedPhoto.image || selectedPhoto.url} 
-                  alt={selectedPhoto.title} 
+                <img
+                  src={selectedPhoto.image || selectedPhoto.url}
+                  alt={selectedPhoto.title}
                   className="max-w-full max-h-[500px] object-contain"
                 />
               </div>
@@ -858,15 +861,14 @@ export default function PhotosClient() {
                         <Badge variant="outline" className="text-[9px] font-bold text-slate-500 border-slate-200">
                           {selectedPhoto.platform}
                         </Badge>
-                        <Badge 
+                        <Badge
                           variant="outline"
-                          className={`text-[9px] font-bold ${
-                            selectedPhoto.status === "Approved" 
+                          className={`text-[9px] font-bold ${selectedPhoto.status === "Approved"
                               ? "text-emerald-700 border-emerald-200 bg-emerald-50"
                               : selectedPhoto.status === "Rejected"
-                              ? "text-rose-700 border-rose-200 bg-rose-50"
-                              : "text-amber-700 border-amber-200 bg-amber-50"
-                          }`}
+                                ? "text-rose-700 border-rose-200 bg-rose-50"
+                                : "text-amber-700 border-amber-200 bg-amber-50"
+                            }`}
                         >
                           {selectedPhoto.status}
                         </Badge>
@@ -875,7 +877,7 @@ export default function PhotosClient() {
                       <DialogTitle className="text-base font-bold text-slate-900 leading-snug">
                         {selectedPhoto.title || selectedPhoto.filename || "Image View"}
                       </DialogTitle>
-                      
+
                       <p className="text-xs text-slate-500 font-medium leading-relaxed">
                         {selectedPhoto.description || "No description provided."}
                       </p>
@@ -974,7 +976,7 @@ export default function PhotosClient() {
                     <div className="space-y-3.5">
                       <div className="space-y-1">
                         <Label className="text-[10px] font-bold text-slate-600 uppercase">Image Title</Label>
-                        <Input 
+                        <Input
                           value={editTitle}
                           onChange={(e) => setEditTitle(e.target.value)}
                           className="h-8.5 text-xs"
@@ -983,7 +985,7 @@ export default function PhotosClient() {
 
                       <div className="space-y-1">
                         <Label className="text-[10px] font-bold text-slate-600 uppercase">Category</Label>
-                        <select 
+                        <select
                           className="flex h-8.5 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
                           value={editCategory}
                           onChange={(e) => setEditCategory(e.target.value)}
@@ -1006,7 +1008,7 @@ export default function PhotosClient() {
                             No training programs available.
                           </div>
                         ) : (
-                          <select 
+                          <select
                             className="flex h-8.5 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
                             value={editProgramId}
                             onChange={(e) => setEditProgramId(e.target.value)}
@@ -1022,7 +1024,7 @@ export default function PhotosClient() {
                       <div className="grid grid-cols-2 gap-3">
                         <div className="space-y-1">
                           <Label className="text-[10px] font-bold text-slate-600 uppercase">Platform</Label>
-                          <Input 
+                          <Input
                             value={editPlatform}
                             onChange={(e) => setEditPlatform(e.target.value)}
                             className="h-8.5 text-xs"
@@ -1030,7 +1032,7 @@ export default function PhotosClient() {
                         </div>
                         <div className="space-y-1">
                           <Label className="text-[10px] font-bold text-slate-600 uppercase">Event Date</Label>
-                          <Input 
+                          <Input
                             type="date"
                             value={editEventDate}
                             onChange={(e) => setEditEventDate(e.target.value)}
@@ -1041,7 +1043,7 @@ export default function PhotosClient() {
 
                       <div className="space-y-1">
                         <Label className="text-[10px] font-bold text-slate-600 uppercase">Program Description</Label>
-                        <Textarea 
+                        <Textarea
                           value={editDescription}
                           onChange={(e) => setEditDescription(e.target.value)}
                           className="text-xs min-h-[60px]"
@@ -1050,7 +1052,7 @@ export default function PhotosClient() {
 
                       <div className="space-y-1">
                         <Label className="text-[10px] font-bold text-slate-600 uppercase">Additional Notes</Label>
-                        <Textarea 
+                        <Textarea
                           value={editAdditionalNotes}
                           onChange={(e) => setEditAdditionalNotes(e.target.value)}
                           className="text-xs min-h-[50px]"
