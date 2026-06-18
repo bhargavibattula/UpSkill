@@ -26,6 +26,9 @@ export default function LoginForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [forgotLoading, setForgotLoading] = useState(false);
 
+  const [showNewPwd, setShowNewPwd] = useState(false);
+  const [showConfirmPwd, setShowConfirmPwd] = useState(false);
+
   const { register, handleSubmit, formState: { errors } } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
   });
@@ -284,9 +287,15 @@ export default function LoginForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="new-password" className="text-slate-700 text-sm font-semibold">New Password</Label>
-              <Input id="new-password" type="password" placeholder="Min. 8 characters" required
-                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 transition-all duration-200"
-                value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+              <div className="relative">
+                <Input id="new-password" type={showNewPwd ? "text" : "password"} placeholder="Min. 8 characters" required
+                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200"
+                  value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  onClick={() => setShowNewPwd(!showNewPwd)}>
+                  {showNewPwd ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
               <div className="mt-2 space-y-1">
                 <div className={`flex items-center text-[11px] ${newPassword.length >= 8 ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
                   {newPassword.length >= 8 ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
@@ -308,9 +317,15 @@ export default function LoginForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirm-password" className="text-slate-700 text-sm font-semibold">Confirm New Password</Label>
-              <Input id="confirm-password" type="password" placeholder="Confirm new password" required
-                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 transition-all duration-200"
-                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+              <div className="relative">
+                <Input id="confirm-password" type={showConfirmPwd ? "text" : "password"} placeholder="Confirm new password" required
+                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200"
+                  value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  onClick={() => setShowConfirmPwd(!showConfirmPwd)}>
+                  {showConfirmPwd ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
             <Button type="submit" disabled={forgotLoading}
               className="w-full h-11 bg-brand-600 hover:bg-brand-700 text-white font-bold tracking-wide rounded-xl shadow-lg shadow-brand-600/30 transition-all active:scale-[0.98]">
