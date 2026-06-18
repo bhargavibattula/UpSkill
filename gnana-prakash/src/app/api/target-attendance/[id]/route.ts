@@ -84,7 +84,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
       entityId: id,
       entityType: "TargetAttendance",
       oldValues: oldRecord,
-      newValues: null,
+      newValues: {},
       req
     });
 
