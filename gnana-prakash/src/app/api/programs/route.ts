@@ -32,8 +32,11 @@ export async function GET(req: NextRequest) {
     const bypassScope = searchParams.get("bypassScope") === "true";
     
     if (!bypassScope) {
-      if (role === "DISTRICT_ADMIN") query.district = (session.user as any).district;
-      else if (["MANDAL_ADMIN","VENUE_ADMIN"].includes(role)) query.mandal = (session.user as any).mandal;
+      if (role === "DISTRICT_ADMIN" && (session.user as any).district) {
+        query.district = (session.user as any).district;
+      } else if (["MANDAL_ADMIN","VENUE_ADMIN"].includes(role) && (session.user as any).mandal) {
+        query.mandal = (session.user as any).mandal;
+      }
     }
 
     console.log("SERVER GET /api/programs INFO:", {
