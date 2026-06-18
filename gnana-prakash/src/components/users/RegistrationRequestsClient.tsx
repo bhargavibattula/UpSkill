@@ -267,7 +267,7 @@ export default function RegistrationRequestsClient() {
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Requested Role</p>
-                  <p className="font-semibold"><Badge variant="outline">{viewRequest.requestedRole}</Badge></p>
+                  <div className="font-semibold"><Badge variant="outline">{viewRequest.requestedRole}</Badge></div>
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Submitted</p>
@@ -275,11 +275,11 @@ export default function RegistrationRequestsClient() {
                 </div>
                 <div>
                   <p className="text-muted-foreground mb-1">Status</p>
-                  <p className="font-semibold">
+                  <div className="font-semibold">
                     {viewRequest.status === "PENDING" && <span className="text-amber-600 font-bold">Pending</span>}
                     {viewRequest.status === "APPROVED" && <span className="text-emerald-600 font-bold">Approved</span>}
                     {viewRequest.status === "REJECTED" && <span className="text-rose-600 font-bold">Rejected</span>}
-                  </p>
+                  </div>
                 </div>
                 {viewRequest.rejectionReason && (
                   <div className="col-span-2 mt-2 p-3 bg-rose-50 border border-rose-100 rounded-md">
