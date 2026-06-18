@@ -35,6 +35,7 @@ export default function PhotosClient() {
   const [programFilter, setProgramFilter] = useState("ALL");
   const [sortOrder, setSortOrder] = useState<"latest" | "oldest">("latest");
   const [selectedPhoto, setSelectedPhoto] = useState<Record<string, any> | null>(null);
+  const [photoToDelete, setPhotoToDelete] = useState<string | null>(null);
 
   // Toast notifications state
   interface ToastItem {
@@ -949,11 +950,7 @@ export default function PhotosClient() {
                         <Button
                           size="sm"
                           variant="ghost"
-                          onClick={() => {
-                            if (confirm("Are you sure you want to permanently delete this photo from MongoDB?")) {
-                              deleteMutation.mutate(selectedPhoto._id);
-                            }
-                          }}
+                          onClick={() => setPhotoToDelete(selectedPhoto._id)}
                           className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 font-bold gap-1 text-xs h-8"
                         >
                           <Trash2 className="w-3.5 h-3.5" /> Delete Image
@@ -1082,6 +1079,40 @@ export default function PhotosClient() {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={!!photoToDelete} onOpenChange={(open) => !open && setPhotoToDelete(null)}>
+        <DialogContent className="max-w-sm rounded-xl p-6">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-slate-900 text-center">Delete Photo?</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col items-center justify-center py-4">
+            <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mb-4">
+              <AlertTriangle className="w-8 h-8 text-rose-600" />
+            </div>
+            <p className="text-center text-sm text-slate-600">
+              Are you sure you want to permanently delete this photo from the database? This action cannot be undone.
+            </p>
+          </div>
+          <DialogFooter className="flex gap-3 sm:justify-center mt-2">
+            <Button variant="outline" onClick={() => setPhotoToDelete(null)} className="w-full sm:w-auto">
+              Cancel
+            </Button>
+            <Button 
+              variant="destructive" 
+              onClick={() => {
+                if (photoToDelete) {
+                  deleteMutation.mutate(photoToDelete);
+                  setPhotoToDelete(null);
+                }
+              }}
+              className="w-full sm:w-auto"
+            >
+              Delete Permanently
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 
