@@ -6,6 +6,8 @@ export interface IAnnouncement extends mongoose.Document {
   priority: "URGENT" | "MANDATORY" | "UPDATE" | "INFO";
   createdBy: mongoose.Types.ObjectId;
   expiryDate?: Date;
+  imageUrl?: string;
+  imagePublicId?: string;
   isActive: boolean;
   isDeleted: boolean;
   createdAt: Date;
@@ -24,6 +26,8 @@ const AnnouncementSchema = new mongoose.Schema(
     },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     expiryDate: { type: Date },
+    imageUrl: { type: String },
+    imagePublicId: { type: String },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false }
   },

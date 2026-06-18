@@ -3,6 +3,7 @@ import { getAuthToken } from "@/lib/auth/getAuthToken";
 import connectDB from "@/lib/db/mongoose";
 import { Announcement } from "@/models/Announcement";
 import { AuditLogger } from "@/lib/audit/AuditLogger";
+import { uploadImage, deleteImage } from "@/lib/cloudinary";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -30,12 +31,21 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await req.json();
-    if (body.expiryDate) {
-      const date = new Date(body.expiryDate);
-      date.setUTCHours(23, 59, 59, 999);
-      body.expiryDate = date;
+    const formData = await req.formData();
+    const title = formData.get("title")?.toString();
+    const description = formData.get("description")?.toString();
+    const priority = formData.get("priority")?.toString();
+    const expiryDate = formData.get("expiryDate")?.toString();
+    const isActiveStr = formData.get("isActive")?.toString();
+    const isActive = isActiveStr ? isActiveStr === "true" : true;
+    const file = formData.get("image") as File | null;
+
+    let finalExpiryDate = undefined;
+    if (expiryDate && expiryDate !== "undefined" && expiryDate !== "null") {
+      finalExpiryDate = new Date(expiryDate);
+      finalExpiryDate.setUTCHours(23, 59, 59, 999);
     }
+
     const { id } = await params;
     await connectDB();
 
@@ -44,9 +54,32 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
+    const updates: any = {};
+    if (title) updates.title = title;
+    if (description) updates.description = description;
+    if (priority) updates.priority = priority;
+    if (finalExpiryDate !== undefined) updates.expiryDate = finalExpiryDate;
+    if (isActive !== undefined) updates.isActive = isActive;
+
+    if (file && file.size > 0) {
+      if (file.size > 5 * 1024 * 1024) {
+        return NextResponse.json({ error: "Image exceeds 5MB limit" }, { status: 400 });
+      }
+      
+      // Delete old image if it exists
+      if (oldAnnouncement.imagePublicId) {
+        await deleteImage(oldAnnouncement.imagePublicId);
+      }
+      
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const uploadResult = await uploadImage(buffer, "college-portal/announcements");
+      updates.imageUrl = uploadResult.url;
+      updates.imagePublicId = uploadResult.public_id;
+    }
+
     const updated = await Announcement.findByIdAndUpdate(
       id,
-      { $set: body },
+      { $set: updates },
       { new: true, runValidators: true }
     );
 
@@ -93,6 +126,10 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     
     if (!announcement || announcement.isDeleted) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    if (announcement.imagePublicId) {
+      await deleteImage(announcement.imagePublicId);
     }
 
     announcement.isDeleted = true;

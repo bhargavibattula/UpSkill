@@ -299,6 +299,12 @@ export default function AnnouncementsClient() {
                 </span>
               </div>
               <h2 className="text-xl font-bold">{viewAnnouncement.title}</h2>
+              {viewAnnouncement.imageUrl && (
+                <div className="mb-4 rounded-lg overflow-hidden border bg-muted/30 max-h-[300px] flex justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={viewAnnouncement.imageUrl} alt={viewAnnouncement.title} className="max-w-full max-h-[300px] object-contain" />
+                </div>
+              )}
               <div className="p-4 bg-muted/30 rounded-lg text-sm whitespace-pre-wrap border border-border">
                 {viewAnnouncement.description}
               </div>

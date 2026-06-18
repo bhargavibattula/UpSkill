@@ -24,6 +24,8 @@ interface Props {
 export default function AnnouncementForm({ defaultValues, onSuccess }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [imagePreview, setImagePreview] = useState<string | null>(defaultValues?.imageUrl || null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const cleanValues = defaultValues ? {
     ...defaultValues,
@@ -44,13 +46,20 @@ export default function AnnouncementForm({ defaultValues, onSuccess }: Props) {
       const url = defaultValues?._id ? `/api/announcements/${defaultValues._id}` : "/api/announcements";
       const method = defaultValues?._id ? "PUT" : "POST";
       
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("priority", data.priority);
+      if (data.expiryDate) formData.append("expiryDate", data.expiryDate);
+      formData.append("isActive", data.isActive.toString());
+      
+      if (selectedFile) {
+        formData.append("image", selectedFile);
+      }
+
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          expiryDate: data.expiryDate || undefined
-        }),
+        body: formData,
       });
       
       if (!res.ok) {
@@ -115,6 +124,35 @@ export default function AnnouncementForm({ defaultValues, onSuccess }: Props) {
           <Input type="date" {...register("expiryDate")} />
           <p className="text-[10px] text-muted-foreground">Leave blank if it never expires</p>
         </div>
+      </div>
+
+      <div className="space-y-1.5">
+        <Label>Cover Image (Optional)</Label>
+        <Input 
+          type="file" 
+          accept="image/jpeg, image/png, image/webp" 
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              if (file.size > 5 * 1024 * 1024) {
+                toast({ title: "File too large", description: "Image must be under 5MB", variant: "destructive" });
+                e.target.value = '';
+                return;
+              }
+              setSelectedFile(file);
+              setImagePreview(URL.createObjectURL(file));
+            } else {
+              setSelectedFile(null);
+              setImagePreview(defaultValues?.imageUrl || null);
+            }
+          }}
+        />
+        {imagePreview && (
+          <div className="mt-2 relative w-32 h-32 rounded-lg overflow-hidden border">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+          </div>
+        )}
       </div>
 
       <div className="flex items-center gap-2 pt-2 border-t mt-4">
