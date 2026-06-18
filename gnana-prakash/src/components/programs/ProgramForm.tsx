@@ -50,9 +50,14 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
     defaultValues: (cleanDefaultValues || { district: [], mandal: [], venue: [], projectCoordinator: "", venueIncharge: "" }) as ProgramInput,
   });
 
-  const selectedDistricts = watch("district") || [];
-  const selectedMandals = watch("mandal") || [];
-  const selectedVenues = watch("venue") || [];
+  const rawDistricts = watch("district") || [];
+  const selectedDistricts = (Array.isArray(rawDistricts) ? rawDistricts : [rawDistricts].filter(Boolean)) as string[];
+
+  const rawMandals = watch("mandal") || [];
+  const selectedMandals = (Array.isArray(rawMandals) ? rawMandals : [rawMandals].filter(Boolean)) as string[];
+
+  const rawVenues = watch("venue") || [];
+  const selectedVenues = (Array.isArray(rawVenues) ? rawVenues : [rawVenues].filter(Boolean)) as string[];
 
   const handleDistrictChange = (districtId: string) => {
     const current = Array.isArray(selectedDistricts) ? selectedDistricts : [selectedDistricts].filter(Boolean);
