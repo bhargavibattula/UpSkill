@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard, Building2, MapPin, Users, ClipboardList,
   UtensilsCrossed, Image, Video, BarChart3, Settings, LogOut,
-  GraduationCap, FileText, Tag, Layers, ChevronDown, Shield, Bell
+  GraduationCap, FileText, Tag, Layers, ChevronDown, Shield, Bell, Megaphone
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -25,6 +25,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Attendance", icon: ClipboardList, href: "/super-admin/attendance" },
     { label: "Food Records", icon: UtensilsCrossed, href: "/super-admin/food" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
+    { label: "Official Circulars", icon: Megaphone, href: "/super-admin/circulars", badge: "New" },
     { label: "Analytics", icon: BarChart3, href: "/super-admin/analytics" },
     { label: "Reports", icon: FileText, href: "/super-admin/reports" },
     { label: "Users", icon: Shield, href: "/super-admin/users" },

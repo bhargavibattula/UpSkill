@@ -12,6 +12,7 @@ import User from "@/models/User";
 import TopBar from "@/components/shared/TopBar";
 import StatCard from "@/components/dashboard/StatCard";
 import SuperAdminCharts from "@/components/dashboard/SuperAdminCharts";
+import CircularsWidget from "@/components/announcements/CircularsWidget";
 import { Building2, GraduationCap, Users, MapPin, Image, Video as VideoIcon, CheckCircle, Clock, UserCheck, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = { title: "Super Admin Dashboard" };
@@ -67,8 +68,15 @@ export default async function SuperAdminDashboard() {
           <StatCard title="Approved Photos" value={stats.photos} subtitle={`${stats.pendingPhotos} pending`} icon={Image} iconColor="text-violet-600" iconBg="bg-violet-50 dark:bg-violet-950" />
         </div>
 
-        {/* Charts */}
-        <SuperAdminCharts />
+        {/* Charts and Circulars */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <SuperAdminCharts />
+          </div>
+          <div className="lg:col-span-1">
+            <CircularsWidget />
+          </div>
+        </div>
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
