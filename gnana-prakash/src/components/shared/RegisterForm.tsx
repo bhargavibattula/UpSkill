@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Loader2, GraduationCap, ShieldCheck } from "lucide-react";
+import { Loader2, GraduationCap, ShieldCheck, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,8 +29,27 @@ export default function RegisterForm() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
+
+    const password = formData.password;
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      setError("Password must contain at least one uppercase letter.");
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      setError("Password must contain at least one lowercase letter.");
+      return;
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setError("Password must contain at least one special character.");
+      return;
+    }
+
+    setLoading(true);
     
     try {
       const res = await fetch("/api/auth/register", {
@@ -117,6 +136,24 @@ export default function RegisterForm() {
         <div className="space-y-2">
           <Label htmlFor="password" className="text-slate-700 text-sm font-semibold">Set Password</Label>
           <Input id="password" type="password" required placeholder="Min 8 characters" value={formData.password} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10" />
+          <div className="mt-2 space-y-1">
+            <div className={`flex items-center text-[11px] ${formData.password.length >= 8 ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+              {formData.password.length >= 8 ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+              At least 8 characters long
+            </div>
+            <div className={`flex items-center text-[11px] ${/[A-Z]/.test(formData.password) ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+              {/[A-Z]/.test(formData.password) ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+              One uppercase letter
+            </div>
+            <div className={`flex items-center text-[11px] ${/[a-z]/.test(formData.password) ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+              {/[a-z]/.test(formData.password) ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+              One lowercase letter
+            </div>
+            <div className={`flex items-center text-[11px] ${/[!@#$%^&*(),.?":{}|<>]/.test(formData.password) ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
+              {/[!@#$%^&*(),.?":{}|<>]/.test(formData.password) ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
+              One special character
+            </div>
+          </div>
         </div>
 
         <Button type="submit" disabled={loading} className="w-full h-11 bg-brand-600 hover:bg-brand-700 text-white font-bold tracking-wide rounded-xl shadow-lg mt-4">
