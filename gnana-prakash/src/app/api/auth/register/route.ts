@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db/mongoose";
 import User from "@/models/User";
+import { RegistrationRequest } from "@/models/RegistrationRequest";
 import { AuditLogger } from "@/lib/audit/AuditLogger";
+import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
@@ -18,33 +20,36 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email is already registered." }, { status: 400 });
     }
 
-    // Generate a temporary employeeId since it's required by the schema
-    const employeeId = `REG-${Date.now().toString().slice(-6)}`;
+    // Also check if they already have a pending registration
+    const existingRequest = await RegistrationRequest.findOne({ email: email.toLowerCase(), status: "PENDING" });
+    if (existingRequest) {
+      return NextResponse.json({ error: "A registration request is already pending for this email." }, { status: 400 });
+    }
 
-    // Create the user but mark them as inactive.
-    // They will need Super Admin approval to login.
-    const newUser = new User({
-      name,
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const newRequest = new RegistrationRequest({
+      fullName: name,
       email,
-      mobile,
-      role,
-      password,
-      employeeId,
-      isActive: false, // Critical: Requires approval
+      mobileNumber: mobile,
+      requestedRole: role,
+      passwordHash,
+      status: "PENDING",
     });
 
-    await newUser.save();
+    await newRequest.save();
 
     await AuditLogger.log({
       userId: "REGISTRATION",
       userName: name,
       role: role,
-      action: "USER_CREATED",
-      module: "Users",
-      description: `Self-registration submitted by ${name} (${email}) requesting role ${role}`,
-      entityId: newUser._id.toString(),
-      entityType: "User",
-      newValues: { name, email, mobile, role, isActive: false },
+      action: "REGISTRATION_REQUEST_SUBMITTED",
+      module: "Registration",
+      description: `Registration request submitted by ${name} (${email}) requesting role ${role}`,
+      entityId: newRequest._id.toString(),
+      entityType: "RegistrationRequest",
+      newValues: { fullName: name, email, mobileNumber: mobile, requestedRole: role, status: "PENDING" },
       req
     });
 

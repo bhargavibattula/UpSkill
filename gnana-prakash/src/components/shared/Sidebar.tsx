@@ -29,6 +29,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Analytics", icon: BarChart3, href: "/super-admin/analytics" },
     { label: "Reports", icon: FileText, href: "/super-admin/reports" },
     { label: "Users", icon: Shield, href: "/super-admin/users" },
+    { label: "Registration Requests", icon: Users, href: "/super-admin/registration-requests" },
     { label: "Custom Fields", icon: Layers, href: "/super-admin/custom-fields" },
     { label: "Audit Logs", icon: ClipboardList, href: "/super-admin/audit" },
   ],

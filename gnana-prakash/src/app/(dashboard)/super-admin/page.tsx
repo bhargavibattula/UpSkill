@@ -13,6 +13,7 @@ import TopBar from "@/components/shared/TopBar";
 import StatCard from "@/components/dashboard/StatCard";
 import SuperAdminCharts from "@/components/dashboard/SuperAdminCharts";
 import CircularsWidget from "@/components/announcements/CircularsWidget";
+import PendingRegistrationsWidget from "@/components/users/PendingRegistrationsWidget";
 import { Building2, GraduationCap, Users, MapPin, Image, Video as VideoIcon, CheckCircle, Clock, UserCheck, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = { title: "Super Admin Dashboard" };
@@ -78,11 +79,14 @@ export default async function SuperAdminDashboard() {
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="rounded-xl border bg-card p-5">
+        {/* Quick Actions & Registrations */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-1">
+            <PendingRegistrationsWidget />
+          </div>
+          <div className="rounded-xl border bg-card p-5 lg:col-span-1">
             <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-amber-500" /> Pending Approvals
+              <AlertCircle className="w-4 h-4 text-amber-500" /> Pending Media Approvals
             </h3>
             <div className="space-y-2">
               {stats.pendingPhotos > 0 && (
@@ -101,7 +105,7 @@ export default async function SuperAdminDashboard() {
               )}
             </div>
           </div>
-          <div className="rounded-xl border bg-card p-5">
+          <div className="rounded-xl border bg-card p-5 lg:col-span-1">
             <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
               <Clock className="w-4 h-4 text-brand-500" /> System Overview
             </h3>

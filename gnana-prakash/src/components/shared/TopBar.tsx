@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePathname } from "next/navigation";
+import AdminNotificationBell from "@/components/shared/AdminNotificationBell";
 
 interface TopBarProps {
   title: string;
@@ -36,6 +37,9 @@ export default function TopBar({ title, subtitle, showSearch, showBell }: TopBar
           <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-foreground">
             <Bell className="w-4 h-4" />
           </Button>
+        )}
+        {pathname?.startsWith("/super-admin") && (
+          <AdminNotificationBell />
         )}
         <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-foreground"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>

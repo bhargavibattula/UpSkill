@@ -44,14 +44,17 @@ export default function LoginForm() {
 
       // Login successful — the cookie is already set by the server
       toast({ title: "Login Successful", description: `Welcome back, ${result.user?.name || "User"}!`, variant: "success" });
-      if (result.user?.role) {
-        const role = result.user.role as UserRole;
-        const dashboardUrl = DASHBOARD_ROUTES[role] || "/";
-        router.push(dashboardUrl);
-      } else {
-        router.push("/");
-      }
-      router.refresh();
+      
+      // Delay navigation slightly to ensure toast is visible and cookie is registered
+      setTimeout(() => {
+        if (result.user?.role) {
+          const role = result.user.role as UserRole;
+          const dashboardUrl = DASHBOARD_ROUTES[role] || "/";
+          window.location.href = dashboardUrl;
+        } else {
+          window.location.href = "/";
+        }
+      }, 500);
     } catch (err: any) {
       console.error("Login error:", err);
       const errMsg = err.message || "Network error. Please check your connection and try again.";
