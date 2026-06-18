@@ -93,14 +93,6 @@ export default function AnnouncementsListClient() {
                     className="flex flex-col bg-card border rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-brand-200 cursor-pointer group"
                     onClick={() => setViewAnnouncement(circular)}
                   >
-                    <div className="relative w-full h-40 bg-muted">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img 
-                        src={circular.imageUrl || "https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?w=800&q=80"} 
-                        alt={circular.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
                     <div className="p-5 flex-1">
                       <div className="flex items-start justify-between mb-3">
                         <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${style.bg} ${style.text}`}>
@@ -163,12 +155,6 @@ export default function AnnouncementsListClient() {
                 <h2 className="text-2xl font-bold text-foreground leading-tight">{viewAnnouncement.title}</h2>
               </div>
               <div className="p-8">
-                {viewAnnouncement.imageUrl && (
-                  <div className="mb-6 rounded-xl overflow-hidden border max-h-[400px] flex justify-center bg-black/5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={viewAnnouncement.imageUrl} alt={viewAnnouncement.title} className="max-w-full max-h-[400px] object-contain" />
-                  </div>
-                )}
                 <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none whitespace-pre-wrap leading-relaxed text-foreground/90">
                   {viewAnnouncement.description}
                 </div>

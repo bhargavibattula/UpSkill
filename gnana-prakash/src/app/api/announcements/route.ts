@@ -45,14 +45,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const formData = await req.formData();
-    const title = formData.get("title")?.toString();
-    const description = formData.get("description")?.toString();
-    const priority = formData.get("priority")?.toString();
-    const expiryDate = formData.get("expiryDate")?.toString();
-    const isActiveStr = formData.get("isActive")?.toString();
-    const isActive = isActiveStr ? isActiveStr === "true" : true;
-    const file = formData.get("image") as File | null;
+    const body = await req.json();
+    const { title, description, priority, expiryDate, isActive = true } = body;
 
     if (!title || !description) {
       return NextResponse.json({ error: "Title and description are required" }, { status: 400 });
@@ -61,22 +55,9 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     let finalExpiryDate = undefined;
-    if (expiryDate && expiryDate !== "undefined" && expiryDate !== "null") {
+    if (expiryDate) {
       finalExpiryDate = new Date(expiryDate);
       finalExpiryDate.setUTCHours(23, 59, 59, 999);
-    }
-
-    let imageUrl = undefined;
-    let imagePublicId = undefined;
-
-    if (file && file.size > 0) {
-      if (file.size > 5 * 1024 * 1024) {
-        return NextResponse.json({ error: "Image exceeds 5MB limit" }, { status: 400 });
-      }
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const uploadResult = await uploadImage(buffer, "college-portal/announcements");
-      imageUrl = uploadResult.url;
-      imagePublicId = uploadResult.public_id;
     }
 
     const announcement = await Announcement.create({
@@ -85,9 +66,7 @@ export async function POST(req: NextRequest) {
       priority: priority || "INFO",
       expiryDate: finalExpiryDate,
       isActive,
-      imageUrl,
-      imagePublicId,
-      createdBy: (session.user as any).id,
+      createdBy: (session.user as any).id || (session.user as any)._id,
     });
 
     await AuditLogger.log({

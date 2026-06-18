@@ -13,7 +13,7 @@ const AuditLogSchema = new Schema({
   deviceInfo: { type: String },
   oldValues: { type: Schema.Types.Mixed, default: {} },
   newValues: { type: Schema.Types.Mixed, default: {} },
-  createdAt: { type: Date, default: Date.now, index: true }
+  createdAt: { type: Date, default: Date.now }
 }, { 
   collection: "audit_logs", 
   timestamps: false 

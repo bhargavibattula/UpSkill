@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const AttendanceSchema = new Schema({
-  program: { type: Schema.Types.ObjectId, ref: "Program", required: true, index: true },
+  program: { type: Schema.Types.ObjectId, ref: "Program", required: true },
   date: { type: Date, required: true },
   dayNumber: { type: Number, required: true },
   sgt: { type: Number, default: 0 },

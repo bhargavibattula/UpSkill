@@ -6,6 +6,7 @@ import Program from "@/models/Program";
 import Participant from "@/models/Participant";
 import User from "@/models/User";
 import { AuditLogger } from "@/lib/audit/AuditLogger";
+import { uploadImage } from "@/lib/cloudinary";
 
 export async function GET(req: NextRequest) {
   try {
@@ -148,11 +149,16 @@ export async function POST(req: NextRequest) {
     const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
     if (!allowedTypes.includes(file.type)) return NextResponse.json({ error: "Invalid file type. Only JPEG, PNG, and WebP are allowed." }, { status: 400 });
 
-    // Convert file to base64 Data URI
+    // Convert file to Buffer for Cloudinary
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const base64Data = buffer.toString("base64");
-    const dataUrl = `data:${file.type};base64,${base64Data}`;
+
+    // Upload to Cloudinary
+    const uploadResult = await uploadImage(buffer, "college-portal/gallery");
+
+    console.log("Cloudinary Upload Success");
+    console.log(uploadResult.url);
+    console.log(uploadResult.public_id);
 
     await connectDB();
 
@@ -170,8 +176,9 @@ export async function POST(req: NextRequest) {
     const eventDate = eventDateStr ? new Date(eventDateStr) : undefined;
 
     const photo = await Photo.create({
-      image: dataUrl,
-      url: dataUrl, // Backward compatibility fallback
+      image: uploadResult.url,
+      imagePublicId: uploadResult.public_id,
+      url: uploadResult.url, // Backward compatibility fallback
       program: programId || undefined,
       programName: foundProgramName,
       description: description || "",

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const ParticipantSchema = new Schema({
-  employeeId: { type: String, required: true, index: true },
+  employeeId: { type: String, required: true },
   name: { type: String, required: true, trim: true },
   mobile: { type: String, required: true },
   email: { type: String, lowercase: true },
@@ -14,7 +14,7 @@ const ParticipantSchema = new Schema({
   },
   district: { type: String, required: true },
   mandal: { type: String },
-  program: { type: Schema.Types.ObjectId, ref: "Program", required: true, index: true },
+  program: { type: Schema.Types.ObjectId, ref: "Program", required: true },
   isResidential: { type: Boolean, default: false },
   registrationDate: { type: Date, default: Date.now },
   certificateIssued: { type: Boolean, default: false },
