@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { toast } from "@/lib/hooks/use-toast";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -50,9 +51,10 @@ export default function VenueForm({ defaultValues, onSuccess }: VenueFormProps) 
       const url = defaultValues?._id ? `/api/venues/${defaultValues._id}` : "/api/venues";
       const method = defaultValues?._id ? "PUT" : "POST";
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      if (!res.ok) { setError("Failed to save venue"); return; }
+      if (!res.ok) { setError("Failed to save venue"); toast({ title: "Save Failed", description: "Failed to save venue.", variant: "destructive" }); return; }
+      toast({ title: defaultValues?._id ? "Venue Updated" : "Venue Created", variant: "success" });
       onSuccess?.();
-    } catch { setError("Network error"); } finally { setLoading(false); }
+    } catch { setError("Network error"); toast({ title: "Network Error", variant: "destructive" }); } finally { setLoading(false); }
   };
 
   return (

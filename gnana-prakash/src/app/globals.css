@@ -110,13 +110,13 @@
 }
 
 /* Toast notification animation */
-@keyframes slideInRight {
+@keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateX(100%) scale(0.95);
+    transform: translateY(-16px);
   }
   to {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateY(0);
   }
 }

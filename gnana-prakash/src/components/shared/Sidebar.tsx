@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { UserRole } from "@/types";
 import { getRoleColor } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { toast } from "@/lib/hooks/use-toast";
 
 const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href: string; badge?: string }[]> = {
   SUPER_ADMIN: [
@@ -124,10 +125,11 @@ export default function Sidebar() {
   const handleLogout = async () => {
     try {
       await fetch("/api/auth/custom-logout", { method: "POST" });
+      toast({ title: "Logged Out", description: "You have been signed out successfully.", variant: "success" });
       router.push("/login");
       router.refresh();
     } catch {
-      // Even if the request fails, try to redirect
+      toast({ title: "Logout Failed", description: "Could not sign out. Redirecting...", variant: "destructive" });
       router.push("/login");
     }
   };

@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import ParticipantForm from "./ParticipantForm";
 import { PARTICIPANT_CATEGORIES } from "@/lib/utils";
+import { toast } from "@/lib/hooks/use-toast";
 
 async function fetchParticipants(params: Record<string, string>) {
   const qs = new URLSearchParams(params).toString();
@@ -44,7 +45,8 @@ export default function ParticipantsClient() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteParticipant,
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["participants"] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["participants"] }); toast({ title: "Participant Deleted", variant: "success" }); },
+    onError: (err: any) => { toast({ title: "Delete Failed", description: err.message, variant: "destructive" }); },
   });
 
   const getCategoryGroup = (cat: string) => PARTICIPANT_CATEGORIES.find(c => c.value === cat)?.group || "Staff";

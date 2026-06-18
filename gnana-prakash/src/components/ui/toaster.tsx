@@ -1,42 +1,44 @@
 "use client";
 import { useToast } from "@/lib/hooks/use-toast";
-import { CheckCircle, AlertTriangle, Info, X } from "lucide-react";
+import { CheckCircle, XCircle, X } from "lucide-react";
 
 export function Toaster() {
   const { toasts, dismiss } = useToast();
 
   return (
-    <div className="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 max-w-sm w-full pointer-events-none">
-      {toasts.map((t) => (
-        <div
-          key={t.id}
-          className={`pointer-events-auto flex gap-3 p-4 rounded-xl border shadow-lg transition-all transform duration-300 animate-in slide-in-from-bottom-5 ${
-            t.variant === "success"
-              ? "bg-emerald-50 border-emerald-200 text-emerald-950"
-              : t.variant === "destructive"
-              ? "bg-rose-50 border-rose-200 text-rose-950"
-              : "bg-blue-50 border-blue-200 text-blue-950"
-          }`}
-        >
-          {t.variant === "success" ? (
-            <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-          ) : t.variant === "destructive" ? (
-            <AlertTriangle className="w-5 h-5 text-rose-600 flex-shrink-0" />
-          ) : (
-            <Info className="w-5 h-5 text-blue-600 flex-shrink-0" />
-          )}
-          <div className="flex-grow space-y-0.5">
-            <p className="font-bold text-xs">{t.title}</p>
-            {t.description && <p className="text-[11px] opacity-90 leading-relaxed">{t.description}</p>}
-          </div>
-          <button
-            onClick={() => dismiss(t.id)}
-            className="text-slate-400 hover:text-slate-600 self-start"
+    <div className="fixed top-4 right-4 z-[9999] flex flex-col gap-2.5 pointer-events-none" style={{ maxWidth: '380px' }}>
+      {toasts.map((t) => {
+        const isError = t.variant === "destructive";
+        const accentColor = isError ? "#ef4444" : "#22c55e";
+
+        return (
+          <div
+            key={t.id}
+            className="pointer-events-auto relative bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-[slideDown_0.3s_ease-out]"
           >
-            <X className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      ))}
+            <div className="flex items-center gap-3 px-4 py-3">
+              {isError ? (
+                <XCircle className="w-6 h-6 flex-shrink-0" fill="#ef4444" stroke="white" />
+              ) : (
+                <CheckCircle className="w-6 h-6 flex-shrink-0" fill="#22c55e" stroke="white" />
+              )}
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-slate-800 leading-snug">{t.title}</p>
+                {t.description && (
+                  <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{t.description}</p>
+                )}
+              </div>
+              <button
+                onClick={() => dismiss(t.id)}
+                className="flex-shrink-0 text-slate-400 hover:text-slate-600 p-0.5 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="h-[3px] w-full" style={{ backgroundColor: accentColor }} />
+          </div>
+        );
+      })}
     </div>
   );
 }

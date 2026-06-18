@@ -1086,53 +1086,39 @@ export default function PhotosClient() {
       </Dialog>
 
       {/* Toast Notifications */}
-      <div className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none" style={{ maxWidth: '420px' }}>
-        {toasts.map((toast) => (
-          <div
-            key={toast.id}
-            className={`pointer-events-auto flex items-start gap-3 px-5 py-4 rounded-2xl shadow-2xl border backdrop-blur-sm animate-[slideInRight_0.35s_ease-out] transition-all duration-300 ${
-              toast.type === "success"
-                ? "bg-emerald-50/95 border-emerald-200 text-emerald-900"
-                : toast.type === "error"
-                ? "bg-rose-50/95 border-rose-200 text-rose-900"
-                : "bg-blue-50/95 border-blue-200 text-blue-900"
-            }`}
-          >
-            <div className={`mt-0.5 flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-              toast.type === "success"
-                ? "bg-emerald-500"
-                : toast.type === "error"
-                ? "bg-rose-500"
-                : "bg-blue-500"
-            }`}>
-              {toast.type === "success" ? (
-                <Check className="w-4 h-4 text-white" />
-              ) : toast.type === "error" ? (
-                <X className="w-4 h-4 text-white" />
-              ) : (
-                <Info className="w-4 h-4 text-white" />
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold leading-tight">{toast.title}</p>
-              {toast.description && (
-                <p className="text-xs mt-1 opacity-80 leading-relaxed">{toast.description}</p>
-              )}
-            </div>
-            <button
-              onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
-              className={`flex-shrink-0 mt-0.5 p-1 rounded-lg transition-colors ${
-                toast.type === "success"
-                  ? "hover:bg-emerald-200/60"
-                  : toast.type === "error"
-                  ? "hover:bg-rose-200/60"
-                  : "hover:bg-blue-200/60"
-              }`}
+      <div className="fixed top-4 right-4 z-[9999] flex flex-col gap-2.5 pointer-events-none" style={{ maxWidth: '380px' }}>
+        {toasts.map((toast) => {
+          const isError = toast.type === "error";
+          const accentColor = isError ? "#ef4444" : "#22c55e";
+
+          return (
+            <div
+              key={toast.id}
+              className="pointer-events-auto relative bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-[slideDown_0.3s_ease-out]"
             >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        ))}
+              <div className="flex items-center gap-3 px-4 py-3">
+                {isError ? (
+                  <AlertTriangle className="w-6 h-6 flex-shrink-0" fill="#ef4444" stroke="white" />
+                ) : (
+                  <CheckCircle className="w-6 h-6 flex-shrink-0" fill="#22c55e" stroke="white" />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-slate-800 leading-snug">{toast.title}</p>
+                  {toast.description && (
+                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{toast.description}</p>
+                  )}
+                </div>
+                <button
+                  onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
+                  className="flex-shrink-0 text-slate-400 hover:text-slate-600 p-0.5 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="h-[3px] w-full" style={{ backgroundColor: accentColor }} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
