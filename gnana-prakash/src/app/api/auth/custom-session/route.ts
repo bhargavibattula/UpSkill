@@ -10,39 +10,48 @@ export async function GET(req: NextRequest) {
 
   const secureCookie = req.cookies.get("__Secure-next-auth.session-token");
   const normalCookie = req.cookies.get("next-auth.session-token");
-  const tokenCookie = secureCookie || normalCookie;
+  let token = null;
 
-  if (!tokenCookie?.value) {
-    return NextResponse.json({ user: null });
-  }
-
-  try {
-    const token = await decode({
-      token: tokenCookie.value,
-      secret,
-      salt: tokenCookie.name,
-    });
-
-    if (!token) {
-      return NextResponse.json({ user: null });
+  if (secureCookie?.value) {
+    try {
+      token = await decode({
+        token: secureCookie.value,
+        secret,
+        salt: secureCookie.name,
+      });
+    } catch {
+      // ignore
     }
+  }
 
-    return NextResponse.json({
-      user: {
-        id: token.sub,
-        name: token.name,
-        email: token.email,
-        role: token.role,
-        employeeId: token.employeeId,
-        district: token.district,
-        mandal: token.mandal,
-        venue: token.venue,
-        avatar: token.avatar,
-      },
-      expires: token.exp ? new Date(Number(token.exp) * 1000).toISOString() : null,
-    });
-  } catch {
-    // Silently ignore decode errors (likely an old or invalid token)
+  if (!token && normalCookie?.value) {
+    try {
+      token = await decode({
+        token: normalCookie.value,
+        secret,
+        salt: normalCookie.name,
+      });
+    } catch {
+      // ignore
+    }
+  }
+
+  if (!token) {
     return NextResponse.json({ user: null });
   }
+
+  return NextResponse.json({
+    user: {
+      id: token.sub,
+      name: token.name,
+      email: token.email,
+      role: token.role,
+      employeeId: token.employeeId,
+      district: token.district,
+      mandal: token.mandal,
+      venue: token.venue,
+      avatar: token.avatar,
+    },
+    expires: token.exp ? new Date(Number(token.exp) * 1000).toISOString() : null,
+  });
 }
