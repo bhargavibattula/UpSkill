@@ -10,7 +10,7 @@ export interface IMandalDoc extends Document {
 const MandalSchema = new Schema<IMandalDoc>({
   name: { type: String, required: true, trim: true },
   code: { type: String, required: true, uppercase: true },
-  district: { type: Schema.Types.ObjectId, ref: "District", required: true, index: true },
+  district: { type: Schema.Types.ObjectId, ref: "District", required: true },
   isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 

@@ -4,6 +4,7 @@ import connectDB from "@/lib/db/mongoose";
 import Photo from "@/models/Photo";
 import Program from "@/models/Program";
 import { AuditLogger } from "@/lib/audit/AuditLogger";
+import { deleteImage } from "@/lib/cloudinary";
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -94,6 +95,10 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     const oldClean = photo.toObject();
     if (oldClean.image) delete oldClean.image;
     if (oldClean.url) delete oldClean.url;
+
+    if (photo.imagePublicId) {
+      await deleteImage(photo.imagePublicId);
+    }
 
     await Photo.findByIdAndDelete(id);
 

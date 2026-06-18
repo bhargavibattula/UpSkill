@@ -31,8 +31,5 @@ const registrationRequestSchema = new Schema<IRegistrationRequest>(
   }
 );
 
-// Prevent re-registering if already approved or pending
-registrationRequestSchema.index({ email: 1 }, { unique: true });
-
 export const RegistrationRequest: Model<IRegistrationRequest> = 
   mongoose.models.RegistrationRequest || mongoose.model<IRegistrationRequest>("RegistrationRequest", registrationRequestSchema);

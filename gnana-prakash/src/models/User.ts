@@ -20,9 +20,9 @@ export interface IUserDoc extends Document {
 }
 
 const UserSchema = new Schema<IUserDoc>({
-  employeeId: { type: String, required: true, unique: true, index: true },
+  employeeId: { type: String, required: true, unique: true },
   name: { type: String, required: true, trim: true },
-  email: { type: String, required: true, unique: true, lowercase: true, index: true },
+  email: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true, select: false, minlength: 8 },
   mobile: { type: String, required: true },
   role: { type: String, enum: ["SUPER_ADMIN","STATE_ADMIN","DISTRICT_ADMIN","MANDAL_ADMIN","VENUE_ADMIN","TEACHER","TRAINER","STAFF","STUDENT"], required: true },

@@ -4,7 +4,7 @@ const ProgramSchema = new Schema({
   programName: { type: String, required: true, trim: true },
   trainingYear: { type: String, required: true },
   department: { type: String, required: true },
-  district: { type: Schema.Types.ObjectId, ref: "District", required: true, index: true },
+  district: { type: Schema.Types.ObjectId, ref: "District", required: true },
   mandal: { type: Schema.Types.ObjectId, ref: "Mandal", required: true },
   venue: { type: Schema.Types.ObjectId, ref: "Venue", required: true },
   serviceProvider: { type: String },

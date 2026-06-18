@@ -8,7 +8,7 @@ const MealSchema = new Schema({
 }, { _id: false });
 
 const FoodRecordSchema = new Schema({
-  program: { type: Schema.Types.ObjectId, ref: "Program", required: true, index: true },
+  program: { type: Schema.Types.ObjectId, ref: "Program", required: true },
   date: { type: Date, required: true },
   dayNumber: { type: Number, required: true },
   breakfast: { type: MealSchema, default: {} },
