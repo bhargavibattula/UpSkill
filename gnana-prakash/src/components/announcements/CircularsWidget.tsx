@@ -75,11 +75,21 @@ export default function CircularsWidget() {
               return (
                 <div key={circular._id} className="p-4 hover:bg-muted/30 transition-colors">
                   <div className="flex items-start gap-3">
-                    <span className={`shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${style.bg} ${style.text}`}>
-                      {style.icon}
-                      {circular.priority}
-                    </span>
+                    <div className="shrink-0 w-12 h-12 rounded overflow-hidden bg-muted">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img 
+                        src={circular.imageUrl || "https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?w=100&q=80"} 
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${style.bg} ${style.text}`}>
+                          {style.icon}
+                          {circular.priority}
+                        </span>
+                      </div>
                       <h4 className="text-sm font-semibold truncate text-foreground/90 mb-1" title={circular.title}>
                         {circular.title}
                       </h4>
