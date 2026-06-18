@@ -8,18 +8,32 @@ export async function middleware(req: NextRequest) {
   // Manually read cookies - bypasses getToken's broken bracket-access on Next.js 16
   const secureCookie = req.cookies.get("__Secure-next-auth.session-token");
   const normalCookie = req.cookies.get("next-auth.session-token");
-  const tokenCookie = secureCookie || normalCookie;
-
+  
   let token = null;
-  if (tokenCookie?.value) {
+
+  // Try decoding secure cookie first
+  if (secureCookie?.value) {
     try {
       token = await decode({
-        token: tokenCookie.value,
+        token: secureCookie.value,
         secret: process.env.NEXTAUTH_SECRET!,
-        salt: tokenCookie.name,
+        salt: secureCookie.name,
       });
     } catch {
-      // Token decode failed, treat as unauthenticated
+      // ignore
+    }
+  }
+
+  // If no token yet, try normal cookie
+  if (!token && normalCookie?.value) {
+    try {
+      token = await decode({
+        token: normalCookie.value,
+        secret: process.env.NEXTAUTH_SECRET!,
+        salt: normalCookie.name,
+      });
+    } catch {
+      // ignore
     }
   }
 
