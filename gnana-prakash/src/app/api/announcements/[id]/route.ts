@@ -4,13 +4,14 @@ import connectDB from "@/lib/db/mongoose";
 import { Announcement } from "@/models/Announcement";
 import { AuditLogger } from "@/lib/audit/AuditLogger";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const token = await getAuthToken(req);
     if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+    const { id } = await params;
     await connectDB();
-    const announcement = await Announcement.findOne({ _id: params.id, isDeleted: false })
+    const announcement = await Announcement.findOne({ _id: id, isDeleted: false })
       .populate("createdBy", "name email");
 
     if (!announcement) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const token = await getAuthToken(req);
     const session = token ? { user: token } : null;
@@ -35,15 +36,16 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       date.setUTCHours(23, 59, 59, 999);
       body.expiryDate = date;
     }
+    const { id } = await params;
     await connectDB();
 
-    const oldAnnouncement = await Announcement.findById(params.id);
+    const oldAnnouncement = await Announcement.findById(id);
     if (!oldAnnouncement || oldAnnouncement.isDeleted) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
     const updated = await Announcement.findByIdAndUpdate(
-      params.id,
+      id,
       { $set: body },
       { new: true, runValidators: true }
     );
@@ -77,7 +79,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const token = await getAuthToken(req);
     const session = token ? { user: token } : null;
@@ -85,8 +87,9 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
     await connectDB();
-    const announcement = await Announcement.findById(params.id);
+    const announcement = await Announcement.findById(id);
     
     if (!announcement || announcement.isDeleted) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });

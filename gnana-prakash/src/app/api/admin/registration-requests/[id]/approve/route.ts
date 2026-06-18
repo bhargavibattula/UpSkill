@@ -77,7 +77,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       description: `Approved registration request for ${request.email}`,
       entityId: request._id.toString(),
       entityType: "RegistrationRequest",
-      targetUser: result.insertedId.toString(),
+      newValues: { createdUserId: result.insertedId.toString() },
       req
     });
 
