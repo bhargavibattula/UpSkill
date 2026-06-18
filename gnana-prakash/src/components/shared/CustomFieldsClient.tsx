@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { 
   Plus, Search, Edit2, Trash2, Loader2, Calendar, Target, 
@@ -52,6 +52,19 @@ export default function CustomFieldsClient() {
   const [formAttended, setFormAttended] = useState("");
   const [formDate, setFormDate] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/custom-session")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user) setCurrentUser(data.user);
+      })
+      .catch(console.error);
+  }, []);
+
+  const canWrite = currentUser && ["SUPER_ADMIN", "STATE_ADMIN"].includes(currentUser.role);
 
   // Fetch target attendance records
   const { data: records = [], isLoading, error } = useQuery<AttendanceRecord[]>({
@@ -462,9 +475,11 @@ export default function CustomFieldsClient() {
                   onChange={e => setSearch(e.target.value)} 
                 />
               </div>
-              <Button size="sm" className="gap-2 shrink-0 bg-brand-600 hover:bg-brand-700 text-white font-bold" onClick={openAddModal}>
-                <Plus className="w-4 h-4" /> Add Record
-              </Button>
+              {canWrite && (
+                <Button size="sm" className="gap-2 shrink-0 bg-brand-600 hover:bg-brand-700 text-white font-bold" onClick={openAddModal}>
+                  <Plus className="w-4 h-4" /> Add Record
+                </Button>
+              )}
             </div>
           </div>
         </CardHeader>
@@ -479,7 +494,7 @@ export default function CustomFieldsClient() {
                   <th className="py-3 px-4 text-right">Attended</th>
                   <th className="py-3 px-4 text-right">Achievement</th>
                   <th className="py-3 px-4 text-center">Status</th>
-                  <th className="py-3 px-4 text-center">Actions</th>
+                  {canWrite && <th className="py-3 px-4 text-center">Actions</th>}
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -512,22 +527,24 @@ export default function CustomFieldsClient() {
                             {status.text}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-center">
-                          <div className="inline-flex items-center justify-center gap-1 opacity-90 group-hover:opacity-100 transition-opacity">
-                            <Button size="icon" variant="ghost" className="w-7 h-7 text-slate-500 hover:text-brand-600" onClick={() => openEditModal(record)}>
-                              <Edit2 className="w-3.5 h-3.5" />
-                            </Button>
-                            <Button size="icon" variant="ghost" className="w-7 h-7 text-slate-500 hover:text-rose-600" onClick={() => handleDelete(record._id)}>
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </Button>
-                          </div>
-                        </td>
+                        {canWrite && (
+                          <td className="py-3.5 px-4 text-center">
+                            <div className="inline-flex items-center justify-center gap-1 opacity-90 group-hover:opacity-100 transition-opacity">
+                              <Button size="icon" variant="ghost" className="w-7 h-7 text-slate-500 hover:text-brand-600" onClick={() => openEditModal(record)}>
+                                <Edit2 className="w-3.5 h-3.5" />
+                              </Button>
+                              <Button size="icon" variant="ghost" className="w-7 h-7 text-slate-500 hover:text-rose-600" onClick={() => handleDelete(record._id)}>
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </Button>
+                            </div>
+                          </td>
+                        )}
                       </tr>
                     );
                   })
                 ) : (
                   <tr>
-                    <td colSpan={7} className="py-10 text-center text-muted-foreground text-sm">
+                    <td colSpan={canWrite ? 7 : 6} className="py-10 text-center text-muted-foreground text-sm">
                       No records matched your search parameters.
                     </td>
                   </tr>

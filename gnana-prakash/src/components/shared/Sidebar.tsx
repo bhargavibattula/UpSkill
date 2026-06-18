@@ -36,6 +36,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Image Gallery", icon: Image, href: "/gallery" },
     { label: "Analytics", icon: BarChart3, href: "/state-admin/analytics" },
     { label: "Reports", icon: FileText, href: "/state-admin/reports" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
   DISTRICT_ADMIN: [
     { label: "Dashboard", icon: LayoutDashboard, href: "/district-admin" },
@@ -46,6 +47,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Image Gallery", icon: Image, href: "/gallery" },
     { label: "Reports", icon: FileText, href: "/district-admin/reports" },
     { label: "Analytics", icon: BarChart3, href: "/district-admin/analytics" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
   MANDAL_ADMIN: [
     { label: "Dashboard", icon: LayoutDashboard, href: "/mandal-admin" },
@@ -54,6 +56,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Attendance", icon: ClipboardList, href: "/mandal-admin/attendance" },
     { label: "Food Records", icon: UtensilsCrossed, href: "/mandal-admin/food" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
   VENUE_ADMIN: [
     { label: "Dashboard", icon: LayoutDashboard, href: "/mandal-admin" },
@@ -62,6 +65,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Attendance", icon: ClipboardList, href: "/mandal-admin/attendance" },
     { label: "Food Records", icon: UtensilsCrossed, href: "/mandal-admin/food" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
   TEACHER: [
     { label: "Dashboard", icon: LayoutDashboard, href: "/teacher" },
@@ -69,6 +73,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Attendance", icon: ClipboardList, href: "/teacher/attendance" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
     { label: "Certificates", icon: FileText, href: "/teacher/certificates" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
   TRAINER: [
     { label: "Dashboard", icon: LayoutDashboard, href: "/trainer" },
@@ -76,11 +81,13 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Attendance", icon: ClipboardList, href: "/trainer/attendance" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
     { label: "Feedback", icon: FileText, href: "/trainer/feedback" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
   STAFF: [
     { label: "Dashboard", icon: LayoutDashboard, href: "/staff" },
     { label: "Assigned Programs", icon: GraduationCap, href: "/staff/trainings" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
   STUDENT: [
     { label: "Dashboard", icon: LayoutDashboard, href: "/student" },
@@ -88,6 +95,7 @@ const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href:
     { label: "Attendance", icon: ClipboardList, href: "/student/attendance" },
     { label: "Image Gallery", icon: Image, href: "/gallery" },
     { label: "My Certificates", icon: FileText, href: "/student/certificates" },
+    { label: "Target Attendance", icon: Target, href: "/super-admin/custom-fields" },
   ],
 };
 
