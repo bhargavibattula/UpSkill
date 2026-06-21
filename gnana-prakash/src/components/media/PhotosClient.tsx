@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { formatDate, PHOTO_CATEGORIES } from "@/lib/utils";
+import imageCompression from 'browser-image-compression';
 
 interface SessionUser {
   id: string;
@@ -232,8 +233,16 @@ export default function PhotosClient() {
     setUploadSuccessMessage("");
 
     try {
+      // Compress the image before uploading to avoid Vercel's 4.5MB request body limit
+      const options = {
+        maxSizeMB: 1.5,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(selectedFile, options);
+
       const formData = new FormData();
-      formData.append("file", selectedFile);
+      formData.append("file", compressedFile);
       formData.append("title", uploadTitle);
       formData.append("description", uploadDescription);
       formData.append("category", uploadCategory);
