@@ -43,7 +43,7 @@ export default async function SuperAdminDashboard() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Super Admin Dashboard" subtitle="Department of School Education — Andhra Pradesh" />
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         {/* Welcome Banner */}
         <div className="relative rounded-2xl bg-gradient-to-r from-brand-700 via-brand-600 to-violet-600 p-6 text-white overflow-hidden">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />

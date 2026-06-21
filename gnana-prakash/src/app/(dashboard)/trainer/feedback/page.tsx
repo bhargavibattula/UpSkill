@@ -7,7 +7,7 @@ export default function TrainerFeedbackPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Feedback" subtitle="Participant feedback on your sessions" />
-      <div className="p-6">
+      <div className="p-4 sm:p-6 lg:p-8">
         <Card>
           <CardHeader><CardTitle className="text-base">Session Feedback Summary</CardTitle></CardHeader>
           <CardContent>

@@ -8,7 +8,7 @@ export default function TeacherCertificatesPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Certificates" subtitle="Your earned training certificates" />
-      <div className="p-6 space-y-4">
+      <div className="p-4 md:p-6 space-y-4">
         {[
           { program: "School Leadership & Management Training 2024", date: "14 Jun 2024", id: "CERT-2024-001" },
           { program: "Digital Tools for Education", date: "22 Mar 2024", id: "CERT-2024-002" },

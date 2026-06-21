@@ -17,7 +17,7 @@ export default async function ImageGalleryPage() {
         showSearch={!isSuperAdmin}
         showBell={!isSuperAdmin}
       />
-      <div className="p-6">
+      <div className="p-4 sm:p-6 lg:p-8">
         <PhotosClient />
       </div>
     </div>

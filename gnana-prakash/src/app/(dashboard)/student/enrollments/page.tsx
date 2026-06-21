@@ -8,7 +8,7 @@ export default function TeacherTrainingsPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="My Trainings" subtitle="Your enrolled training programs" />
-      <div className="p-6 space-y-4">
+      <div className="p-4 md:p-6 space-y-4">
         {[
           { name: "School Leadership & Management Training 2024", status: "COMPLETED", dates: "10–14 Jun 2024", venue: "DIET Vijayawada" },
           { name: "Digital Classroom Technology Training", status: "ACTIVE", dates: "15–19 Jul 2024", venue: "DIET Guntur" },

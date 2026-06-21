@@ -6,7 +6,7 @@ export default function ParticipantsPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Participants" subtitle="All registered participants" />
-      <div className="p-6"><ParticipantsClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><ParticipantsClient /></div>
     </div>
   );
 }

@@ -8,7 +8,7 @@ export default function ProgramsPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Training Programs" subtitle="Manage all training programs" />
-      <div className="p-6">
+      <div className="p-4 sm:p-6 lg:p-8">
         <ProgramsClient />
       </div>
     </div>

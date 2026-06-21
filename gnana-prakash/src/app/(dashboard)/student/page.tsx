@@ -41,7 +41,7 @@ export default async function StudentDashboard() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title={`Welcome, ${session?.user?.name?.split(" ")[0] || "Student"}`} subtitle="Your learning portal" />
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <StatCard title="My Enrollments" value={totalEnrolled} subtitle="Total enrolled" icon={GraduationCap} iconColor="text-brand-600" iconBg="bg-brand-50 dark:bg-brand-950" />
           <StatCard title="Attendance" value={avgAttendance} subtitle="Average for my programs" icon={ClipboardList} iconColor="text-emerald-600" iconBg="bg-emerald-50 dark:bg-emerald-950" />

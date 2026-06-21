@@ -28,7 +28,7 @@ export default async function MandalAdminDashboard() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Mandal Dashboard" subtitle="Your local area overview" />
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard title="Programs" value={programs} subtitle="In this mandal" icon={GraduationCap} iconColor="text-brand-600" iconBg="bg-brand-50 dark:bg-brand-950" />
           <StatCard title="Venues" value={venues} subtitle="Training centers" icon={Building2} iconColor="text-emerald-600" iconBg="bg-emerald-50 dark:bg-emerald-950" />

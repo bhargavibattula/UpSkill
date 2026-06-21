@@ -11,7 +11,7 @@ export default async function TrainerDashboard() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title={`Welcome, ${session?.user?.name?.split(" ")[0]}`} subtitle="Trainer portal" />
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <StatCard title="Assigned Programs" value={4} subtitle="This year" icon={GraduationCap} iconColor="text-brand-600" iconBg="bg-brand-50 dark:bg-brand-950" />
           <StatCard title="Total Trainees" value={280} subtitle="Trained so far" icon={Users} iconColor="text-emerald-600" iconBg="bg-emerald-50 dark:bg-emerald-950" />

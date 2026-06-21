@@ -6,7 +6,7 @@ export default function DistrictMediaPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Media Approval" subtitle="Review and approve uploaded media" />
-      <div className="p-6"><PhotosClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><PhotosClient /></div>
     </div>
   );
 }

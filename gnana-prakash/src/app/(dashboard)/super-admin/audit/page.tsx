@@ -6,7 +6,7 @@ export default function AuditPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Audit Logs" subtitle="System activity trail" />
-      <div className="p-6"><AuditClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><AuditClient /></div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ export default function PhotosPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Photo Management" subtitle="Upload and approve photos" />
-      <div className="p-6"><PhotosClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><PhotosClient /></div>
     </div>
   );
 }

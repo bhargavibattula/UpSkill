@@ -6,7 +6,7 @@ export default function StateAnalyticsPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Analytics" subtitle="State education statistics" />
-      <div className="p-6"><AnalyticsClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><AnalyticsClient /></div>
     </div>
   );
 }

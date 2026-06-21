@@ -51,7 +51,7 @@ export default async function TeacherDashboard() {
     <div className="flex flex-col min-h-full">
       <TopBar title={`Welcome, ${session?.user?.name?.split(" ")[0]}`} subtitle="Your training portal" />
       
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         {/* Metric Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <StatCard 

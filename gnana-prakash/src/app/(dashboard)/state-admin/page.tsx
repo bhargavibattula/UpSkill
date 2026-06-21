@@ -23,7 +23,7 @@ export default async function StateAdminDashboard() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="State Dashboard" subtitle="Andhra Pradesh — School Education Overview" />
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard title="Total Programs" value={programs} subtitle="State-wide" icon={GraduationCap} iconColor="text-brand-600" iconBg="bg-brand-50 dark:bg-brand-950" />
           <StatCard title="Venues" value={venues} subtitle="Active training centers" icon={MapPin} iconColor="text-emerald-600" iconBg="bg-emerald-50 dark:bg-emerald-950" />

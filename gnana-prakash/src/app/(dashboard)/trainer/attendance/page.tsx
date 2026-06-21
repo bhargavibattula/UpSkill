@@ -6,7 +6,7 @@ export default function TrainerAttendancePage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Attendance" subtitle="Track participant attendance" />
-      <div className="p-6"><AttendanceClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><AttendanceClient /></div>
     </div>
   );
 }

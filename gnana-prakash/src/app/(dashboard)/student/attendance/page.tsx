@@ -6,7 +6,7 @@ export default function TeacherAttendancePage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Attendance History" subtitle="Your training attendance record" />
-      <div className="p-6">
+      <div className="p-4 sm:p-6 lg:p-8">
         <Card>
           <CardHeader><CardTitle className="text-base">Attendance Summary</CardTitle></CardHeader>
           <CardContent>

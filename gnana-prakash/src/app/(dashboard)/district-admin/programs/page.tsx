@@ -6,7 +6,7 @@ export default function DistrictProgramsPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Programs" subtitle="District training programs" />
-      <div className="p-6"><ProgramsClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><ProgramsClient /></div>
     </div>
   );
 }

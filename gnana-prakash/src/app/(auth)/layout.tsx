@@ -14,7 +14,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-900/60 to-transparent" />
-        
+
         <div className="relative z-10 flex flex-col justify-end p-12 h-full text-white">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
@@ -39,7 +39,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         {/* Abstract Background for right side */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-brand-50 blur-3xl opacity-50" />
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-blue-50 blur-3xl opacity-50" />
-        
+
         <div className="w-full max-w-md relative z-10">
           {children}
         </div>

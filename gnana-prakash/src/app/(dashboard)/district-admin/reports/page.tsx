@@ -6,7 +6,7 @@ export default function DistrictReportsPage() {
   return (
     <div className="flex flex-col min-h-full">
       <TopBar title="Reports" subtitle="Generate district reports" />
-      <div className="p-6"><ReportsClient /></div>
+      <div className="p-4 sm:p-6 lg:p-8"><ReportsClient /></div>
     </div>
   );
 }
