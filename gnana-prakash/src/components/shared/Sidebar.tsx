@@ -9,9 +9,11 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { UserRole } from "@/types";
 import { getRoleColor } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import { toast } from "@/lib/hooks/use-toast";
 
 const NAV_CONFIG: Record<string, { label: string; icon: React.ElementType; href: string; badge?: string }[]> = {
@@ -115,7 +117,17 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [user, setUser] = useState<SessionUser | null>(null);
+
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMobileOpen]);
 
   // Fetch session from our custom endpoint instead of using broken useSession()
   useEffect(() => {
@@ -145,10 +157,31 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={cn("flex flex-col h-screen bg-sidebar border-r border-sidebar-border transition-all duration-300 sticky top-0", collapsed ? "w-16" : "w-64")}>
-      {/* Logo */}
-      <div className="flex items-center gap-3 p-4 border-b border-sidebar-border select-none">
+    <>
+      {/* Mobile Hamburger Button */}
+      <div className="md:hidden fixed top-3 left-4 z-50">
+        <Button variant="outline" size="icon" onClick={() => setIsMobileOpen(!isMobileOpen)} className="bg-background/80 backdrop-blur shadow-sm">
+          {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </Button>
+      </div>
+
+      {/* Mobile Backdrop Overlay */}
+      {isMobileOpen && (
         <div 
+          className="md:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" 
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      <aside className={cn(
+        "flex flex-col h-screen bg-sidebar border-r border-sidebar-border transition-transform duration-300",
+        "fixed md:sticky top-0 z-50 md:z-0", // Fixed on mobile, sticky on desktop
+        collapsed ? "w-16" : "w-64",
+        isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      )}>
+        {/* Logo */}
+      <div className="flex items-center gap-3 p-4 border-b border-sidebar-border select-none">
+        <div
           className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center cursor-pointer hover:bg-brand-700 transition-colors"
           onClick={() => collapsed ? setCollapsed(false) : router.push(navItems[0]?.href || "/")}
           title={collapsed ? "Expand sidebar" : "Go to Dashboard"}
@@ -157,14 +190,14 @@ export default function Sidebar() {
         </div>
         {!collapsed && (
           <>
-            <div 
+            <div
               className="flex-1 min-w-0 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => router.push(navItems[0]?.href || "/")}
             >
               <p className="text-sm font-bold text-sidebar-foreground truncate">Gnana Prakash</p>
               <p className="text-xs text-sidebar-foreground/50 truncate">TMS Portal</p>
             </div>
-            <div 
+            <div
               className="text-sidebar-foreground/50 hover:text-sidebar-foreground transition-colors ml-auto cursor-pointer p-1 rounded hover:bg-sidebar-accent/50"
               onClick={() => setCollapsed(!collapsed)}
               title="Collapse sidebar"
@@ -182,6 +215,7 @@ export default function Sidebar() {
           const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/"));
           return (
             <Link key={item.href} href={item.href}
+              onClick={() => setIsMobileOpen(false)}
               className={cn("sidebar-item", isActive && "active", collapsed && "justify-center px-2")}>
               <Icon className="w-4 h-4 flex-shrink-0" />
               {!collapsed && <span className="flex-1">{item.label}</span>}
@@ -216,5 +250,6 @@ export default function Sidebar() {
         )}
       </div>
     </aside>
+    </>
   );
 }

@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { 
+import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
   AreaChart, Area, PieChart, Pie, Cell
 } from "recharts";
-import { 
-  Users, MapPin, CheckCircle, Clock, Bell, Download, 
-  ChevronRight, BookOpen, GraduationCap, ShieldCheck, 
+import {
+  Users, MapPin, CheckCircle, Clock, Bell, Download,
+  ChevronRight, BookOpen, GraduationCap, ShieldCheck,
   ArrowUpRight, Landmark, Activity, Map, Search, FileText,
   Phone, Mail, Globe, MonitorPlay, BarChart3, Trophy, Headset, Star
 } from "lucide-react";
@@ -47,21 +47,21 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
 
   return (
     <div className="min-h-screen bg-[#F4F6F8] font-sans text-slate-800 selection:bg-[#00418C] selection:text-white">
-      
+
       {/* Official Government Navbar */}
       <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div className="bg-[#00418C] h-1.5 w-full"></div>
         <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="w-12 h-14 bg-slate-50 border border-slate-200 flex flex-col items-center justify-center p-1 rounded-sm shadow-sm">
-               <Image src="/favicon.svg" alt="Govt Logo" width={32} height={32} />
+              <Image src="/favicon.svg" alt="Govt Logo" width={32} height={32} />
             </div>
             <div>
               <h1 className="text-xl md:text-2xl font-black text-[#00418C] tracking-tight uppercase">Gnana Prakash</h1>
               <p className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest">Department of School Education, Govt of AP</p>
             </div>
           </div>
-          
+
           <div className="hidden lg:flex items-center gap-6">
             {["Dashboard", "Analytics", "Modules", "Resources", "Circulars"].map((item) => (
               <Link key={item} href={`#${item.toLowerCase()}`} className="text-sm font-semibold text-slate-600 hover:text-[#00418C] transition-colors">
@@ -88,7 +88,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
       </nav>
 
       <main className="container mx-auto px-4 md:px-6 py-8 space-y-8">
-        
+
         {/* Hero Section */}
         <section className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative">
           <div className="absolute top-0 right-0 w-[600px] h-full opacity-10 pointer-events-none">
@@ -104,7 +104,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 Live Year-3 Training Phase
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4 tracking-tight">
-                Certificate Course Training <br className="hidden md:block"/> for Secondary Grade Teachers
+                Certificate Course Training <br className="hidden md:block" /> for Secondary Grade Teachers
               </h2>
               <p className="text-lg text-slate-600 mb-8 max-w-2xl font-medium">
                 Real-time monitoring and management portal for DEO, SS officials, MEOs, HMs, and CRPs across Andhra Pradesh.
@@ -118,14 +118,14 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 </button>
               </div>
             </div>
-            
+
             {/* Live Impact Card embedded in Hero */}
             <div className="w-full md:w-80 bg-[#00418C] text-white p-6 rounded-xl shadow-xl shrink-0 relative overflow-hidden">
               <div className="absolute top-0 right-0 opacity-20"><Activity className="w-32 h-32 -mt-8 -mr-8" /></div>
               <h3 className="text-sm font-bold text-blue-200 uppercase tracking-wider mb-2">Today's Statewide Attendance</h3>
               <p className="text-5xl font-black mb-2">94.8%</p>
               <p className="text-sm text-blue-100 mb-6 flex items-center gap-1"><ArrowUpRight className="w-4 h-4 text-emerald-400" /> +2.4% from yesterday</p>
-              
+
               <div className="space-y-3">
                 <div className="flex justify-between text-sm"><span>Present SGTs</span> <span className="font-bold">1,12,450</span></div>
                 <div className="w-full bg-blue-900/50 rounded-full h-1.5"><div className="bg-emerald-400 h-1.5 rounded-full w-[94.8%]"></div></div>
@@ -155,10 +155,10 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
         </section>
 
         <div id="analytics" className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Main Analytics Area */}
           <div className="lg:col-span-2 space-y-8">
-            
+
             {/* District Wise Participation Chart */}
             <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
               <div className="flex justify-between items-center mb-6">
@@ -239,7 +239,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
 
           {/* Right Sidebar */}
           <div className="space-y-8">
-            
+
             {/* Timeline Area Chart */}
             <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
               <h3 className="text-lg font-bold text-slate-900 mb-1">Training Progress Timeline</h3>
@@ -250,8 +250,8 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                     <AreaChart data={timelineData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                       <defs>
                         <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#10B981" stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
+                          <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
+                          <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
@@ -272,14 +272,14 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 <Map className="w-5 h-5 text-slate-400" />
               </div>
               <div className="w-full aspect-video bg-slate-50 border border-slate-100 rounded-lg flex flex-col items-center justify-center text-center p-6 relative overflow-hidden">
-                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                 <div className="relative z-10">
-                   <div className="w-12 h-12 bg-blue-100 text-[#00418C] rounded-full flex items-center justify-center mx-auto mb-3">
-                     <MapPin className="w-6 h-6" />
-                   </div>
-                   <p className="text-sm font-bold text-slate-700">13 Core Districts Active</p>
-                   <p className="text-xs text-slate-500 mt-1">Full state coverage achieved for Phase 1 of the SGT Training Program.</p>
-                 </div>
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <div className="relative z-10">
+                  <div className="w-12 h-12 bg-blue-100 text-[#00418C] rounded-full flex items-center justify-center mx-auto mb-3">
+                    <MapPin className="w-6 h-6" />
+                  </div>
+                  <p className="text-sm font-bold text-slate-700">13 Core Districts Active</p>
+                  <p className="text-xs text-slate-500 mt-1">Full state coverage achieved for Phase 1 of the SGT Training Program.</p>
+                </div>
               </div>
             </div>
 
@@ -293,7 +293,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
 
         {/* Extended Data Section: Venues & Support */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
-          
+
           {/* Top Performing Venues */}
           <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
             <div className="flex justify-between items-center mb-6">
@@ -338,7 +338,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
               </div>
               <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded">SLA: Green</span>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center">
                 <p className="text-3xl font-black text-[#00418C]">412</p>
@@ -360,7 +360,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
               </div>
             </div>
           </div>
-          
+
         </div>
       </main>
 
@@ -368,7 +368,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
       <footer className="bg-[#1e293b] text-slate-300 mt-16 pt-16 pb-8 border-t-4 border-[#00418C]">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-            
+
             {/* Branding Column */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
@@ -424,7 +424,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
               <ul className="space-y-4 text-sm text-slate-400">
                 <li className="flex gap-3">
                   <MapPin className="w-5 h-5 shrink-0 text-[#00418C]" />
-                  <span>Directorate of School Education,<br/>Anjaneya Towers, Ibrahimpatnam,<br/>Vijayawada, AP 521456</span>
+                  <span>Directorate of School Education,<br />Anjaneya Towers, Ibrahimpatnam,<br />Vijayawada, AP 521456</span>
                 </li>
                 <li className="flex gap-3 items-center">
                   <Phone className="w-5 h-5 shrink-0 text-[#00418C]" />
@@ -441,7 +441,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
 
           <div className="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500 font-medium text-center md:text-left">
-              © {new Date().getFullYear()} Department of School Education, Government of Andhra Pradesh. All rights reserved.<br/>
+              © {new Date().getFullYear()} Department of School Education, Government of Andhra Pradesh. All rights reserved.<br />
               Platform designed and maintained by NIC / AP State Technical Team.
             </p>
             <div className="flex gap-6 text-xs font-bold text-slate-500 uppercase tracking-widest">
