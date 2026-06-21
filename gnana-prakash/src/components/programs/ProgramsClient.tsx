@@ -56,9 +56,9 @@ export default function ProgramsClient() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <CardTitle className="text-base">All Programs</CardTitle>
             <div className="flex items-center gap-2">
-              <div className="relative">
+              <div className="relative flex-1 sm:flex-none w-full sm:w-auto">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-                <Input placeholder="Search programs..." className="pl-9 h-9 w-64 text-sm"
+                <Input placeholder="Search programs..." className="pl-9 h-9 w-full sm:w-64 text-sm"
                   value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
               </div>
               <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
@@ -69,7 +69,7 @@ export default function ProgramsClient() {
                 <option value="COMPLETED">Completed</option>
                 <option value="CANCELLED">Cancelled</option>
               </select>
-              <Button size="sm" className="gap-2" onClick={() => { setEditProgram(null); setShowForm(true); }}>
+              <Button size="sm" className="gap-2 whitespace-nowrap" onClick={() => { setEditProgram(null); setShowForm(true); }}>
                 <Plus className="w-4 h-4" /> Add Program
               </Button>
             </div>

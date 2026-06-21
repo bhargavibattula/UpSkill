@@ -58,7 +58,7 @@ export default function ParticipantsClient() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <CardTitle className="text-base">All Participants</CardTitle>
             <div className="flex flex-wrap items-center gap-2">
-              <div className="relative">
+              <div className="relative flex-1 sm:flex-none w-full sm:w-auto">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                 <Input placeholder="Search by name or ID..." className="pl-9 h-9 w-56 text-sm"
                   value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
@@ -68,7 +68,7 @@ export default function ParticipantsClient() {
                 <option value="">All Categories</option>
                 {PARTICIPANT_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
               </select>
-              <Button size="sm" className="gap-2" onClick={() => { setEditParticipant(null); setShowForm(true); }}>
+              <Button size="sm" className="gap-2 whitespace-nowrap" onClick={() => { setEditParticipant(null); setShowForm(true); }}>
                 <Plus className="w-4 h-4" /> Add Participant
               </Button>
             </div>

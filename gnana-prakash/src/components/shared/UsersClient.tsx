@@ -56,7 +56,7 @@ export default function UsersClient() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <CardTitle className="text-base">User Management</CardTitle>
             <div className="flex items-center gap-2 flex-wrap">
-              <div className="relative">
+              <div className="relative flex-1 sm:flex-none w-full sm:w-auto">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                 <Input placeholder="Search users..." className="pl-9 h-9 w-56 text-sm" value={search}
                   onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
@@ -68,7 +68,7 @@ export default function UsersClient() {
                   <option key={r} value={r}>{r.replace("_", " ")}</option>
                 ))}
               </select>
-              <Button size="sm" className="gap-2" onClick={handleAdd}>
+              <Button size="sm" className="gap-2 whitespace-nowrap" onClick={handleAdd}>
                 <Plus className="w-4 h-4" /> Add User
               </Button>
             </div>
@@ -135,9 +135,9 @@ export default function UsersClient() {
                             <Button variant="ghost" size="icon-sm"><MoreHorizontal className="w-4 h-4" /></Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="gap-2" onClick={() => handleEdit(user)}><Pencil className="w-3.5 h-3.5" />Edit</DropdownMenuItem>
+                            <DropdownMenuItem className="gap-2 whitespace-nowrap" onClick={() => handleEdit(user)}><Pencil className="w-3.5 h-3.5" />Edit</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="gap-2" onClick={() => toggleActive.mutate({ id: user._id, isActive: !user.isActive })}>
+                            <DropdownMenuItem className="gap-2 whitespace-nowrap" onClick={() => toggleActive.mutate({ id: user._id, isActive: !user.isActive })}>
                               {user.isActive ? <><UserX className="w-3.5 h-3.5" />Deactivate</> : <><UserCheck className="w-3.5 h-3.5" />Activate</>}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
