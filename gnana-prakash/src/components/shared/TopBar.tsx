@@ -21,7 +21,7 @@ export default function TopBar({ title, subtitle, showSearch, showBell }: TopBar
   const displayBell = showBell !== undefined ? showBell : !pathname?.startsWith("/super-admin");
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur-sm px-6">
+    <header className="sticky top-0 z-30 flex min-h-16 py-3 items-center gap-4 border-b bg-background/95 backdrop-blur-sm pr-4 pl-16 md:px-6">
       <div className="flex-1">
         <h1 className="text-lg font-semibold text-foreground">{title}</h1>
         {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
