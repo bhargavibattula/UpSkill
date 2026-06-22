@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, Megaphone, Loader2, Info, AlertTriangle, Clock } from "lucide-react";
@@ -84,7 +84,7 @@ export default function AnnouncementsListClient() {
                <p className="text-sm mt-1 max-w-sm">We couldn't find any official announcements matching your search criteria.</p>
              </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {publicAnnouncements.map((circular: any) => {
                 const style = PRIORITY_STYLES[circular.priority] || PRIORITY_STYLES.INFO;
                 return (
@@ -116,7 +116,7 @@ export default function AnnouncementsListClient() {
                         {format(new Date(circular.createdAt), "MMMM d, yyyy")}
                       </span>
                       <span className="text-xs font-semibold text-brand-600 group-hover:translate-x-1 transition-transform">
-                        Read more →
+                        Read more â†’
                       </span>
                     </div>
                   </div>

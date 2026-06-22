@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { programSchema, ProgramInput } from "@/lib/validations";
@@ -139,7 +139,7 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-destructive text-sm">{error}</div>}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="col-span-2 space-y-1.5">
           <Label>Program Name *</Label>
           <Input placeholder="e.g. School Leadership Training 2024" {...register("programName")} />
@@ -161,7 +161,7 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
         <div className="col-span-2 space-y-1.5">
           <Label>Districts * (Select one or more)</Label>
           {districts && districts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
               {districts.map((d: any) => {
                 const isChecked = selectedDistricts.includes(d._id);
                 return (
@@ -195,7 +195,7 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
           ) : !mandals || mandals.length === 0 ? (
             <div className="text-muted-foreground text-sm py-2">No mandals found for selected districts</div>
           ) : (
-            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
               {mandals.map((m: any) => {
                 const isChecked = selectedMandals.includes(m._id);
                 return (
@@ -227,7 +227,7 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
           ) : !venues?.data || venues.data.length === 0 ? (
             <div className="text-muted-foreground text-sm py-2">No venues found for selected mandals</div>
           ) : (
-            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-card/50">
               {venues.data.map((v: any) => {
                 const isChecked = selectedVenues.includes(v._id);
                 return (

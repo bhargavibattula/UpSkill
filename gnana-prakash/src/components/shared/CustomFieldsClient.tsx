@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -258,7 +258,7 @@ export default function CustomFieldsClient() {
   const getTierInfo = (rate: number) => {
     if (rate >= 95) {
       return {
-        label: "Elite Performance 🌟",
+        label: "Elite Performance ðŸŒŸ",
         description: "Outstanding attendance rate! The training programs are executing with maximum attendance alignment.",
         gradient: "from-amber-500 via-yellow-400 to-amber-600",
         bg: "bg-amber-50/50 dark:bg-amber-950/10 border-amber-200 dark:border-amber-900/30",
@@ -267,7 +267,7 @@ export default function CustomFieldsClient() {
     }
     if (rate >= 85) {
       return {
-        label: "Highly Successful 📈",
+        label: "Highly Successful ðŸ“ˆ",
         description: "Strong attendance results. The majority of planned participants have successfully attended.",
         gradient: "from-brand-600 via-violet-500 to-indigo-600",
         bg: "bg-brand-50/50 dark:bg-brand-950/10 border-brand-200 dark:border-brand-900/30",
@@ -276,7 +276,7 @@ export default function CustomFieldsClient() {
     }
     if (rate >= 70) {
       return {
-        label: "Satisfactory Level 📊",
+        label: "Satisfactory Level ðŸ“Š",
         description: "Decent participation rate. Consider scheduling quick follow-ups to cover the remaining gaps.",
         gradient: "from-emerald-500 via-teal-400 to-emerald-600",
         bg: "bg-emerald-50/50 dark:bg-emerald-950/10 border-emerald-200 dark:border-emerald-900/30",
@@ -284,7 +284,7 @@ export default function CustomFieldsClient() {
       };
     }
     return {
-      label: "Action Needed ⚠️",
+      label: "Action Needed âš ï¸",
       description: "Low attendance rate detected. Recommend adjusting training timings or coordinating with local officers.",
       gradient: "from-rose-600 to-red-500",
       bg: "bg-rose-50/50 dark:bg-rose-950/10 border-rose-200 dark:border-rose-900/30",
@@ -297,10 +297,10 @@ export default function CustomFieldsClient() {
   // Record-specific status badge
   const getRecordStatus = (attended: number, target: number) => {
     const pct = target > 0 ? (attended / target) * 100 : 0;
-    if (pct >= 95) return { text: "Target Met ✅", color: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border-emerald-200" };
-    if (pct >= 80) return { text: "On Track 📈", color: "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400 border-blue-200" };
-    if (pct >= 60) return { text: "Needs Focus ⚠️", color: "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border-amber-200" };
-    return { text: "Critical Gap 🚨", color: "bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400 border-rose-200" };
+    if (pct >= 95) return { text: "Target Met âœ…", color: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border-emerald-200" };
+    if (pct >= 80) return { text: "On Track ðŸ“ˆ", color: "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400 border-blue-200" };
+    if (pct >= 60) return { text: "Needs Focus âš ï¸", color: "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border-amber-200" };
+    return { text: "Critical Gap ðŸš¨", color: "bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400 border-rose-200" };
   };
 
   // Recharts structured data
@@ -338,7 +338,7 @@ export default function CustomFieldsClient() {
       {/* Overview Cards & Gauge */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {/* Core Stats Card */}
-        <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="hover:shadow-md transition-shadow relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-2 text-brand-500/10 group-hover:scale-110 transition-transform">
               <Target className="w-20 h-20" />
@@ -589,7 +589,7 @@ export default function CustomFieldsClient() {
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="grid gap-2">
                   <Label htmlFor="target" className="text-xs font-bold uppercase tracking-wider text-slate-500">Target Attendance</Label>
                   <Input 

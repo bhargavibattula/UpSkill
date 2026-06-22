@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Search, Shield, Loader2, MoreHorizontal, UserCheck, UserX, Pencil } from "lucide-react";
@@ -118,7 +118,7 @@ export default function UsersClient() {
                           {user.role.replace("_", " ")}
                         </span>
                       </TableCell>
-                      <TableCell className="text-sm">{user.district?.name || "—"}</TableCell>
+                      <TableCell className="text-sm">{user.district?.name || "â€”"}</TableCell>
                       <TableCell className="text-sm font-mono">{user.mobile}</TableCell>
                       <TableCell>
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${user.isActive ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
@@ -151,7 +151,7 @@ export default function UsersClient() {
           )}
           {data && data.totalPages > 1 && (
             <div className="flex items-center justify-between px-4 py-3 border-t">
-              <p className="text-sm text-muted-foreground">Page {page} of {data.totalPages} · {data.total} total</p>
+              <p className="text-sm text-muted-foreground">Page {page} of {data.totalPages} Â· {data.total} total</p>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" disabled={page === 1} onClick={() => setPage(p => p - 1)}>Previous</Button>
                 <Button variant="outline" size="sm" disabled={page === data.totalPages} onClick={() => setPage(p => p + 1)}>Next</Button>
@@ -227,7 +227,7 @@ function UserForm({ user, onSuccess }: { user?: Record<string, any> | null; onSu
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       {error && <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-destructive text-sm">{error}</div>}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="space-y-1"><label className="text-sm font-medium">Employee ID *</label><Input value={data.employeeId} onChange={e => set("employeeId", e.target.value)} required /></div>
         <div className="space-y-1"><label className="text-sm font-medium">Full Name *</label><Input value={data.name} onChange={e => set("name", e.target.value)} required /></div>
         <div className="space-y-1"><label className="text-sm font-medium">Email *</label><Input type="email" value={data.email} onChange={e => set("email", e.target.value)} required /></div>

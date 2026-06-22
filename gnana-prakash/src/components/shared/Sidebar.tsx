@@ -194,8 +194,8 @@ export default function Sidebar() {
               className="flex-1 min-w-0 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => router.push(navItems[0]?.href || "/")}
             >
-              <p className="text-sm font-bold text-sidebar-foreground truncate">Gnana Prakash</p>
-              <p className="text-xs text-sidebar-foreground/50 truncate">TMS Portal</p>
+              <p className="text-sm font-bold text-sidebar-foreground truncate">TRMS</p>
+              <p className="text-xs text-sidebar-foreground/50 truncate">Portal</p>
             </div>
             <div
               className="text-sidebar-foreground/50 hover:text-sidebar-foreground transition-colors ml-auto cursor-pointer p-1 rounded hover:bg-sidebar-accent/50"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,7 @@ export default function CircularsWidget() {
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow duration-300 overflow-hidden group">
       <CardHeader className="pb-3 border-b border-border/50 bg-muted/20">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="text-base font-bold flex items-center gap-2">
             <div className="p-1.5 bg-brand-100 dark:bg-brand-900/40 rounded-md text-brand-600 dark:text-brand-400">
               <Bell className="w-4 h-4" />

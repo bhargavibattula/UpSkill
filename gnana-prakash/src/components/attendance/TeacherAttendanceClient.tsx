@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
@@ -193,7 +193,7 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
                     {/* Day Cards / Grid */}
                     <div className="space-y-2">
                       <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Daily Log</p>
-                      <div className="grid grid-cols-2 sm:grid-cols-6 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-6 gap-3">
                         {Array.from({ length: prog.totalDays }).map((_, idx) => {
                           const dayNum = idx + 1;
                           const log = prog.attendanceLogs.find((l: any) => l.dayNumber === dayNum);

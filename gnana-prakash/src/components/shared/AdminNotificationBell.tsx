@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useQuery } from "@tanstack/react-query";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ export default function AdminNotificationBell() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-72">
-        <DropdownMenuLabel className="flex items-center justify-between">
+        <DropdownMenuLabel className="flex flex-wrap items-center justify-between gap-2">
           <span>Notifications</span>
           {totalPending > 0 && (
             <span className="text-xs bg-muted px-2 py-0.5 rounded-full">{totalPending} New</span>

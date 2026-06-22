@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -501,7 +501,7 @@ export default function PhotosClient() {
               </CardContent>
             </Card>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {approvedPhotos.data.map((photo: any) => (
                 <div
                   key={photo._id}
@@ -579,7 +579,7 @@ export default function PhotosClient() {
               </div>
 
               {/* Form Fields */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <Label className="text-xs font-bold text-slate-700">Image Title *</Label>
                   <Input
@@ -706,7 +706,7 @@ export default function PhotosClient() {
                 </CardContent>
               </Card>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 gap-5">
                 {pendingPhotos.data.map((photo: any) => (
                   <Card key={photo._id} className="border-slate-100 shadow-sm overflow-hidden flex flex-col">
                     <div className="relative h-56 bg-slate-50 border-b border-slate-100">
@@ -726,7 +726,7 @@ export default function PhotosClient() {
                           <p className="text-xs text-slate-500 mt-1">{photo.description || "No description provided."}</p>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2 text-xs border-t border-slate-50 pt-2.5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs border-t border-slate-50 pt-2.5">
                           <div>
                             <p className="text-[9px] font-bold text-slate-400 uppercase">Program Name</p>
                             <p className="font-semibold text-slate-700 truncate">{photo.programName}</p>
@@ -825,7 +825,7 @@ export default function PhotosClient() {
             ) : !rejectedPhotos?.data?.length ? (
               <p className="text-slate-400 text-xs italic">No rejected requests in historical log.</p>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
                 {rejectedPhotos.data.map((photo: any) => (
                   <div
                     key={photo._id}
@@ -907,7 +907,7 @@ export default function PhotosClient() {
                         </div>
                       )}
 
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Requested By</p>
                           <p className="font-semibold text-slate-700 truncate">{selectedPhoto.requestedBy?.name || "Anonymous"}</p>
@@ -919,7 +919,7 @@ export default function PhotosClient() {
                       </div>
 
                       {selectedPhoto.status === "Approved" && (
-                        <div className="grid grid-cols-2 gap-3 bg-slate-50 p-2 rounded-lg">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-2 rounded-lg">
                           <div>
                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Approved By</p>
                             <p className="font-semibold text-emerald-700 truncate">{selectedPhoto.approvedBy?.name || "Super Admin"}</p>
@@ -1027,7 +1027,7 @@ export default function PhotosClient() {
                         )}
                       </div>
 
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div className="space-y-1">
                           <Label className="text-[10px] font-bold text-slate-600 uppercase">Platform</Label>
                           <Input

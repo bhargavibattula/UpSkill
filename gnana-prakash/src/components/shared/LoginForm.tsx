@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { toast } from "@/lib/hooks/use-toast";
 import { DASHBOARD_ROUTES } from "@/lib/auth/rbac";
@@ -37,7 +37,7 @@ export default function LoginForm() {
     setLoading(true);
     setError("");
     try {
-      // Use custom login API — bypasses NextAuth's broken signIn() on Next.js 16
+      // Use custom login API â€” bypasses NextAuth's broken signIn() on Next.js 16
       const res = await fetch("/api/auth/custom-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +53,7 @@ export default function LoginForm() {
         return;
       }
 
-      // Login successful — the cookie is already set by the server
+      // Login successful â€” the cookie is already set by the server
       toast({ title: "Login Successful", description: `Welcome back, ${result.user?.name || "User"}!`, variant: "success" });
       
       // Delay navigation slightly to ensure toast is visible and cookie is registered

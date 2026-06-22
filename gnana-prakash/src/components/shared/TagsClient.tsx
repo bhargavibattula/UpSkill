@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ export default function TagsClient() {
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground py-8 text-center">Full CRUD operations available — connect to the corresponding API endpoint.</p>
+          <p className="text-sm text-muted-foreground py-8 text-center">Full CRUD operations available â€” connect to the corresponding API endpoint.</p>
         </CardContent>
       </Card>
     </div>

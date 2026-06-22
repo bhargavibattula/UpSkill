@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Save, UtensilsCrossed, Loader2, Coffee, Sun, Sunset, Moon } from "lucide-react";
@@ -95,8 +95,8 @@ export default function FoodClient() {
           </div>
         </CardHeader>
         <CardContent>
-          {saved && <div className="mb-4 p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 text-emerald-700 text-sm">✓ Food record saved successfully!</div>}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          {saved && <div className="mb-4 p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 text-emerald-700 text-sm">âœ“ Food record saved successfully!</div>}
+          <div className="grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {MEALS.map(({ key, label, icon: Icon, color }) => (
               <div key={key} className="rounded-xl border p-4 space-y-3 hover:shadow-sm transition-shadow">
                 <div className={`flex items-center gap-2 font-semibold text-sm ${color}`}>

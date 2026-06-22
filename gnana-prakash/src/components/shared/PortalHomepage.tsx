@@ -57,7 +57,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
               <Image src="/favicon.svg" alt="Govt Logo" width={32} height={32} />
             </div>
             <div>
-              <h1 className="text-xl md:text-2xl font-black text-[#00418C] tracking-tight uppercase">Gnana Prakash</h1>
+              <h1 className="text-xl md:text-2xl font-black text-[#00418C] tracking-tight uppercase">TRMS</h1>
               <p className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest">Department of School Education, Govt of AP</p>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
         {/* Hero Section */}
         <section className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative">
           <div className="absolute top-0 right-0 w-[600px] h-full opacity-10 pointer-events-none">
-            <Image src="/features_bg.png" alt="Abstract Background" fill priority sizes="100vw" className="object-cover" />
+            <Image src="/features_bg.png" alt="Abstract Background" fill priority sizes="600px" unoptimized className="object-cover" />
           </div>
           <div className="relative z-10 p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center justify-between">
             <div className="max-w-3xl">
@@ -101,13 +101,13 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                Live Year-3 Training Phase
+                Managing Trainings from Planning to Completion
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4 tracking-tight">
-                Certificate Course Training <br className="hidden md:block" /> for Secondary Grade Teachers
+                Welcome to Training Resource Management <br className="hidden md:block" /> System (TRMS)
               </h2>
               <p className="text-lg text-slate-600 mb-8 max-w-2xl font-medium">
-                Real-time monitoring and management portal for DEO, SS officials, MEOs, HMs, and CRPs across Andhra Pradesh.
+                A centralized platform for planning, managing, and monitoring capacity-building programs and training events.
               </p>
               <div className="flex gap-4">
                 <button className="bg-[#00418C] text-white px-6 py-3 rounded font-bold shadow-md shadow-blue-900/20 hover:bg-[#003370] transition-colors flex items-center gap-2">
@@ -135,7 +135,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
         </section>
 
         {/* Global KPI Cards */}
-        <section id="dashboard" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <section id="dashboard" className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { title: "Total Registered SGTs", value: "1,18,500", icon: Users, color: "text-blue-600", bg: "bg-blue-50" },
             { title: "Active Training Venues", value: "450+", icon: MapPin, color: "text-rose-600", bg: "bg-rose-50" },
@@ -189,7 +189,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 <h3 className="text-lg font-bold text-slate-900">Year-3 Certificate Curriculum Status</h3>
                 <span className="text-xs font-bold bg-slate-100 text-slate-600 px-3 py-1 rounded">Cohort 2024-25</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { name: "Module 1: Foundational Literacy & Numeracy", status: "Completed", date: "Oct 12 - Oct 15", progress: 100 },
                   { name: "Module 2: Digital Pedagogy Integration", status: "Completed", date: "Oct 16 - Oct 19", progress: 100 },
@@ -213,7 +213,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
             {/* Document Repository & Resources */}
             <div id="resources" className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
               <h3 className="text-lg font-bold text-slate-900 mb-6">Official Resource Directory</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 gap-4">
                 {resourceData.map((res, idx) => (
                   <div key={idx} className="flex items-start gap-3 p-4 border border-slate-100 hover:border-slate-300 transition-colors rounded-lg group cursor-pointer">
                     <div className={`p-2 rounded ${res.type === 'PDF' ? 'bg-red-50 text-red-600' : res.type === 'VIDEO' ? 'bg-purple-50 text-purple-600' : 'bg-green-50 text-green-600'}`}>
@@ -225,7 +225,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                       <h4 className="text-sm font-bold text-slate-800 group-hover:text-[#00418C] transition-colors line-clamp-1">{res.title}</h4>
                       <div className="flex items-center gap-3 mt-1 text-xs text-slate-500">
                         <span>{res.size}</span>
-                        <span>•</span>
+                        <span>â€¢</span>
                         <span>{res.date}</span>
                       </div>
                     </div>
@@ -292,7 +292,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
         </div>
 
         {/* Extended Data Section: Venues & Support */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
 
           {/* Top Performing Venues */}
           <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
@@ -339,7 +339,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
               <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded">SLA: Green</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center">
                 <p className="text-3xl font-black text-[#00418C]">412</p>
                 <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Tickets Resolved</p>
@@ -367,19 +367,19 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
       {/* Official Government Footer */}
       <footer className="bg-[#1e293b] text-slate-300 mt-16 pt-16 pb-8 border-t-4 border-[#00418C]">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
 
             {/* Branding Column */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
                 <Image src="/favicon.svg" alt="Govt Logo" width={40} height={40} className="brightness-0 invert" />
                 <div>
-                  <h3 className="text-xl font-black text-white uppercase tracking-wider">Gnana Prakash</h3>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Training Management System</p>
+                  <h3 className="text-xl font-black text-white uppercase tracking-wider">TRMS</h3>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Training Resource Management System</p>
                 </div>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed mb-6 max-w-sm">
-                The official portal for monitoring and managing the Year-3 Certificate Course Training for Secondary Grade Teachers (SGTs) across the State of Andhra Pradesh.
+                A comprehensive solution for planning, managing, and monitoring capacity-building programs and training events.
               </p>
               <div className="flex gap-4">
                 <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-[#00418C] hover:text-white transition-colors">
@@ -432,7 +432,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 </li>
                 <li className="flex gap-3 items-center">
                   <Mail className="w-5 h-5 shrink-0 text-[#00418C]" />
-                  <span>support.gnanaprakash@ap.gov.in</span>
+                  <span>support.trms@ap.gov.in</span>
                 </li>
               </ul>
             </div>
@@ -441,7 +441,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
 
           <div className="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500 font-medium text-center md:text-left">
-              © {new Date().getFullYear()} Department of School Education, Government of Andhra Pradesh. All rights reserved.<br />
+              Â© {new Date().getFullYear()} Department of School Education, Government of Andhra Pradesh. All rights reserved.<br />
               Platform designed and maintained by NIC / AP State Technical Team.
             </p>
             <div className="flex gap-6 text-xs font-bold text-slate-500 uppercase tracking-widest">

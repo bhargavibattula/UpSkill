@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Search, MapPin, Users, Wifi, Utensils, BedDouble, MoreHorizontal, Pencil, Trash2, Loader2 } from "lucide-react";
@@ -66,7 +66,7 @@ export default function VenuesClient() {
           <p className="text-sm mt-1">Add a new venue or try a different search</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {data?.data?.map((venue: Record<string, any>) => (
             <Card key={venue._id} className="hover:shadow-md transition-shadow">
               <CardHeader className="pb-3">
@@ -102,7 +102,7 @@ export default function VenuesClient() {
                   {venue.mandal?.name && <Badge variant="outline" className="text-xs">{venue.mandal.name}</Badge>}
                   {venue.accommodation?.isResidential && <Badge variant="info" className="text-xs">Residential</Badge>}
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1.5">
                     <Users className="w-3 h-3" /> Capacity: <span className="font-medium text-foreground">{venue.infrastructure?.capacity || 0}</span>
                   </div>
@@ -131,7 +131,7 @@ export default function VenuesClient() {
       )}
 
       {data && data.totalPages > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="text-sm text-muted-foreground">Showing {data.data?.length} of {data.total} venues</p>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" disabled={page === 1} onClick={() => setPage(p => p - 1)}>Previous</Button>

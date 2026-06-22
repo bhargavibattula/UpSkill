@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/lib/hooks/use-toast";
@@ -112,16 +112,16 @@ export default function ProgramsClient() {
                     <TableCell className="text-sm">{p.trainingYear}</TableCell>
                     <TableCell className="text-sm">
                       {Array.isArray(p.district)
-                        ? p.district.map((d: any) => typeof d === "object" ? d?.name : d).filter(Boolean).join(", ") || "—"
-                        : (p.district?.name || p.district || "—")}
+                        ? p.district.map((d: any) => typeof d === "object" ? d?.name : d).filter(Boolean).join(", ") || "â€”"
+                        : (p.district?.name || p.district || "â€”")}
                     </TableCell>
                     <TableCell className="text-sm">
                       {Array.isArray(p.venue)
-                        ? p.venue.map((v: any) => typeof v === "object" ? v?.name : v).filter(Boolean).join(", ") || "—"
-                        : (p.venue?.name || p.venue || "—")}
+                        ? p.venue.map((v: any) => typeof v === "object" ? v?.name : v).filter(Boolean).join(", ") || "â€”"
+                        : (p.venue?.name || p.venue || "â€”")}
                     </TableCell>
                     <TableCell className="text-xs text-muted-foreground">
-                      {formatDate(p.startDate)} – {formatDate(p.endDate)}
+                      {formatDate(p.startDate)} â€“ {formatDate(p.endDate)}
                     </TableCell>
                     <TableCell className="text-sm font-medium">{p.totalDays}</TableCell>
                     <TableCell>
@@ -155,7 +155,7 @@ export default function ProgramsClient() {
           {data && data.totalPages > 1 && (
             <div className="flex items-center justify-between px-4 py-3 border-t">
               <p className="text-sm text-muted-foreground">
-                Showing {((page - 1) * 10) + 1}–{Math.min(page * 10, data.total)} of {data.total}
+                Showing {((page - 1) * 10) + 1}â€“{Math.min(page * 10, data.total)} of {data.total}
               </p>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" disabled={page === 1} onClick={() => setPage(p => p - 1)}>Previous</Button>

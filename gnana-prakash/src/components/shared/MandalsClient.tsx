@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Search, MapPin, Loader2, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
@@ -90,7 +90,7 @@ export default function MandalsClient() {
                    <TableRow key={m._id}>
                      <TableCell className="font-medium">{m.name}</TableCell>
                      <TableCell className="font-mono text-xs">{m.code}</TableCell>
-                     <TableCell className="text-sm">{m.district?.name || "—"}</TableCell>
+                     <TableCell className="text-sm">{m.district?.name || "â€”"}</TableCell>
                      <TableCell>
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${m.isActive !== false ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${m.isActive !== false ? "bg-emerald-500" : "bg-rose-500"}`} />

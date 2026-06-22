@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { venueSchema, VenueInput } from "@/lib/validations";
@@ -63,7 +63,7 @@ export default function VenueForm({ defaultValues, onSuccess }: VenueFormProps) 
       
       <div>
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Basic Information</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="col-span-2 space-y-1.5">
             <Label>Venue Name *</Label>
             <Input placeholder="e.g. DIET Vijayawada" {...register("name")} />
@@ -109,7 +109,7 @@ export default function VenueForm({ defaultValues, onSuccess }: VenueFormProps) 
 
       <div>
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Infrastructure</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Classrooms</Label>
             <Input type="number" min="0" {...register("infrastructure.classroomsCount", { valueAsNumber: true })} />
@@ -118,7 +118,7 @@ export default function VenueForm({ defaultValues, onSuccess }: VenueFormProps) 
             <Label>Capacity (per day)</Label>
             <Input type="number" min="0" {...register("infrastructure.capacity", { valueAsNumber: true })} />
           </div>
-          <div className="col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { name: "infrastructure.projectors", label: "Projectors" },
               { name: "infrastructure.smartBoards", label: "Smart Boards" },
@@ -138,7 +138,7 @@ export default function VenueForm({ defaultValues, onSuccess }: VenueFormProps) 
 
       <div>
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Accommodation</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="col-span-2">
             <label className="flex items-center gap-2 text-sm cursor-pointer p-3 rounded-lg border hover:bg-muted/50">
               <input type="checkbox" {...register("accommodation.isResidential")} className="rounded" />

@@ -7,7 +7,7 @@ import { QueryProvider } from "@/components/shared/QueryProvider";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "Gnana Prakash TMS", template: "%s | Gnana Prakash TMS" },
+  title: { default: "TRMS", template: "%s | TRMS" },
   description: "Training Management & Monitoring System — Department of School Education, Andhra Pradesh",
   keywords: ["training", "management", "teachers", "government", "Andhra Pradesh"],
   icons: { icon: "/icon.svg" },

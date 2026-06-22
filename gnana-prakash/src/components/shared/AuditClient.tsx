@@ -485,7 +485,7 @@ export default function AuditClient() {
 
         <CardContent className="pt-6 space-y-4">
           {/* Main Filter Inputs */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {/* Search Input */}
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-muted-foreground">Search logs</label>
@@ -710,7 +710,7 @@ export default function AuditClient() {
             {/* Modal Content */}
             <div className="p-6 overflow-y-auto space-y-6">
               {/* Meta Info Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-muted/20 p-4 rounded-lg border border-primary/5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 bg-muted/20 p-4 rounded-lg border border-primary/5">
                 <div>
                   <span className="text-xs text-muted-foreground block">Timestamp</span>
                   <span className="text-sm font-semibold text-foreground">{new Date(selectedLog.createdAt).toLocaleString()}</span>
@@ -730,7 +730,7 @@ export default function AuditClient() {
               </div>
 
               {/* User and Device Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">User Information</h4>
                   <p className="text-sm text-foreground"><strong>Name:</strong> {selectedLog.userName}</p>
@@ -768,8 +768,8 @@ export default function AuditClient() {
                   {diffItems.length === 0 ? (
                     <p className="text-sm text-muted-foreground">No property changes detected or details not logged.</p>
                   ) : (
-                    <div className="border border-primary/10 rounded-lg overflow-hidden">
-                      <table className="w-full text-xs text-left">
+                    <div className="border border-primary/10 rounded-lg overflow-x-auto">
+                      <table className="w-full text-xs text-left min-w-[500px]">
                         <thead className="bg-muted/40 border-b border-primary/10 text-muted-foreground">
                           <tr>
                             <th className="py-2 px-3">Field</th>

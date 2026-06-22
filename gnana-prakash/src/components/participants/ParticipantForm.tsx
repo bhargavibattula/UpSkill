@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { participantSchema, ParticipantInput } from "@/lib/validations";
@@ -77,7 +77,7 @@ export default function ParticipantForm({ defaultValues, onSuccess }: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-destructive text-sm">{error}</div>}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <Label>Employee ID *</Label>
           <Input placeholder="EMP12345" {...register("employeeId")} />

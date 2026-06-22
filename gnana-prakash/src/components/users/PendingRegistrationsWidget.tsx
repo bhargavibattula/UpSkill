@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -71,7 +71,7 @@ export default function PendingRegistrationsWidget() {
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow duration-300">
       <CardHeader className="pb-3 border-b border-border/50 bg-muted/20">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="text-base font-bold flex items-center gap-2">
             <div className="p-1.5 bg-amber-100 dark:bg-amber-900/40 rounded-md text-amber-600 dark:text-amber-400">
               <UserPlus className="w-4 h-4" />
@@ -116,7 +116,7 @@ export default function PendingRegistrationsWidget() {
               <div key={req._id} className="p-4 hover:bg-muted/30 transition-colors flex items-center justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <h4 className="text-sm font-bold truncate text-foreground/90">{req.fullName}</h4>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{req.requestedRole} · {req.email}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{req.requestedRole} Â· {req.email}</p>
                   <div className="flex items-center gap-1 mt-1 text-[10px] text-muted-foreground font-medium">
                     <Clock className="w-3 h-3" />
                     {formatDistanceToNow(new Date(req.submittedAt), { addSuffix: true })}

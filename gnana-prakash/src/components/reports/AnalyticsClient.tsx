@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend, AreaChart, Area } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -151,7 +151,7 @@ export default function AnalyticsClient() {
         </TabsList>
 
         <TabsContent value="attendance" className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-1 sm:grid-cols-2 gap-4">
             <Card>
               <CardHeader className="pb-2"><CardTitle className="text-sm text-muted-foreground font-semibold">Monthly Attendance Trend</CardTitle></CardHeader>
               <CardContent>
@@ -200,7 +200,7 @@ export default function AnalyticsClient() {
                 </Pie>
                 <Tooltip contentStyle={TOOLTIP_STYLE} />
               </PieChart>
-              <div className="grid grid-cols-2 gap-3 flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
                 {categoryDataFinal.map((e: any) => (
                   <div key={e.name} className="flex items-center gap-2 p-3 rounded-xl border">
                     <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: e.color }} />
@@ -244,7 +244,7 @@ export default function AnalyticsClient() {
                   <div key={v.venue} className="space-y-1.5">
                     <div className="flex justify-between text-sm">
                       <span className="font-medium">{v.venue}</span>
-                      <span className="text-muted-foreground">{v.programs} programs · {v.occupancy}% occupancy</span>
+                      <span className="text-muted-foreground">{v.programs} programs Â· {v.occupancy}% occupancy</span>
                     </div>
                     <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                       <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${v.occupancy}%` }} />

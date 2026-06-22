@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { FileText, Download, Loader2, BarChart3, Users, MapPin, UtensilsCrossed, Image, ClipboardList, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -144,7 +144,7 @@ export default function ReportsClient() {
           <CardTitle className="text-sm font-semibold">Report Filters</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">Program</label>
               <select className="flex h-9 w-full rounded-lg border border-input bg-background px-3 text-sm"
@@ -180,7 +180,7 @@ export default function ReportsClient() {
       </Card>
 
       {/* Report Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {REPORT_TYPES.map(({ id, label, icon: Icon, color, bg, desc }) => (
           <Card key={id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-5">
@@ -242,7 +242,7 @@ export default function ReportsClient() {
                 onClick={() => setPreviewData(null)}
                 className="h-8 w-8 p-0 rounded-full"
               >
-                ✕
+                âœ•
               </Button>
             </CardHeader>
             <CardContent className="flex-1 overflow-auto p-6">

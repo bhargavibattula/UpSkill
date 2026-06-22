@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -279,7 +279,7 @@ export default function AttendanceClient() {
 
   // Helper to format days range
   const getDayDateLabel = (dayIdx: number) => {
-    if (!selectedProgram) return "—";
+    if (!selectedProgram) return "â€”";
     const baseDate = new Date(selectedProgram.startDate);
     baseDate.setDate(baseDate.getDate() + dayIdx);
     return baseDate.toLocaleDateString("en-GB", {
@@ -463,14 +463,14 @@ export default function AttendanceClient() {
                                   onClick={() => setAllStatusForDay(idx + 1, "PRESENT")}
                                   className="text-[9px] px-1 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 rounded font-extrabold"
                                 >
-                                  ✔ All
+                                  âœ” All
                                 </button>
                                 <button 
                                   title="Mark all absent for this day"
                                   onClick={() => setAllStatusForDay(idx + 1, "ABSENT")}
                                   className="text-[9px] px-1 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 rounded font-extrabold"
                                 >
-                                  ✖ All
+                                  âœ– All
                                 </button>
                               </div>
                             </div>

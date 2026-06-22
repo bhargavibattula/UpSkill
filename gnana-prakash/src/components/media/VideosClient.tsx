@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useCallback, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useDropzone } from "react-dropzone";
@@ -124,7 +124,7 @@ export default function VideosClient() {
       {isLoading ? (
         <div className="flex justify-center h-40 items-center"><Loader2 className="w-6 h-6 animate-spin text-brand-600" /></div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {data?.data?.map((video: Record<string, any>) => (
             <div key={video._id} className="rounded-xl border bg-card overflow-hidden hover:shadow-md transition-shadow">
               <div className="aspect-video bg-slate-900 flex items-center justify-center relative">
