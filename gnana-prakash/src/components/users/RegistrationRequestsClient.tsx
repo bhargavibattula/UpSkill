@@ -158,8 +158,7 @@ export default function RegistrationRequestsClient() {
                   onChange={(e) => { setSearch(e.target.value); setPage(1); }} 
                 />
               </div>
-              <select 
-                className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+              <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={status} 
                 onChange={(e) => { setStatus(e.target.value); setPage(1); }}
               >
@@ -168,8 +167,7 @@ export default function RegistrationRequestsClient() {
                 <option value="APPROVED">Approved</option>
                 <option value="REJECTED">Rejected</option>
               </select>
-              <select 
-                className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+              <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={role} 
                 onChange={(e) => { setRole(e.target.value); setPage(1); }}
               >

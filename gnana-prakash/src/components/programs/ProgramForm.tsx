@@ -152,7 +152,7 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
         </div>
         <div className="space-y-1.5">
           <Label>Department *</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("department")}>
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("department")}>
             <option value="">Select Department</option>
             {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
@@ -273,7 +273,7 @@ export default function ProgramForm({ defaultValues, onSuccess }: ProgramFormPro
         </div>
         <div className="space-y-1.5">
           <Label>Status</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("status")}>
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("status")}>
             <option value="DRAFT">Draft</option>
             <option value="ACTIVE">Active</option>
             <option value="COMPLETED">Completed</option>

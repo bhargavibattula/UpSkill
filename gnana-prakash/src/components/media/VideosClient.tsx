@@ -87,7 +87,7 @@ export default function VideosClient() {
               value={uploadData.title} onChange={e => setUploadData(p => ({ ...p, title: e.target.value }))} />
             <input placeholder="Program ID (optional)" className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
               value={uploadData.program} onChange={e => setUploadData(p => ({ ...p, program: e.target.value }))} />
-            <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+            <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
               value={uploadData.category} onChange={e => setUploadData(p => ({ ...p, category: e.target.value }))}>
               {VIDEO_CATEGORIES.map(c => <option key={c} value={c}>{c.replace("_", " ")}</option>)}
             </select>
@@ -111,7 +111,7 @@ export default function VideosClient() {
       </Card>
 
       <div className="flex items-center gap-3">
-        <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+        <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
           value={status} onChange={e => setStatus(e.target.value)}>
           <option value="">All Status</option>
           <option value="PENDING">Pending</option>

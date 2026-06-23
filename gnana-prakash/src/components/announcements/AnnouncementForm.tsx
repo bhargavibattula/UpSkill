@@ -99,8 +99,7 @@ export default function AnnouncementForm({ defaultValues, onSuccess }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <Label>Priority *</Label>
-          <select 
-            className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" 
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" 
             {...register("priority", { required: "Priority is required" })}
           >
             <option value="INFO">Info (Sky Blue)</option>

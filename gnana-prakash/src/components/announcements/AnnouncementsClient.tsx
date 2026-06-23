@@ -150,8 +150,7 @@ export default function AnnouncementsClient() {
                   onChange={(e) => { setSearch(e.target.value); setPage(1); }} 
                 />
               </div>
-              <select 
-                className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+              <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={priority} 
                 onChange={(e) => { setPriority(e.target.value); setPage(1); }}
               >

@@ -147,7 +147,7 @@ export default function ReportsClient() {
           <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">Program</label>
-              <select className="flex h-9 w-full rounded-lg border border-input bg-background px-3 text-sm"
+              <select className="flex h-9 w-full rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={filters.programId} onChange={e => setFilters(p => ({ ...p, programId: e.target.value }))}>
                 <option value="">All Programs</option>
                 {programs?.data?.map((p: any) => (
@@ -157,7 +157,7 @@ export default function ReportsClient() {
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">District</label>
-              <select className="flex h-9 w-full rounded-lg border border-input bg-background px-3 text-sm"
+              <select className="flex h-9 w-full rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={filters.district} onChange={e => setFilters(p => ({ ...p, district: e.target.value }))}>
                 <option value="">All Districts</option>
                 {districts?.map((d: any) => (

@@ -104,7 +104,7 @@ export default function ParticipantForm({ defaultValues, onSuccess }: Props) {
         </div>
         <div className="space-y-1.5">
           <Label>Category *</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("category")}>
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("category")}>
             <option value="">Select category</option>
             {Object.entries(groupedCategories).map(([group, cats]) => (
               <optgroup key={group} label={group}>
@@ -120,7 +120,7 @@ export default function ParticipantForm({ defaultValues, onSuccess }: Props) {
         </div>
         <div className="space-y-1.5">
           <Label>District *</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("district")} onChange={(e) => { register("district").onChange(e); setSelectedDistrict(e.target.value); setSelectedMandal(""); }}>
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("district")} onChange={(e) => { register("district").onChange(e); setSelectedDistrict(e.target.value); setSelectedMandal(""); }}>
             <option value="">Select District</option>
             {districts?.map((d: any) => <option key={d._id} value={d._id}>{d.name}</option>)}
           </select>
@@ -128,14 +128,14 @@ export default function ParticipantForm({ defaultValues, onSuccess }: Props) {
         </div>
         <div className="space-y-1.5">
           <Label>Mandal</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("mandal")} disabled={!selectedDistrict || isLoadingMandals} onChange={(e) => { register("mandal").onChange(e); setSelectedMandal(e.target.value); }}>
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("mandal")} disabled={!selectedDistrict || isLoadingMandals} onChange={(e) => { register("mandal").onChange(e); setSelectedMandal(e.target.value); }}>
             <option value="">Select Mandal</option>
             {mandals?.map((m: any) => <option key={m._id} value={m._id}>{m.name}</option>)}
           </select>
         </div>
         <div className="space-y-1.5">
           <Label>Program *</Label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("program")} disabled={isLoadingPrograms}>
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("program")} disabled={isLoadingPrograms}>
             <option value="">Select Program</option>
             {programs?.data?.map((p: any) => <option key={p._id} value={p._id}>{p.programName}</option>)}
           </select>

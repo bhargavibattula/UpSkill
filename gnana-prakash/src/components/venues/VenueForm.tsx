@@ -76,7 +76,7 @@ export default function VenueForm({ defaultValues, onSuccess }: VenueFormProps) 
           </div>
           <div className="space-y-1.5">
             <Label>District *</Label>
-            <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("district")} onChange={(e) => { register("district").onChange(e); setSelectedDistrict(e.target.value); }}>
+            <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("district")} onChange={(e) => { register("district").onChange(e); setSelectedDistrict(e.target.value); }}>
               <option value="">Select District</option>
               {districts?.map((d: any) => <option key={d._id} value={d._id}>{d.name}</option>)}
             </select>
@@ -84,7 +84,7 @@ export default function VenueForm({ defaultValues, onSuccess }: VenueFormProps) 
           </div>
           <div className="space-y-1.5">
             <Label>Mandal *</Label>
-            <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" {...register("mandal")} disabled={!selectedDistrict || isLoadingMandals}>
+            <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" {...register("mandal")} disabled={!selectedDistrict || isLoadingMandals}>
               <option value="">Select Mandal</option>
               {mandals?.map((m: any) => <option key={m._id} value={m._id}>{m.name}</option>)}
             </select>

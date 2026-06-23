@@ -77,8 +77,7 @@ export default function FoodClient() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <CardTitle className="text-base">Food Record Entry</CardTitle>
             <div className="flex items-center gap-2 flex-wrap">
-              <select
-                className="flex h-9 w-48 rounded-lg border border-input bg-background px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+              <select className="flex h-9 w-48 rounded-lg border border-input bg-background px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-ring dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={programId}
                 onChange={e => setProgramId(e.target.value)}
                 disabled={isLoadingPrograms}

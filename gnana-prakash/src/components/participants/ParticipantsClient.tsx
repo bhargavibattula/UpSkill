@@ -63,7 +63,7 @@ export default function ParticipantsClient() {
                 <Input placeholder="Search by name or ID..." className="pl-9 h-9 w-56 text-sm"
                   value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
               </div>
-              <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+              <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option value="">All Categories</option>
                 {PARTICIPANT_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
