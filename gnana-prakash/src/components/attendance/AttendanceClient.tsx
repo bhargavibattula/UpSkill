@@ -318,11 +318,11 @@ export default function AttendanceClient() {
       `}</style>
 
       {/* Program Selector */}
-      <Card className="border-slate-100 shadow-sm no-print">
+      <Card className="border-slate-100 shadow-sm no-print dark:border-slate-800">
         <CardHeader className="pb-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <CardTitle className="text-lg font-bold text-slate-900">Training Program Roll Call</CardTitle>
+              <CardTitle className="text-lg font-bold text-slate-900 dark:text-slate-100">Training Program Roll Call</CardTitle>
               <CardDescription>Select a program to take name-based student attendance and view aggregate summaries</CardDescription>
             </div>
             <select className="flex h-10 w-full sm:w-80 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
@@ -342,7 +342,7 @@ export default function AttendanceClient() {
       </Card>
 
       {!programId ? (
-        <div className="flex flex-col items-center justify-center h-72 border border-dashed rounded-3xl bg-white text-muted-foreground p-6 no-print">
+        <div className="flex flex-col items-center justify-center h-72 border border-dashed rounded-3xl bg-white text-muted-foreground p-6 no-print dark:bg-slate-900 dark:text-slate-100">
           <ClipboardList className="w-12 h-12 mb-3 opacity-20 text-brand-600" />
           <p className="font-semibold text-slate-700">No Program Selected</p>
           <p className="text-xs text-slate-500 mt-1 max-w-sm text-center">
@@ -353,10 +353,10 @@ export default function AttendanceClient() {
         <div className="space-y-8">
 
           {/* 1. INDIVIDUAL STUDENT CHECKLIST AND ATTENDANCE MARKING */}
-          <Card className="border-slate-100 shadow-sm no-print">
+          <Card className="border-slate-100 shadow-sm no-print dark:border-slate-800">
             <CardHeader className="pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-50 bg-slate-50/50">
               <div>
-                <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2 dark:text-slate-100">
                   <Users className="w-5 h-5 text-brand-600" />
                   Participant Attendance Matrix (Name-based Roll Call)
                 </CardTitle>
@@ -370,7 +370,7 @@ export default function AttendanceClient() {
                   size="sm" 
                   variant="outline" 
                   onClick={() => setShowAddParticipant(!showAddParticipant)}
-                  className="gap-1.5 font-semibold text-slate-700 border-slate-200"
+                  className="gap-1.5 font-semibold text-slate-700 border-slate-200 dark:border-slate-700"
                 >
                   <UserPlus className="w-4 h-4 text-brand-600" /> Add Participant
                 </Button>
@@ -380,7 +380,7 @@ export default function AttendanceClient() {
             <CardContent className="pt-6 space-y-4">
               {/* Add Participant Form */}
               {showAddParticipant && (
-                <form onSubmit={handleAddParticipant} className="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                <form onSubmit={handleAddParticipant} className="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
                   <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Register & Enroll Participant</h3>
                   {addError && <p className="text-xs text-rose-600 font-semibold">{addError}</p>}
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
@@ -437,21 +437,21 @@ export default function AttendanceClient() {
               {isLoadingDetailed ? (
                 <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-brand-600" /></div>
               ) : !detailedData?.participants?.length ? (
-                <div className="text-center py-10 text-muted-foreground bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+                <div className="text-center py-10 text-muted-foreground bg-slate-50/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
                   <Users className="w-8 h-8 mx-auto opacity-10 mb-2" />
                   <p className="font-semibold text-slate-700">No Participants Registered</p>
                   <p className="text-xs text-slate-500 mt-0.5">Please add participants to take daily roll call.</p>
                 </div>
               ) : (
-                <div className="overflow-x-auto border border-slate-200 rounded-xl bg-white shadow-inner">
+                <div className="overflow-x-auto border border-slate-200 rounded-xl bg-white shadow-inner dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
                   <Table className="text-xs">
-                    <TableHeader className="bg-slate-50 font-bold text-slate-700 border-b border-slate-200">
+                    <TableHeader className="bg-slate-50 font-bold text-slate-700 border-b border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
                       <TableRow>
                         <TableHead className="w-12 text-center">S.No</TableHead>
                         <TableHead className="min-w-44">Name / ID</TableHead>
                         <TableHead className="w-40">Category / Role</TableHead>
                         {Array.from({ length: totalDays }).map((_, idx) => (
-                          <TableHead key={idx} className="text-center w-24 border-l border-slate-200">
+                          <TableHead key={idx} className="text-center w-24 border-l border-slate-200 dark:border-slate-700">
                             <div>
                               <p className="font-bold">Day {idx + 1}</p>
                               <p className="text-[10px] text-slate-400 font-medium">{getDayDateLabel(idx)}</p>
@@ -474,9 +474,9 @@ export default function AttendanceClient() {
                             </div>
                           </TableHead>
                         ))}
-                        <th className="text-center w-16 border-l border-slate-200 font-bold p-3 text-slate-700">Total</th>
-                        <th className="text-center w-16 border-l border-slate-200 font-bold p-3 text-slate-700">%</th>
-                        <th className="w-12 text-center border-l border-slate-200"></th>
+                        <th className="text-center w-16 border-l border-slate-200 font-bold p-3 text-slate-700 dark:border-slate-700">Total</th>
+                        <th className="text-center w-16 border-l border-slate-200 font-bold p-3 text-slate-700 dark:border-slate-700">%</th>
+                        <th className="w-12 text-center border-l border-slate-200 dark:border-slate-700"></th>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -495,7 +495,7 @@ export default function AttendanceClient() {
                             <TableCell className="text-center font-bold text-slate-500">{idx + 1}</TableCell>
                             <TableCell className="py-2.5">
                               <div>
-                                <p className="font-semibold text-slate-800 text-sm leading-snug">{p.name}</p>
+                                <p className="font-semibold text-slate-800 text-sm leading-snug dark:text-slate-200">{p.name}</p>
                                 <p className="text-[10px] text-brand-600 font-mono font-bold leading-none mt-0.5">{p.employeeId}</p>
                               </div>
                             </TableCell>
@@ -536,7 +536,7 @@ export default function AttendanceClient() {
                             })}
 
                             {/* Stats */}
-                            <td className="text-center border-l border-slate-200 font-bold bg-slate-50/50 p-2 text-slate-800">
+                            <td className="text-center border-l border-slate-200 font-bold bg-slate-50/50 p-2 text-slate-800 dark:border-slate-700 dark:text-slate-200">
                               {presentCount}
                             </td>
                             <td className={`text-center border-l border-slate-200 font-extrabold p-2 ${
@@ -545,7 +545,7 @@ export default function AttendanceClient() {
                               {attendancePct}%
                             </td>
 
-                            <TableCell className="text-center border-l border-slate-200 py-1">
+                            <TableCell className="text-center border-l border-slate-200 py-1 dark:border-slate-700">
                               <button 
                                 onClick={() => handleDeleteParticipant(p._id)}
                                 className="text-slate-400 hover:text-rose-600 transition-colors p-1"
@@ -564,7 +564,7 @@ export default function AttendanceClient() {
 
               {/* Action buttons */}
               {detailedData?.participants?.length > 0 && (
-                <div className="flex justify-end gap-3 pt-3 border-t border-slate-100">
+                <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                   <Button
                     type="button"
                     onClick={() => saveAllAttendanceMutation.mutate()}
@@ -584,8 +584,8 @@ export default function AttendanceClient() {
           </Card>
 
           {/* 2. OFFICIAL SUMMARY SHEET PREVIEW */}
-          <div className="no-print flex justify-between items-center max-w-5xl mx-auto pt-2 border-t border-slate-100">
-            <h2 className="text-base font-bold text-slate-800 flex items-center gap-2">
+          <div className="no-print flex justify-between items-center max-w-5xl mx-auto pt-2 border-t border-slate-100 dark:border-slate-800">
+            <h2 className="text-base font-bold text-slate-800 flex items-center gap-2 dark:text-slate-200">
               <FileText className="w-5 h-5 text-brand-600" />
               Official Attendance Summary (Print Preview)
             </h2>
@@ -593,13 +593,13 @@ export default function AttendanceClient() {
               onClick={() => window.print()} 
               size="sm" 
               variant="outline" 
-              className="gap-2 text-slate-700 border-slate-200 font-semibold shadow-sm hover:bg-slate-50"
+              className="gap-2 text-slate-700 border-slate-200 font-semibold shadow-sm hover:bg-slate-50 dark:border-slate-700"
             >
               <Printer className="w-4 h-4" /> Print PDF Ledger
             </Button>
           </div>
 
-          <div id="official-sheet" className="bg-white border-2 border-black p-8 rounded-none text-black font-sans shadow-lg max-w-5xl mx-auto">
+          <div id="official-sheet" className="bg-white border-2 border-black p-8 rounded-none text-black font-sans shadow-lg max-w-5xl mx-auto dark:bg-slate-900 dark:text-slate-100">
             {/* Header Title */}
             <div className="text-center space-y-2 border-b-2 border-black pb-4">
               <h1 className="text-sm sm:text-base font-bold uppercase tracking-wide">
@@ -666,14 +666,14 @@ export default function AttendanceClient() {
                       <tr key={dayNum} className="divide-x-2 divide-black">
                         <td className="p-3.5 font-bold">{dayNum}</td>
                         <td className="p-3.5 text-left font-semibold">Day - {dayNum} <br /> {formattedDate}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.sgt}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.krp}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.drp}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.deoStaff}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.ssStaff}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.meo}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.hm}</td>
-                        <td className="p-3.5 font-bold text-slate-800">{counts.crp}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.sgt}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.krp}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.drp}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.deoStaff}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.ssStaff}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.meo}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.hm}</td>
+                        <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">{counts.crp}</td>
                         <td className="p-3.5 font-extrabold bg-slate-50/50">{counts.total}</td>
                         <td className="p-3.5"></td>
                       </tr>
@@ -681,7 +681,7 @@ export default function AttendanceClient() {
                   })}
 
                   {/* Totals Summary Row */}
-                  <tr className="divide-x-2 divide-black bg-slate-50 font-extrabold border-t-2 border-black">
+                  <tr className="divide-x-2 divide-black bg-slate-50 font-extrabold border-t-2 border-black dark:bg-slate-900 dark:text-slate-100">
                     <td colSpan={2} className="p-4 text-center uppercase tracking-wider text-xs">Total Number</td>
                     <td className="p-4">{grand.sgtTotal}</td>
                     <td className="p-4">{grand.krpTotal}</td>

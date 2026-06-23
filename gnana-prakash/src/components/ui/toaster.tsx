@@ -14,7 +14,7 @@ export function Toaster() {
         return (
           <div
             key={t.id}
-            className="pointer-events-auto relative bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-[slideDown_0.3s_ease-out]"
+            className="pointer-events-auto relative bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-[slideDown_0.3s_ease-out] dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
           >
             <div className="flex items-center gap-3 px-4 py-3">
               {isError ? (
@@ -23,7 +23,7 @@ export function Toaster() {
                 <CheckCircle className="w-6 h-6 flex-shrink-0" fill="#22c55e" stroke="white" />
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-800 leading-snug">{t.title}</p>
+                <p className="text-sm font-medium text-slate-800 leading-snug dark:text-slate-200">{t.title}</p>
                 {t.description && (
                   <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{t.description}</p>
                 )}

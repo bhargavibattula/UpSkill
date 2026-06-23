@@ -727,7 +727,7 @@ export default function AuditClient() {
               </div>
 
               {/* User and Device Section */}
-              <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="space-y-1">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">User Information</h4>
                   <p className="text-sm text-foreground"><strong>Name:</strong> {selectedLog.userName}</p>

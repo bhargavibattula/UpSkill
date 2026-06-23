@@ -175,9 +175,9 @@ export default function FoodClient() {
               No food records saved yet for this program.
             </div>
           ) : (
-            <div className="overflow-x-auto border rounded-xl bg-white shadow-sm">
+            <div className="overflow-x-auto border rounded-xl bg-white shadow-sm dark:bg-slate-900 dark:text-slate-100">
               <Table className="text-xs">
-                <TableHeader className="bg-slate-50 border-b">
+                <TableHeader className="bg-slate-50 border-b dark:bg-slate-900 dark:text-slate-100">
                   <TableRow>
                     <TableHead className="w-24 font-bold text-slate-700">Date</TableHead>
                     {MEALS.map(m => (
@@ -199,7 +199,7 @@ export default function FoodClient() {
                     );
                     return (
                       <TableRow key={record._id} className="hover:bg-slate-50/50">
-                        <TableCell className="font-semibold text-slate-800">
+                        <TableCell className="font-semibold text-slate-800 dark:text-slate-200">
                           {formatDate(record.date)}
                         </TableCell>
                         {MEALS.map(m => {

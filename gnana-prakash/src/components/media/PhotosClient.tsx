@@ -386,7 +386,7 @@ export default function PhotosClient() {
   return (
     <div className="space-y-6">
       {/* Tabs Selection */}
-      <div className="flex border-b border-slate-200 gap-1 bg-slate-50/50 p-1 rounded-xl">
+      <div className="flex border-b border-slate-200 gap-1 bg-slate-50/50 p-1 rounded-xl dark:border-slate-700">
         <button
           onClick={() => setActiveTab("gallery")}
           className={`flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold transition-all ${activeTab === "gallery"
@@ -431,7 +431,7 @@ export default function PhotosClient() {
       {activeTab === "gallery" && (
         <div className="space-y-6">
           {/* Filters Card */}
-          <Card className="border-slate-100 shadow-sm">
+          <Card className="border-slate-100 shadow-sm dark:border-slate-800">
             <CardContent className="p-4 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                 {/* Search Bar */}
@@ -470,9 +470,9 @@ export default function PhotosClient() {
                 </select>
 
                 {/* Sorting */}
-                <div className="flex border rounded-md items-center bg-white px-2.5">
+                <div className="flex border rounded-md items-center bg-white px-2.5 dark:bg-slate-900 dark:text-slate-100">
                   <ArrowUpDown className="w-3.5 h-3.5 text-slate-400 mr-2" />
-                  <select className="h-8 w-full border-0 bg-transparent text-slate-900 dark:text-slate-100 text-xs focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
+                  <select className="h-8 w-full border-0 bg-transparent text-slate-900 dark:text-slate-100 text-xs focus:outline-none bg-white dark:bg-slate-900 dark:border-slate-700"
                     value={sortOrder}
                     onChange={(e) => setSortOrder(e.target.value as "latest" | "oldest")}
                   >
@@ -488,7 +488,7 @@ export default function PhotosClient() {
           {isLoadingApproved ? (
             <div className="flex justify-center py-20"><Loader2 className="w-10 h-10 animate-spin text-brand-600" /></div>
           ) : !approvedPhotos?.data?.length ? (
-            <Card className="border-slate-100 shadow-sm">
+            <Card className="border-slate-100 shadow-sm dark:border-slate-800">
               <CardContent className="flex flex-col items-center justify-center py-16 text-slate-500">
                 <ImageIcon className="w-12 h-12 mb-3 opacity-20 text-brand-600" />
                 <p className="font-semibold text-slate-700">No Images Available</p>
@@ -498,12 +498,12 @@ export default function PhotosClient() {
               </CardContent>
             </Card>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {approvedPhotos.data.map((photo: any) => (
                 <div
                   key={photo._id}
                   onClick={() => { setSelectedPhoto(photo); setIsEditing(false); }}
-                  className="group relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 aspect-square shadow-sm hover:shadow-md cursor-pointer transition-all hover:-translate-y-0.5"
+                  className="group relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 aspect-square shadow-sm hover:shadow-md cursor-pointer transition-all hover:-translate-y-0.5 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800"
                 >
                   <img src={photo.image || photo.url} alt={photo.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3.5 text-white">
@@ -520,9 +520,9 @@ export default function PhotosClient() {
 
       {/* UPLOAD REQUEST FORM TAB */}
       {activeTab === "upload" && isAllowedToUpload && (
-        <Card className="border-slate-100 shadow-sm max-w-2xl mx-auto">
+        <Card className="border-slate-100 shadow-sm max-w-2xl mx-auto dark:border-slate-800">
           <CardHeader>
-            <CardTitle className="text-base font-bold text-slate-900">
+            <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100">
               {isSuperAdmin ? "Direct Gallery Upload" : "Request Image Upload"}
             </CardTitle>
             <CardDescription>
@@ -551,7 +551,7 @@ export default function PhotosClient() {
               {/* File Dropzone */}
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-slate-200 hover:border-brand-500 rounded-2xl p-6 text-center cursor-pointer transition-colors hover:bg-slate-50/50 flex flex-col items-center justify-center gap-2"
+                className="border-2 border-dashed border-slate-200 hover:border-brand-500 rounded-2xl p-6 text-center cursor-pointer transition-colors hover:bg-slate-50/50 flex flex-col items-center justify-center gap-2 dark:border-slate-700"
               >
                 <input
                   type="file"
@@ -686,14 +686,14 @@ export default function PhotosClient() {
         <div className="space-y-8">
           {/* Pending Reviews */}
           <div className="space-y-4">
-            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-1.5 border-b pb-2">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-1.5 border-b pb-2 dark:text-slate-100">
               <span className="w-2 h-2 rounded-full bg-amber-500"></span> Pending Reviews ({pendingPhotos?.total || 0})
             </h2>
 
             {isLoadingPending ? (
               <div className="flex justify-center py-10"><Loader2 className="w-8 h-8 animate-spin text-brand-600" /></div>
             ) : !pendingPhotos?.data?.length ? (
-              <Card className="border-slate-100 shadow-sm">
+              <Card className="border-slate-100 shadow-sm dark:border-slate-800">
                 <CardContent className="flex flex-col items-center justify-center py-10 text-slate-500">
                   <CheckCircle className="w-10 h-10 mb-2.5 opacity-20 text-emerald-600" />
                   <p className="font-semibold text-slate-700 text-xs">No Pending Requests</p>
@@ -701,10 +701,10 @@ export default function PhotosClient() {
                 </CardContent>
               </Card>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 {pendingPhotos.data.map((photo: any) => (
-                  <Card key={photo._id} className="border-slate-100 shadow-sm overflow-hidden flex flex-col">
-                    <div className="relative h-56 bg-slate-50 border-b border-slate-100">
+                  <Card key={photo._id} className="border-slate-100 shadow-sm overflow-hidden flex flex-col dark:border-slate-800">
+                    <div className="relative h-56 bg-slate-50 border-b border-slate-100 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
                       <img src={photo.image || photo.url} alt={photo.title} className="w-full h-full object-contain" />
                       <Badge className="absolute top-3 right-3 bg-amber-600 text-white font-bold text-[9px] uppercase tracking-wider">
                         Pending Approval
@@ -717,7 +717,7 @@ export default function PhotosClient() {
                           <Badge variant="outline" className="text-[9px] font-bold text-brand-600 uppercase border-brand-200">
                             {photo.category}
                           </Badge>
-                          <h3 className="font-bold text-sm text-slate-900 leading-snug mt-1">{photo.title || "Image File"}</h3>
+                          <h3 className="font-bold text-sm text-slate-900 leading-snug mt-1 dark:text-slate-100">{photo.title || "Image File"}</h3>
                           <p className="text-xs text-slate-500 mt-1">{photo.description || "No description provided."}</p>
                         </div>
 
@@ -742,7 +742,7 @@ export default function PhotosClient() {
 
                         {/* Event Date & Notes */}
                         {(photo.eventDate || photo.additionalNotes) && (
-                          <div className="bg-slate-50 p-2.5 rounded-lg text-xs space-y-1">
+                          <div className="bg-slate-50 p-2.5 rounded-lg text-xs space-y-1 dark:bg-slate-900 dark:text-slate-100">
                             {photo.eventDate && (
                               <p className="text-[10px] text-slate-600">
                                 <strong>Event Date:</strong> {formatDate(photo.eventDate)}
@@ -770,7 +770,7 @@ export default function PhotosClient() {
                         </div>
                       </div>
 
-                      <div className="flex gap-3 pt-3 border-t border-slate-100">
+                      <div className="flex gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                         <Button
                           size="sm"
                           disabled={actionMutation.isPending}
@@ -811,7 +811,7 @@ export default function PhotosClient() {
 
           {/* Rejected List (Super Admin visibility) */}
           <div className="space-y-4 pt-4">
-            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-1.5 border-b pb-2">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-1.5 border-b pb-2 dark:text-slate-100">
               <span className="w-2 h-2 rounded-full bg-rose-500"></span> Rejected Requests ({rejectedPhotos?.total || 0})
             </h2>
 
@@ -825,7 +825,7 @@ export default function PhotosClient() {
                   <div
                     key={photo._id}
                     onClick={() => { setSelectedPhoto(photo); setIsEditing(false); }}
-                    className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-50 aspect-square cursor-pointer hover:shadow"
+                    className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-50 aspect-square cursor-pointer hover:shadow dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
                   >
                     <img src={photo.image || photo.url} alt={photo.title} className="w-full h-full object-cover grayscale opacity-70" />
                     <div className="absolute inset-0 bg-black/60 flex flex-col justify-end p-2 text-white">
@@ -855,7 +855,7 @@ export default function PhotosClient() {
               </div>
 
               {/* Details Pane */}
-              <div className="md:w-[45%] p-6 flex flex-col justify-between space-y-6 bg-white overflow-y-auto max-h-[500px]">
+              <div className="md:w-[45%] p-6 flex flex-col justify-between space-y-6 bg-white overflow-y-auto max-h-[500px] dark:bg-slate-900 dark:text-slate-100">
                 {!isEditing ? (
                   <div className="space-y-4">
                     <div className="space-y-1.5">
@@ -863,7 +863,7 @@ export default function PhotosClient() {
                         <Badge className="bg-brand-600 text-white font-bold text-[9px] uppercase tracking-wider">
                           {selectedPhoto.category}
                         </Badge>
-                        <Badge variant="outline" className="text-[9px] font-bold text-slate-500 border-slate-200">
+                        <Badge variant="outline" className="text-[9px] font-bold text-slate-500 border-slate-200 dark:border-slate-700">
                           {selectedPhoto.platform}
                         </Badge>
                         <Badge
@@ -879,7 +879,7 @@ export default function PhotosClient() {
                         </Badge>
                       </div>
 
-                      <DialogTitle className="text-base font-bold text-slate-900 leading-snug">
+                      <DialogTitle className="text-base font-bold text-slate-900 leading-snug dark:text-slate-100">
                         {selectedPhoto.title || selectedPhoto.filename || "Image View"}
                       </DialogTitle>
 
@@ -889,7 +889,7 @@ export default function PhotosClient() {
                     </div>
 
                     {/* Metadata Table */}
-                    <div className="space-y-3.5 border-t border-slate-100 pt-4 text-xs">
+                    <div className="space-y-3.5 border-t border-slate-100 pt-4 text-xs dark:border-slate-800">
                       <div>
                         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Program Link</p>
                         <p className="font-semibold text-slate-700 leading-snug">{selectedPhoto.programName}</p>
@@ -914,7 +914,7 @@ export default function PhotosClient() {
                       </div>
 
                       {selectedPhoto.status === "Approved" && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-2 rounded-lg">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-2 rounded-lg dark:bg-slate-900 dark:text-slate-100">
                           <div>
                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Approved By</p>
                             <p className="font-semibold text-emerald-700 truncate">{selectedPhoto.approvedBy?.name || "Super Admin"}</p>
@@ -934,7 +934,7 @@ export default function PhotosClient() {
                       )}
 
                       {selectedPhoto.additionalNotes && (
-                        <div className="bg-slate-50 p-2.5 rounded-lg">
+                        <div className="bg-slate-50 p-2.5 rounded-lg dark:bg-slate-900 dark:text-slate-100">
                           <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Additional Notes</p>
                           <p className="text-slate-600 text-[10px] mt-0.5">{selectedPhoto.additionalNotes}</p>
                         </div>
@@ -943,12 +943,12 @@ export default function PhotosClient() {
 
                     {/* Metadata Editing and Deletion controls for Super Admin */}
                     {isSuperAdmin && (
-                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between dark:border-slate-800">
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={startEditing}
-                          className="text-xs gap-1.5 h-8 font-bold border-slate-200"
+                          className="text-xs gap-1.5 h-8 font-bold border-slate-200 dark:border-slate-700"
                         >
                           <Edit3 className="w-3.5 h-3.5" /> Edit Metadata
                         </Button>
@@ -968,7 +968,7 @@ export default function PhotosClient() {
                   // Super Admin Metadata Editor View
                   <div className="space-y-4">
                     <div className="flex items-center justify-between pb-2 border-b">
-                      <h3 className="font-bold text-sm text-slate-900">Edit Image Metadata</h3>
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100">Edit Image Metadata</h3>
                       <button onClick={() => setIsEditing(false)} className="text-slate-400 hover:text-slate-600">
                         <X className="w-4 h-4" />
                       </button>
@@ -1090,7 +1090,7 @@ export default function PhotosClient() {
       <Dialog open={!!photoToDelete} onOpenChange={(open) => !open && setPhotoToDelete(null)}>
         <DialogContent className="max-w-sm rounded-xl p-6">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-slate-900 text-center">Delete Photo?</DialogTitle>
+            <DialogTitle className="text-xl font-bold text-slate-900 text-center dark:text-slate-100">Delete Photo?</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col items-center justify-center py-4">
             <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mb-4">
@@ -1129,7 +1129,7 @@ export default function PhotosClient() {
           return (
             <div
               key={toast.id}
-              className="pointer-events-auto relative bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-[slideDown_0.3s_ease-out]"
+              className="pointer-events-auto relative bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden animate-[slideDown_0.3s_ease-out] dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
             >
               <div className="flex items-center gap-3 px-4 py-3">
                 {isError ? (
@@ -1138,7 +1138,7 @@ export default function PhotosClient() {
                   <CheckCircle className="w-6 h-6 flex-shrink-0" fill="#22c55e" stroke="white" />
                 )}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-slate-800 leading-snug">{toast.title}</p>
+                  <p className="text-sm font-medium text-slate-800 leading-snug dark:text-slate-200">{toast.title}</p>
                   {toast.description && (
                     <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{toast.description}</p>
                   )}

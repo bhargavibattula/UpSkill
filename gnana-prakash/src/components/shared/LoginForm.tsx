@@ -183,14 +183,14 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-200/50 border border-slate-100 w-full">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-200/50 border border-slate-100 w-full dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
       {mode === "login" && (
         <>
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-50 shadow-sm border border-brand-100 mb-4">
               <GraduationCap className="w-6 h-6 text-brand-600" />
             </div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Welcome Back</h1>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight dark:text-slate-100">Welcome Back</h1>
             <p className="text-slate-500 text-sm mt-1">Sign in to your official portal</p>
           </div>
 
@@ -201,7 +201,7 @@ export default function LoginForm() {
             <div className="space-y-2">
               <Label htmlFor="email" className="text-slate-700 text-sm font-semibold">Official Email</Label>
               <Input id="email" type="email" placeholder="your.name@gnana.edu.in" autoComplete="email"
-                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 transition-all duration-200"
+                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 transition-all duration-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
                 {...register("email")} />
               {errors.email && <p className="text-rose-500 text-xs mt-1">{errors.email.message}</p>}
             </div>
@@ -216,7 +216,7 @@ export default function LoginForm() {
               <div className="relative">
                 <Input id="password" type={showPwd ? "text" : "password"} placeholder="Enter your password"
                   autoComplete="current-password"
-                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200"
+                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
                   {...register("password")} />
                 <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                   onClick={() => setShowPwd(!showPwd)}>
@@ -239,7 +239,7 @@ export default function LoginForm() {
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-50 shadow-sm border border-brand-100 mb-4">
               <GraduationCap className="w-6 h-6 text-brand-600" />
             </div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Reset Password</h1>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight dark:text-slate-100">Reset Password</h1>
             <p className="text-slate-500 text-sm mt-1">Enter your registered email to receive a 2FA code</p>
           </div>
 
@@ -250,7 +250,7 @@ export default function LoginForm() {
             <div className="space-y-2">
               <Label htmlFor="forgot-email" className="text-slate-700 text-sm font-semibold">Official Email</Label>
               <Input id="forgot-email" type="email" placeholder="your.name@gnana.edu.in" required
-                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 transition-all duration-200"
+                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 transition-all duration-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} />
             </div>
             <Button type="submit" disabled={forgotLoading}
@@ -271,7 +271,7 @@ export default function LoginForm() {
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-50 shadow-sm border border-brand-100 mb-4">
               <GraduationCap className="w-6 h-6 text-brand-600" />
             </div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Verify & Reset</h1>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight dark:text-slate-100">Verify & Reset</h1>
             <p className="text-slate-500 text-sm mt-1">Enter the 2FA code sent to your email and choose a new password</p>
           </div>
 
@@ -282,14 +282,14 @@ export default function LoginForm() {
             <div className="space-y-2">
               <Label htmlFor="otp" className="text-slate-700 text-sm font-semibold">2FA Verification Code (OTP)</Label>
               <Input id="otp" type="text" placeholder="Enter 6-digit code" required maxLength={6}
-                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 tracking-widest text-center text-lg font-bold transition-all duration-200"
+                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 tracking-widest text-center text-lg font-bold transition-all duration-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={forgotOtp} onChange={(e) => setForgotOtp(e.target.value.replace(/\D/g, ""))} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="new-password" className="text-slate-700 text-sm font-semibold">New Password</Label>
               <div className="relative">
                 <Input id="new-password" type={showNewPwd ? "text" : "password"} placeholder="Min. 8 characters" required
-                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200"
+                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
                   value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                 <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                   onClick={() => setShowNewPwd(!showNewPwd)}>
@@ -319,7 +319,7 @@ export default function LoginForm() {
               <Label htmlFor="confirm-password" className="text-slate-700 text-sm font-semibold">Confirm New Password</Label>
               <div className="relative">
                 <Input id="confirm-password" type={showConfirmPwd ? "text" : "password"} placeholder="Confirm new password" required
-                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200"
+                  className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500 h-11 pr-12 transition-all duration-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700"
                   value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                   onClick={() => setShowConfirmPwd(!showConfirmPwd)}>

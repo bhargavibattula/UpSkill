@@ -83,7 +83,7 @@ export default function AnnouncementsListClient() {
                <p className="text-sm mt-1 max-w-sm">We couldn't find any official announcements matching your search criteria.</p>
              </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
               {publicAnnouncements.map((circular: any) => {
                 const style = PRIORITY_STYLES[circular.priority] || PRIORITY_STYLES.INFO;
                 return (

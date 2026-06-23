@@ -46,14 +46,14 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
   useEffect(() => setMounted(true), []);
 
   return (
-    <div className="min-h-screen bg-[#F4F6F8] font-sans text-slate-800 selection:bg-[#00418C] selection:text-white">
+    <div className="min-h-screen bg-[#F4F6F8] font-sans text-slate-800 selection:bg-[#00418C] selection:text-white dark:text-slate-200">
 
       {/* Official Government Navbar */}
-      <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
         <div className="bg-[#00418C] h-1.5 w-full"></div>
         <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-14 bg-slate-50 border border-slate-200 flex flex-col items-center justify-center p-1 rounded-sm shadow-sm">
+            <div className="w-12 h-14 bg-slate-50 border border-slate-200 flex flex-col items-center justify-center p-1 rounded-sm shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
               <Image src="/favicon.svg" alt="Govt Logo" width={32} height={32} />
             </div>
             <div>
@@ -90,7 +90,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
       <main className="container mx-auto px-4 md:px-6 py-8 space-y-8">
 
         {/* Hero Section */}
-        <section className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative">
+        <section className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
           <div className="absolute top-0 right-0 w-[600px] h-full opacity-10 pointer-events-none">
             <Image src="/features_bg.png" alt="Abstract Background" fill priority sizes="600px" unoptimized className="object-cover" />
           </div>
@@ -103,7 +103,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 </span>
                 Managing Trainings from Planning to Completion
               </div>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4 tracking-tight dark:text-slate-100">
                 Welcome to Training Resource Management <br className="hidden md:block" /> System (TRMS)
               </h2>
               <p className="text-lg text-slate-600 mb-8 max-w-2xl font-medium">
@@ -113,7 +113,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 <button className="bg-[#00418C] text-white px-6 py-3 rounded font-bold shadow-md shadow-blue-900/20 hover:bg-[#003370] transition-colors flex items-center gap-2">
                   <Download className="w-5 h-5" /> Download Guidelines
                 </button>
-                <button className="bg-slate-100 text-slate-700 border border-slate-200 px-6 py-3 rounded font-bold hover:bg-slate-200 transition-colors">
+                <button className="bg-slate-100 text-slate-700 border border-slate-200 px-6 py-3 rounded font-bold hover:bg-slate-200 transition-colors dark:border-slate-700">
                   View Daily Schedule
                 </button>
               </div>
@@ -135,17 +135,17 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
         </section>
 
         {/* Global KPI Cards */}
-        <section id="dashboard" className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <section id="dashboard" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {[
             { title: "Total Registered SGTs", value: "1,18,500", icon: Users, color: "text-blue-600", bg: "bg-blue-50" },
             { title: "Active Training Venues", value: "450+", icon: MapPin, color: "text-rose-600", bg: "bg-rose-50" },
             { title: "Modules Completed", value: "4 / 6", icon: BookOpen, color: "text-emerald-600", bg: "bg-emerald-50" },
             { title: "Certificates Issued", value: "45,210", icon: GraduationCap, color: "text-amber-600", bg: "bg-amber-50" },
           ].map((kpi, idx) => (
-            <motion.div key={idx} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between group hover:border-[#00418C]/30 transition-colors">
+            <motion.div key={idx} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between group hover:border-[#00418C]/30 transition-colors dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
               <div>
                 <p className="text-sm font-bold text-slate-500 mb-1">{kpi.title}</p>
-                <p className="text-2xl font-black text-slate-900">{kpi.value}</p>
+                <p className="text-2xl font-black text-slate-900 dark:text-slate-100">{kpi.value}</p>
               </div>
               <div className={`w-14 h-14 ${kpi.bg} rounded-xl flex items-center justify-center shrink-0`}>
                 <kpi.icon className={`w-7 h-7 ${kpi.color}`} />
@@ -160,10 +160,10 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
           <div className="lg:col-span-2 space-y-8">
 
             {/* District Wise Participation Chart */}
-            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900">District-wise Participation Overview</h3>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">District-wise Participation Overview</h3>
                   <p className="text-sm text-slate-500">Real-time attendance tracking across major AP districts</p>
                 </div>
                 <button className="text-sm font-bold text-[#00418C] hover:underline flex items-center gap-1">View Full Report <ChevronRight className="w-4 h-4" /></button>
@@ -184,21 +184,21 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
             </div>
 
             {/* Comprehensive Curriculum & Modules */}
-            <div id="modules" className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <div id="modules" className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-bold text-slate-900">Year-3 Certificate Curriculum Status</h3>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">Year-3 Certificate Curriculum Status</h3>
                 <span className="text-xs font-bold bg-slate-100 text-slate-600 px-3 py-1 rounded">Cohort 2024-25</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {[
                   { name: "Module 1: Foundational Literacy & Numeracy", status: "Completed", date: "Oct 12 - Oct 15", progress: 100 },
                   { name: "Module 2: Digital Pedagogy Integration", status: "Completed", date: "Oct 16 - Oct 19", progress: 100 },
                   { name: "Module 3: Inclusive Classroom Practices", status: "In Progress", date: "Oct 20 - Oct 23", progress: 65 },
                   { name: "Module 4: Continuous Comprehensive Evaluation", status: "Upcoming", date: "Oct 24 - Oct 27", progress: 0 },
                 ].map((mod, idx) => (
-                  <div key={idx} className="border border-slate-100 bg-slate-50 p-4 rounded-lg">
+                  <div key={idx} className="border border-slate-100 bg-slate-50 p-4 rounded-lg dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
                     <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-bold text-slate-800 text-sm w-3/4">{mod.name}</h4>
+                      <h4 className="font-bold text-slate-800 text-sm w-3/4 dark:text-slate-200">{mod.name}</h4>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${mod.status === 'Completed' ? 'bg-emerald-100 text-emerald-700' : mod.status === 'In Progress' ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-600'}`}>
                         {mod.status}
                       </span>
@@ -211,18 +211,18 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
             </div>
 
             {/* Document Repository & Resources */}
-            <div id="resources" className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-              <h3 className="text-lg font-bold text-slate-900 mb-6">Official Resource Directory</h3>
+            <div id="resources" className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
+              <h3 className="text-lg font-bold text-slate-900 mb-6 dark:text-slate-100">Official Resource Directory</h3>
               <div className="grid grid-cols-1 sm:grid-cols-1 sm:grid-cols-2 gap-4">
                 {resourceData.map((res, idx) => (
-                  <div key={idx} className="flex items-start gap-3 p-4 border border-slate-100 hover:border-slate-300 transition-colors rounded-lg group cursor-pointer">
+                  <div key={idx} className="flex items-start gap-3 p-4 border border-slate-100 hover:border-slate-300 transition-colors rounded-lg group cursor-pointer dark:border-slate-800">
                     <div className={`p-2 rounded ${res.type === 'PDF' ? 'bg-red-50 text-red-600' : res.type === 'VIDEO' ? 'bg-purple-50 text-purple-600' : 'bg-green-50 text-green-600'}`}>
                       {res.type === 'PDF' && <FileText className="w-6 h-6" />}
                       {res.type === 'VIDEO' && <MonitorPlay className="w-6 h-6" />}
                       {res.type === 'EXCEL' && <BarChart3 className="w-6 h-6" />}
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-sm font-bold text-slate-800 group-hover:text-[#00418C] transition-colors line-clamp-1">{res.title}</h4>
+                      <h4 className="text-sm font-bold text-slate-800 group-hover:text-[#00418C] transition-colors line-clamp-1 dark:text-slate-200">{res.title}</h4>
                       <div className="flex items-center gap-3 mt-1 text-xs text-slate-500">
                         <span>{res.size}</span>
                         <span>â€¢</span>
@@ -241,8 +241,8 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
           <div className="space-y-8">
 
             {/* Timeline Area Chart */}
-            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-              <h3 className="text-lg font-bold text-slate-900 mb-1">Training Progress Timeline</h3>
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
+              <h3 className="text-lg font-bold text-slate-900 mb-1 dark:text-slate-100">Training Progress Timeline</h3>
               <p className="text-xs text-slate-500 mb-6">Cumulative state-wide module completion rate</p>
               <div className="h-[200px] w-full">
                 {mounted && (
@@ -266,12 +266,12 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
             </div>
 
             {/* Geographical Map Mockup */}
-            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-bold text-slate-900">State Distribution</h3>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">State Distribution</h3>
                 <Map className="w-5 h-5 text-slate-400" />
               </div>
-              <div className="w-full aspect-video bg-slate-50 border border-slate-100 rounded-lg flex flex-col items-center justify-center text-center p-6 relative overflow-hidden">
+              <div className="w-full aspect-video bg-slate-50 border border-slate-100 rounded-lg flex flex-col items-center justify-center text-center p-6 relative overflow-hidden dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 bg-blue-100 text-[#00418C] rounded-full flex items-center justify-center mx-auto mb-3">
@@ -295,10 +295,10 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
         <div className="grid grid-cols-1 lg:grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
 
           {/* Top Performing Venues */}
-          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2"><Trophy className="w-5 h-5 text-amber-500" /> Top Performing Venues</h3>
+                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2 dark:text-slate-100"><Trophy className="w-5 h-5 text-amber-500" /> Top Performing Venues</h3>
                 <p className="text-sm text-slate-500">Based on attendance & module completion</p>
               </div>
               <button className="text-sm font-bold text-[#00418C] hover:underline flex items-center gap-1">View All <ChevronRight className="w-4 h-4" /></button>
@@ -310,13 +310,13 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 { name: "AP Model School, Guntur", admin: "KRP: Venkat S.", score: "98.9%", trend: "flat" },
                 { name: "Municipal HS, Srikakulam", admin: "KRP: Ramesh K.", score: "98.2%", trend: "up" },
               ].map((venue, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 border border-slate-100 rounded-lg hover:bg-slate-50 transition-colors">
+                <div key={idx} className="flex items-center justify-between p-3 border border-slate-100 rounded-lg hover:bg-slate-50 transition-colors dark:border-slate-800">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-amber-50 text-amber-600 font-bold flex items-center justify-center text-xs">
                       #{idx + 1}
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-800">{venue.name}</p>
+                      <p className="text-sm font-bold text-slate-800 dark:text-slate-200">{venue.name}</p>
                       <p className="text-xs text-slate-500">{venue.admin}</p>
                     </div>
                   </div>
@@ -330,33 +330,33 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
           </div>
 
           {/* Helpdesk & Support SLA */}
-          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2"><Headset className="w-5 h-5 text-[#00418C]" /> Live Support Desk</h3>
+                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2 dark:text-slate-100"><Headset className="w-5 h-5 text-[#00418C]" /> Live Support Desk</h3>
                 <p className="text-sm text-slate-500">State technical helpdesk resolution metrics</p>
               </div>
               <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded">SLA: Green</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center">
+              <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
                 <p className="text-3xl font-black text-[#00418C]">412</p>
                 <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Tickets Resolved</p>
               </div>
-              <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center">
+              <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
                 <p className="text-3xl font-black text-amber-600">14</p>
                 <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Pending Sync</p>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h4 className="text-sm font-bold text-slate-800">Common Resolution Tags Today</h4>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">Common Resolution Tags Today</h4>
               <div className="flex flex-wrap gap-2">
-                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600">Biometric Timeout (45%)</span>
-                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600">Password Reset (30%)</span>
-                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600">Module Access (15%)</span>
-                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600">Other (10%)</span>
+                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">Biometric Timeout (45%)</span>
+                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">Password Reset (30%)</span>
+                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">Module Access (15%)</span>
+                <span className="text-xs border border-slate-200 bg-white px-3 py-1.5 rounded-full text-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700">Other (10%)</span>
               </div>
             </div>
           </div>
@@ -367,7 +367,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
       {/* Official Government Footer */}
       <footer className="bg-[#1e293b] text-slate-300 mt-16 pt-16 pb-8 border-t-4 border-[#00418C]">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 mb-12">
 
             {/* Branding Column */}
             <div className="lg:col-span-2">

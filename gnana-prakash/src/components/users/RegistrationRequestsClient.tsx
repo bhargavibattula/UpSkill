@@ -210,7 +210,7 @@ export default function RegistrationRequestsClient() {
                      <TableCell className="text-sm">{r.email}</TableCell>
                      <TableCell className="text-sm">{r.mobileNumber}</TableCell>
                      <TableCell>
-                       <Badge variant="outline" className="text-xs bg-slate-50">{r.requestedRole}</Badge>
+                       <Badge variant="outline" className="text-xs bg-slate-50 dark:bg-slate-900 dark:text-slate-100">{r.requestedRole}</Badge>
                      </TableCell>
                      <TableCell className="text-sm text-muted-foreground">
                        {format(new Date(r.submittedAt), "MMM d, yyyy")}

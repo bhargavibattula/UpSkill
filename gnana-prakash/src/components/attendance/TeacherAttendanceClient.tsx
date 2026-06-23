@@ -82,10 +82,10 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
     <div className="space-y-6">
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <Card className="border-slate-100 shadow-sm">
+        <Card className="border-slate-100 shadow-sm dark:border-slate-800">
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
-              <p className="text-2xl font-bold text-slate-800">{totalPrograms}</p>
+              <p className="text-2xl font-bold text-slate-800 dark:text-slate-200">{totalPrograms}</p>
               <p className="text-xs text-slate-500 font-medium">Enrolled Trainings</p>
             </div>
             <div className="p-3 bg-brand-50 rounded-xl">
@@ -94,7 +94,7 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
           </CardContent>
         </Card>
 
-        <Card className="border-slate-100 shadow-sm">
+        <Card className="border-slate-100 shadow-sm dark:border-slate-800">
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-2xl font-bold text-emerald-600">{totalPresent}</p>
@@ -106,7 +106,7 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
           </CardContent>
         </Card>
 
-        <Card className="border-slate-100 shadow-sm">
+        <Card className="border-slate-100 shadow-sm dark:border-slate-800">
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-2xl font-bold text-rose-500">{totalAbsent}</p>
@@ -118,7 +118,7 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
           </CardContent>
         </Card>
 
-        <Card className="border-slate-100 shadow-sm">
+        <Card className="border-slate-100 shadow-sm dark:border-slate-800">
           <CardContent className="p-5 flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-2xl font-bold text-amber-600">{averageAttendance}%</p>
@@ -133,12 +133,12 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
 
       {/* Program Listings */}
       <div className="space-y-6">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2 dark:text-slate-100">
           <Calendar className="w-5 h-5 text-brand-600" /> Registered Training Log
         </h2>
 
         {programs.length === 0 ? (
-          <Card className="border-slate-100 shadow-sm">
+          <Card className="border-slate-100 shadow-sm dark:border-slate-800">
             <CardContent className="flex flex-col items-center justify-center py-16 text-slate-500">
               <ClipboardList className="w-12 h-12 mb-3 opacity-20 text-brand-600" />
               <p className="font-semibold text-slate-700">No Attendance Logs Available</p>
@@ -157,8 +157,8 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
                 : 0;
 
               return (
-                <Card key={prog.programId} className="border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                  <CardHeader className="bg-slate-50/50 pb-4 border-b border-slate-100">
+                <Card key={prog.programId} className="border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow dark:border-slate-800">
+                  <CardHeader className="bg-slate-50/50 pb-4 border-b border-slate-100 dark:border-slate-800">
                     <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                       <div className="space-y-1">
                         <div className="flex flex-wrap items-center gap-2">
@@ -175,7 +175,7 @@ export default function TeacherAttendanceClient({ email, employeeId }: TeacherAt
                             </Badge>
                           )}
                         </div>
-                        <CardTitle className="text-base font-bold text-slate-900 leading-snug mt-1">
+                        <CardTitle className="text-base font-bold text-slate-900 leading-snug mt-1 dark:text-slate-100">
                           {prog.programName}
                         </CardTitle>
                         <CardDescription className="text-xs text-slate-500">

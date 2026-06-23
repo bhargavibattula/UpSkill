@@ -78,11 +78,11 @@ export default function RegisterForm() {
 
   if (success) {
     return (
-      <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-200/50 border border-slate-100 text-center">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-200/50 border border-slate-100 text-center dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-50 shadow-sm border border-emerald-100 mb-6">
           <ShieldCheck className="w-8 h-8 text-emerald-600" />
         </div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Registration Submitted!</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-4 dark:text-slate-100">Registration Submitted!</h2>
         <p className="text-slate-600 mb-8">
           Your request has been securely routed to the Super Admin for approval. You will not be able to login until your account is activated.
         </p>
@@ -94,12 +94,12 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-200/50 border border-slate-100 w-full">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-200/50 border border-slate-100 w-full dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800">
       <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-50 shadow-sm border border-brand-100 mb-4">
           <GraduationCap className="w-6 h-6 text-brand-600" />
         </div>
-        <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Request Access</h1>
+        <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight dark:text-slate-100">Request Access</h1>
         <p className="text-slate-500 text-sm mt-1">Submit your details for Admin verification</p>
       </div>
 
@@ -110,17 +110,17 @@ export default function RegisterForm() {
         
         <div className="space-y-2">
           <Label htmlFor="name" className="text-slate-700 text-sm font-semibold">Full Name</Label>
-          <Input id="name" required placeholder="John Doe" value={formData.name} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10" />
+          <Input id="name" required placeholder="John Doe" value={formData.name} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700" />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="email" className="text-slate-700 text-sm font-semibold">Official Email</Label>
-          <Input id="email" type="email" required placeholder="name@gnana.edu.in" value={formData.email} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10" />
+          <Input id="email" type="email" required placeholder="name@gnana.edu.in" value={formData.email} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700" />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="mobile" className="text-slate-700 text-sm font-semibold">Mobile Number</Label>
-          <Input id="mobile" required placeholder="10-digit number" value={formData.mobile} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10" />
+          <Input id="mobile" required placeholder="10-digit number" value={formData.mobile} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700" />
         </div>
 
         <div className="space-y-2">
@@ -135,7 +135,7 @@ export default function RegisterForm() {
 
         <div className="space-y-2">
           <Label htmlFor="password" className="text-slate-700 text-sm font-semibold">Set Password</Label>
-          <Input id="password" type="password" required placeholder="Min 8 characters" value={formData.password} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10" />
+          <Input id="password" type="password" required placeholder="Min 8 characters" value={formData.password} onChange={handleChange} className="bg-slate-50 border-slate-200 h-10 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-700" />
           <div className="mt-2 space-y-1">
             <div className={`flex items-center text-[11px] ${formData.password.length >= 8 ? "text-emerald-600 font-medium" : "text-rose-500"}`}>
               {formData.password.length >= 8 ? <Check className="w-3.5 h-3.5 mr-1" /> : <X className="w-3.5 h-3.5 mr-1" />}
