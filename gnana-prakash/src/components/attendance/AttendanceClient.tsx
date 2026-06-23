@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -325,8 +325,7 @@ export default function AttendanceClient() {
               <CardTitle className="text-lg font-bold text-slate-900">Training Program Roll Call</CardTitle>
               <CardDescription>Select a program to take name-based student attendance and view aggregate summaries</CardDescription>
             </div>
-            <select
-              className="flex h-10 w-full sm:w-80 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            <select className="flex h-10 w-full sm:w-80 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
               value={programId}
               onChange={(e) => setProgramId(e.target.value)}
               disabled={isLoadingPrograms}
@@ -414,8 +413,7 @@ export default function AttendanceClient() {
                     </div>
                     <div className="space-y-1">
                       <Label className="text-xs font-semibold">Category / Role *</Label>
-                      <select 
-                        className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus-visible:outline-none"
+                      <select className="flex h-9 w-full rounded-md border border-input bg-background dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-1 text-xs shadow-sm focus-visible:outline-none"
                         value={newParticipant.category}
                         onChange={(e) => setNewParticipant(prev => ({ ...prev, category: e.target.value }))}
                       >
@@ -502,8 +500,7 @@ export default function AttendanceClient() {
                               </div>
                             </TableCell>
                             <TableCell className="py-2">
-                              <select
-                                className="flex h-8 w-full rounded-md border border-slate-200 bg-white px-2 py-0.5 text-xs focus:outline-none"
+                              <select className="flex h-8 w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-0.5 text-xs focus:outline-none"
                                 value={p.category}
                                 onChange={(e) => updateParticipantRole(p._id, e.target.value)}
                               >
