@@ -503,10 +503,9 @@ export default function AuditClient() {
             {/* Module Select */}
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-muted-foreground">Module</label>
-              <select 
-                value={moduleFilter} 
+              <select value={moduleFilter} 
                 onChange={e => { setModuleFilter(e.target.value); setPage(1); }}
-                className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
               >
                 {MODULES.map(m => (
                   <option key={m} value={m} className="bg-background text-foreground">{m === "ALL" ? "All Modules" : m}</option>
@@ -517,10 +516,9 @@ export default function AuditClient() {
             {/* Action Select */}
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-muted-foreground">Action Type</label>
-              <select 
-                value={actionFilter} 
+              <select value={actionFilter} 
                 onChange={e => { setActionFilter(e.target.value); setPage(1); }}
-                className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
               >
                 {ACTIONS.map(a => (
                   <option key={a} value={a} className="bg-background text-foreground">{a === "ALL" ? "All Actions" : a}</option>
@@ -531,10 +529,9 @@ export default function AuditClient() {
             {/* Role Select */}
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-muted-foreground">Role</label>
-              <select 
-                value={roleFilter} 
+              <select value={roleFilter} 
                 onChange={e => { setRoleFilter(e.target.value); setPage(1); }}
-                className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
               >
                 {ROLES.map(r => (
                   <option key={r} value={r} className="bg-background text-foreground">{r === "ALL" ? "All Roles" : r.replace("_", " ")}</option>

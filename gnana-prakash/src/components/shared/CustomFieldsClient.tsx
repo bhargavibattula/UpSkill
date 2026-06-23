@@ -569,9 +569,8 @@ export default function CustomFieldsClient() {
             <div className="grid gap-4 py-2">
               <div className="grid gap-2">
                 <Label htmlFor="title" className="text-xs font-bold uppercase tracking-wider text-slate-500">Workshop / Event Title</Label>
-                <select
-                  id="title"
-                  className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                <select id="title"
+                  className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                   value={formTitle}
                   onChange={e => setFormTitle(e.target.value)}
                   required

@@ -61,7 +61,7 @@ export default function UsersClient() {
                 <Input placeholder="Search users..." className="pl-9 h-9 w-56 text-sm" value={search}
                   onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
               </div>
-              <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+              <select className="h-9 rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                 value={role} onChange={e => setRole(e.target.value)}>
                 <option value="">All Roles</option>
                 {["SUPER_ADMIN","STATE_ADMIN","DISTRICT_ADMIN","MANDAL_ADMIN","VENUE_ADMIN","TEACHER","TRAINER","STAFF"].map(r => (
@@ -241,7 +241,7 @@ function UserForm({ user, onSuccess }: { user?: Record<string, any> | null; onSu
         )}
         
         <div className="space-y-1"><label className="text-sm font-medium">Role *</label>
-          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 text-sm" value={data.role} onChange={e => set("role", e.target.value)}>
+          <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 text-sm dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700" value={data.role} onChange={e => set("role", e.target.value)}>
             {["SUPER_ADMIN","STATE_ADMIN","DISTRICT_ADMIN","MANDAL_ADMIN","VENUE_ADMIN","TEACHER","TRAINER","STAFF"].map(r => <option key={r} value={r}>{r.replace("_", " ")}</option>)}
           </select>
         </div>

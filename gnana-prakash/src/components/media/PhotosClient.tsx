@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -446,8 +446,7 @@ export default function PhotosClient() {
                 </div>
 
                 {/* Filter Category */}
-                <select
-                  className="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs focus:outline-none"
+                <select className="flex h-9 w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs focus:outline-none"
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
                 >
@@ -458,8 +457,7 @@ export default function PhotosClient() {
                 </select>
 
                 {/* Filter Program */}
-                <select
-                  className="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs focus:outline-none"
+                <select className="flex h-9 w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs focus:outline-none"
                   value={programFilter}
                   onChange={(e) => setProgramFilter(e.target.value)}
                 >
@@ -474,8 +472,7 @@ export default function PhotosClient() {
                 {/* Sorting */}
                 <div className="flex border rounded-md items-center bg-white px-2.5">
                   <ArrowUpDown className="w-3.5 h-3.5 text-slate-400 mr-2" />
-                  <select
-                    className="h-8 w-full border-0 bg-transparent text-xs focus:outline-none"
+                  <select className="h-8 w-full border-0 bg-transparent text-slate-900 dark:text-slate-100 text-xs focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                     value={sortOrder}
                     onChange={(e) => setSortOrder(e.target.value as "latest" | "oldest")}
                   >
@@ -592,8 +589,7 @@ export default function PhotosClient() {
 
                 <div className="space-y-1">
                   <Label className="text-xs font-bold text-slate-700">Category *</Label>
-                  <select
-                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
+                  <select className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                     value={uploadCategory}
                     onChange={(e) => setUploadCategory(e.target.value)}
                   >
@@ -616,8 +612,7 @@ export default function PhotosClient() {
                     No training programs available. Please create a program first.
                   </div>
                 ) : (
-                  <select
-                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
+                  <select className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                     value={uploadProgramId}
                     onChange={(e) => setUploadProgramId(e.target.value)}
                   >
@@ -991,8 +986,7 @@ export default function PhotosClient() {
 
                       <div className="space-y-1">
                         <Label className="text-[10px] font-bold text-slate-600 uppercase">Category</Label>
-                        <select
-                          className="flex h-8.5 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
+                        <select className="flex h-8.5 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                           value={editCategory}
                           onChange={(e) => setEditCategory(e.target.value)}
                         >
@@ -1014,8 +1008,7 @@ export default function PhotosClient() {
                             No training programs available.
                           </div>
                         ) : (
-                          <select
-                            className="flex h-8.5 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none"
+                          <select className="flex h-8.5 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm focus:outline-none dark:bg-slate-900 text-slate-900 dark:text-slate-100 dark:border-slate-700"
                             value={editProgramId}
                             onChange={(e) => setEditProgramId(e.target.value)}
                           >
