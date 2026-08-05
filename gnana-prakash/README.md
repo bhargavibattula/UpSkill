@@ -230,3 +230,8 @@ Designed strictly to adhere to Government of Andhra Pradesh data and security st
 - **Immutable Auditability**: All critical `Create`, `Update`, and `Delete` actions trigger immutable events in the `AuditLogs` collection, recording the User ID, Timestamp, IP Address, and the exact payload changed for strict forensic accountability.
 - **Rate Limiting**: API routes are rate-limited to prevent DDoS and brute-force attacks on sensitive endpoints.
 
+---
+
+## 📜 License
+
+This project is licensed under the MIT License. However, please note that it is designed specifically for internal use by the Department of School Education, Government of Andhra Pradesh. External use or deployment is strictly discouraged.
