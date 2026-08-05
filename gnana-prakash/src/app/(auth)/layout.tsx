@@ -26,7 +26,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
           <h1 className="text-5xl font-extrabold tracking-tight mb-4">
-            Gnana Prakash
+            Training Resource Management System
           </h1>
           <p className="text-xl text-brand-100 max-w-lg leading-relaxed">
             The unified Training Management & Monitoring System for empowering educators through continuous professional development.
