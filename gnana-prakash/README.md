@@ -257,15 +257,3 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
----
-
-## 🔑 Demo Credentials
-
-| Role | Email | Password |
-|---|---|---|
-| Super Admin | admin@gnana.edu.in | Admin@1234 |
-| State Admin | state@gnana.edu.in | Admin@1234 |
-| District Admin | dist-krishna@gnana.edu.in | Admin@1234 |
-| Mandal Admin | venue-vjw@gnana.edu.in | Admin@1234 |
-| Teacher | teacher1@gnana.edu.in | Admin@1234 |
-
