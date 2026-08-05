@@ -104,7 +104,7 @@ export default function PortalHomepage({ dashboardUrl, isAuth }: { dashboardUrl:
                 Managing Trainings from Planning to Completion
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4 tracking-tight dark:text-slate-100">
-                Welcome to Training Resource Management <br className="hidden md:block" /> System (TRMS)
+                Welcome to Training Resource Management <br className="hidden md:block" /> System
               </h2>
               <p className="text-lg text-slate-600 mb-8 max-w-2xl font-medium">
                 A centralized platform for planning, managing, and monitoring capacity-building programs and training events.
